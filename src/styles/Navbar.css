@@ -1,0 +1,17 @@
+.navbar_profile-dropdown::before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    top: -14px;
+    right: 20px;
+    border-width: 0 15px 20px;
+    border-color: transparent transparent #4d4f5c transparent;
+}
+
+@media only screen and (max-width:639px) {
+    .navbar_profile-dropdown::before {
+        right: 6px;
+    }
+}
