@@ -1,8 +1,7 @@
 import React from 'react';
 import SideLi from '../utilities/SideLi';
-import { AiFillHome, AiOutlineAppstore } from 'react-icons/ai';
+import { AiOutlineAppstore } from 'react-icons/ai';
 import { BiStoreAlt } from 'react-icons/bi';
-import { GrAdd, GrAddCircle } from 'react-icons/gr';
 import { FaClipboardList, FaShippingFast, FaUserAlt, FaWarehouse } from 'react-icons/fa';
 import { SlMagnifierRemove } from 'react-icons/sl';
 import { BsCurrencyDollar, BsQrCode } from 'react-icons/bs';
@@ -21,7 +20,7 @@ const SideBar = () => {
         { name: 'Price Avarage TAX', icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] }
     ];
     return (
-        <nav className='fixed sidebar duration-500 -left-72 lg:left-0 top-0  w-72 z-50  h-screen overflow-y-auto p-[30px]'>
+        <nav className='fixed sidebar duration-500 -left-[315px] lg:left-0 top-0  w-[315px] z-50  h-screen overflow-y-auto p-[30px]'>
             <div className='p-[20px] bg-white'>
                 <img src="https://demo.dashboardpack.com/finance-html/img/logo.png" alt="" />
             </div>
