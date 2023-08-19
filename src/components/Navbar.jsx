@@ -19,14 +19,14 @@ const Navbar = () => {
     const btnRef = React.useRef();
     return (
         <>
-            <header className='bg-white p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
+            <header className='bg-[#805ad5] p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
                 <div className='flex items-center gap-4'>
                     <div className='block lg:hidden'>
                         <Button ref={btnRef} onClick={onOpen}>
                             <AiOutlineMenu className='text-xl' />
                         </Button>
                     </div>
-                    <div className='relative max-w-[400px] sm:flex items-center hidden'>
+                    <div className='relative sm:w-[320px] md:w-[600px] sm:flex items-center hidden'>
                         <input placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
                         <button className='absolute left-[36px] top-[19px]'>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />
@@ -35,7 +35,7 @@ const Navbar = () => {
                 </div>
                 <div className='flex items-center gap-4 lg:gap-14'>
                     <button className='relative'>
-                        <IoMdNotificationsOutline className='text-4xl text-[#818E94]' />
+                        <IoMdNotificationsOutline className='text-4xl text-[#ffffff]' />
                         <span className='absolute h-2 w-2 top-[6px] left-[21px] bg-red-500 rounded-full'></span>
                     </button>
                     <Menu>

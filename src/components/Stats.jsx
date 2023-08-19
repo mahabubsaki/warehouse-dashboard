@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 const Stats = () => {
     const navigate = useNavigate();
     return (
-        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 mx-auto max-w-5xl lg:grid-cols-3 my-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 mx-auto max-w-6xl lg:grid-cols-3 my-4'>
             <div onClick={() => navigate("/stocks")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
                 <StatGroup>
                     <Stat>

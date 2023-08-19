@@ -16,6 +16,13 @@ import TotalShipped from "../views/Home/TotalShipped";
 import MissingItemsSolved from "../views/Home/MissingItemsSolved";
 import CurrentSell from "../views/Home/CurrentSell";
 import LastSell from "../views/Home/LastSell";
+import AuthLayout from "../layout/AuthLayout";
+import Login from "../views/Auth/Login";
+import Register from "../views/Auth/Register";
+import AddWarehouseToCustomer from "../views/Customer/AddWarehouseToCustomer";
+import AddWarehouseToCustomerList from "../views/Customer/AddWarehouseToCustomerList";
+import AddPriceAvarageTax from "../views/PriceAvarageTax/AddPriceAvarageTax";
+import { PriceAvrageTaxList } from "../views/PriceAvarageTax/PriceAvrageTaxList";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -47,7 +54,25 @@ const router = createBrowserRouter([
             { path: "/add-asin-upc-list", element: <AddASINUPCList /> },
             { path: "/add-shipped-item", element: <AddShippedItem /> },
             { path: "/added-shipped-item-list", element: <AddedShippedItemList /> },
-        ]
+            { path: "/add-warehouse-to-customer", element: <AddWarehouseToCustomer /> },
+            { path: "/add-warehouse-to-customer-list", element: <AddWarehouseToCustomerList /> },
+            { path: "/add-price-avarage-tax", element: <AddPriceAvarageTax /> },
+            { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
+        ],
+
     },
+    {
+        path: "/auth",
+        element: <AuthLayout />,
+        children: [{
+            path: "login",
+            element: <Login />
+        },
+        {
+            path: "register",
+            element: <Register />
+        }
+        ]
+    }
 ]);
 export default router;

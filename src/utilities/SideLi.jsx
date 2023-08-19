@@ -13,12 +13,12 @@ const SideLi = ({ item }) => {
             if (!item.subitems?.length) {
                 navigate(item.navigate);
             }
-        }} className='flex justify-between p-4'>
-            <div className='flex gap-4 items-center text-gray-600'>{item.icon}{item.name}</div>
+        }} className='flex justify-between hover:bg-[#805ad5] duration-500 border-l-[5px] group border-l-transparent hover:border-l-green-600 rounded p-4'>
+            <div className='flex gap-4 items-center text-gray-600 group-hover:text-white'>{item.icon}{item.name}</div>
             {item.subitems?.length ? <MdOutlineKeyboardArrowDown className={`duration-300 text-xl ${open ? 'rotate-180' : 'rotate-0'}`} /> : null}
         </div>}>
             {item.subitems?.length ? <div className='pl-8'>
-                {item.subitems.map(p => <div onClick={() => navigate(p.navigate)} className='flex items-center cursor-pointer'>
+                {item.subitems.map(p => <div onClick={() => navigate(p.navigate)} className='flex items-center text-gray-600 hover:text-[#805ad5] duration-300 cursor-pointer'>
                     <p className='p-2'>{p.icon}</p>
                     <p className='p-2'>{p.name}</p>
 
