@@ -1,8 +1,10 @@
 import { Button, Card, CardBody, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import axios from 'axios';
 import React from 'react';
+import useAxios from '../../hooks/useAxios';
 
 const AddStore = () => {
+    const axiosInstance = useAxios();
     const handlePostStore = async (e) => {
         e.preventDefault();
         const formData = {
@@ -14,7 +16,7 @@ const AddStore = () => {
             notes: 'empty'
         };
         try {
-            const response = await axios.post('http://localhost:6969/add-store', formData);
+            const response = await axiosInstance.post('add-store', formData);
             console.log('POST response:', response.data);
 
         } catch (error) {
