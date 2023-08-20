@@ -19,7 +19,7 @@ const Navbar = () => {
     const btnRef = React.useRef();
     return (
         <>
-            <header className='bg-[#805ad5] p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
+            <header className='nav-header p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
                 <div className='flex items-center gap-4'>
                     <div className='block lg:hidden'>
                         <Button ref={btnRef} onClick={onOpen}>

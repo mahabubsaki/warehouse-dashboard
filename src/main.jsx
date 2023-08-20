@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
+import 'rsuite/dist/rsuite.min.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import {
   RouterProvider,
