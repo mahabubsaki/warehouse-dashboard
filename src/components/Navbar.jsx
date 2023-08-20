@@ -26,7 +26,7 @@ const Navbar = () => {
                             <AiOutlineMenu className='text-xl' />
                         </Button>
                     </div>
-                    <div className='relative sm:w-[320px] md:w-[600px] sm:flex items-center hidden'>
+                    <div className='relative md:w-[400px] lg:w-[500px] xl:w-[600px] sm:flex items-center hidden'>
                         <input placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
                         <button className='absolute left-[36px] top-[19px]'>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />

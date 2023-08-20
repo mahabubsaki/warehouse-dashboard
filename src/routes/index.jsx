@@ -23,6 +23,8 @@ import AddWarehouseToCustomer from "../views/Customer/AddWarehouseToCustomer";
 import AddWarehouseToCustomerList from "../views/Customer/AddWarehouseToCustomerList";
 import AddPriceAvarageTax from "../views/PriceAvarageTax/AddPriceAvarageTax";
 import { PriceAvrageTaxList } from "../views/PriceAvarageTax/PriceAvrageTaxList";
+import ActiveStores from "../views/Home/ActiveStores";
+import InactiveStores from "../views/Home/InactiveStores";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -58,6 +60,8 @@ const router = createBrowserRouter([
             { path: "/add-warehouse-to-customer-list", element: <AddWarehouseToCustomerList /> },
             { path: "/add-price-avarage-tax", element: <AddPriceAvarageTax /> },
             { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
+            { path: "/active-stores", element: <ActiveStores /> },
+            { path: "/inactive-stores", element: <InactiveStores /> },
         ],
 
     },
