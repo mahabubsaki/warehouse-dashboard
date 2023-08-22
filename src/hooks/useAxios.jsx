@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 const instance = axios.create({
-    baseURL: 'https://warehouse-backend.vercel.app/', // Replace with your API base URL
+    baseURL: 'http://localhost:6969/', // Replace with your API base URL
 });
 function useAxios() {
     useEffect(() => {

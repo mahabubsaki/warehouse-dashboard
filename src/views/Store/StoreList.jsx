@@ -46,7 +46,7 @@ const StoreList = () => {
                     </Thead>
                     <Tbody>
                         {
-                            currentData?.data?.map((pd, id) => <StoreTableRow pd={pd} id={id + 1} />)
+                            currentData?.data?.map((pd, id) => <StoreTableRow activePage={activePage} pd={pd} id={id + 1} />)
                         }
                     </Tbody>
 

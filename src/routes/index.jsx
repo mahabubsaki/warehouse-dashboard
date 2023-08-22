@@ -25,6 +25,8 @@ import AddPriceAvarageTax from "../views/PriceAvarageTax/AddPriceAvarageTax";
 import { PriceAvrageTaxList } from "../views/PriceAvarageTax/PriceAvrageTaxList";
 import ActiveStores from "../views/Home/ActiveStores";
 import InactiveStores from "../views/Home/InactiveStores";
+import EditStore from "../views/Store/EditStore";
+import EditAsin from "../views/ASINUPC/EditAsin";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -48,12 +50,14 @@ const router = createBrowserRouter([
             { path: "/last-month-sell", element: <LastSell /> },
             { path: "/add-store", element: <AddStore /> },
             { path: "/store-list", element: <StoreList /> },
+            { path: "/store-list/:id", element: <EditStore /> },
             { path: "/supplier-warehouse", element: <SupplierWarehouse /> },
             { path: "/supplier-warehouse-list", element: <SupplierWarehouseList /> },
             { path: "/add-missing-item", element: <AddMissingItem /> },
             { path: "/add-missing-item-list", element: <AddMissingItemList /> },
             { path: "/add-asin-upc", element: <AddASINUPC /> },
             { path: "/add-asin-upc-list", element: <AddASINUPCList /> },
+            { path: "/add-asin-upc-list/:id", element: <EditAsin /> },
             { path: "/add-shipped-item", element: <AddShippedItem /> },
             { path: "/added-shipped-item-list", element: <AddedShippedItemList /> },
             { path: "/add-warehouse-to-customer", element: <AddWarehouseToCustomer /> },

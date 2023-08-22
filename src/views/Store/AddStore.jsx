@@ -1,27 +1,44 @@
-import { Button, Card, CardBody, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Button, Card, CardBody, CircularProgress, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import axios from 'axios';
-import React from 'react';
+import React, { useState } from 'react';
 import useAxios from '../../hooks/useAxios';
+import { toast } from 'react-hot-toast';
 
 const AddStore = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const axiosInstance = useAxios();
     const handlePostStore = async (e) => {
         e.preventDefault();
+        if (isLoading) return;
+        setIsLoading(true);
+
         const formData = {
             date: e.target.date.value,
             'store-name': e.target['store-name'].value,
             'store-manager-name': e.target['store-manager-name'].value,
             'store-type': e.target['store-type'].value,
             status: 'empty',
-            notes: 'empty'
+            notes: 'empty',
+            addedDate: new Date()
         };
         try {
             const response = await axiosInstance.post('add-store', formData);
             console.log('POST response:', response.data);
+            if (response.data.acknowledged) {
+                toast.success("Store added successfully");
+            } else {
+                toast.error("Something went wrong");
+            }
+
 
         } catch (error) {
             console.error('Error posting data:', error);
+            toast.error(error.message);
 
+        }
+        finally {
+            setIsLoading(false);
+            e.target.reset();
         }
     };
     return (
@@ -62,8 +79,13 @@ const AddStore = () => {
                                 </div>
                             </div>
                             <div className='flex my-6'>
-                                <Button type='submit' colorScheme='purple'>Add Store</Button>
+
+                                <Button disabled={isLoading} type='submit' className='flex gap-3' colorScheme={`purple`}>
+                                    <span>Add Store</span>
+                                    {isLoading ? <CircularProgress size={'20px'} isIndeterminate color='green.300' /> : null}
+                                </Button>
                             </div>
+
                         </form>
                     </CardBody>
                 </Stack>
