@@ -29,6 +29,7 @@ import EditStore from "../views/Store/EditStore";
 import EditAsin from "../views/ASINUPC/EditAsin";
 import EditSupplierWarehouse from "../views/Warehouse/EditSupplierWarehouse";
 import EditCustomer from "../views/Customer/EditCustomer";
+import EditMissing from "../views/MissingItems/EditMissing";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
             { path: "/supplier-warehouse-list/:id", element: <EditSupplierWarehouse /> },
             { path: "/add-missing-item", element: <AddMissingItem /> },
             { path: "/add-missing-item-list", element: <AddMissingItemList /> },
+            { path: "/add-missing-item-list/:id", element: <EditMissing /> },
             { path: "/add-asin-upc", element: <AddASINUPC /> },
             { path: "/add-asin-upc-list", element: <AddASINUPCList /> },
             { path: "/add-asin-upc-list/:id", element: <EditAsin /> },

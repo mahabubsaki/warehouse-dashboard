@@ -73,7 +73,7 @@ const SupplierWarehouse = () => {
         try {
             const response = await axiosInstance.post('add-supplier', formData);
             console.log('POST response:', response.data);
-            if (response.data.acknowledged) {
+            if (response.data.stocksAdd.acknowledged && response.data.supplierAdd.acknowledged) {
                 toast.success("Supplier data added successfully to warehouse");
             } else {
                 toast.error("Something went wrong");

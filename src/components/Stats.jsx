@@ -17,28 +17,34 @@ const Stats = () => {
     const axiosInstance = useAxios();
     const [active, setActive] = useState(0);
     const [inactive, setInactive] = useState(0);
+    const [solved, setSolved] = useState(0);
+    const [stocks, setStocks] = useState(0);
     useEffect(() => {
         async function fs() {
             const newData = await fetchdata(`get-store?status=active`, axiosInstance);
             const newData2 = await fetchdata(`get-store?status=inactive`, axiosInstance);
+            const newData3 = await fetchdata('get-missing?status=Solved', axiosInstance);
+            const newData4 = await fetchdata('get-stocks', axiosInstance);
             setActive(newData.data.length);
             setInactive(newData2.data.length);
+            setSolved(newData3.data.length);
+            setStocks(newData4.data.length);
         }
         fs();
     }, []);
     return (
         <div className='grid grid-cols-1 sm:grid-cols-2 gap-5 mx-auto max-w-6xl lg:grid-cols-3 my-4'>
-            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={onOpen} className=' shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate('/stocks')} className=' shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
                 <StockSearchModal isOpen={isOpen} onClose={onClose} />
                 <StatGroup>
                     <Stat>
                         <StatLabel>Stocks</StatLabel>
-                        <StatNumber>345,670</StatNumber>
+                        <StatNumber>{stocks}</StatNumber>
 
                     </Stat>
                 </StatGroup>
                 <div>
-                    <TfiSearch className='text-5xl font-bold' />
+                    <TfiSearch onClick={onOpen} className='text-5xl font-bold' />
                 </div>
             </div>
             <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/total-shipped")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
@@ -57,7 +63,7 @@ const Stats = () => {
                 <StatGroup>
                     <Stat>
                         <StatLabel>Missing Items Solved</StatLabel>
-                        <StatNumber>345,670</StatNumber>
+                        <StatNumber>{solved}</StatNumber>
 
                     </Stat>
                 </StatGroup>

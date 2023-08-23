@@ -26,13 +26,15 @@ const EditCustomer = () => {
         const tracker = event.target.tracker.value;
         const notes = event.target.notes.value;
         const invoice = event.target.invoice.value;
+        const shippingLabel = event.target.label.value;
 
         const formData = {
             courier: courier.toLowerCase(),
             tracker,
             notes,
             invoice,
-            id: myId
+            id: myId,
+            shippingLabel
         };
         const { data } = await axiosInstance.put('update-customer', formData);
         if (data.modifiedCount) {

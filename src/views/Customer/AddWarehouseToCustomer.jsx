@@ -64,7 +64,7 @@ const AddWarehouseToCustomer = () => {
             notes: null
         };
 
-        console.log(formData);
+
 
         try {
             const response = await axiosInstance.post('add-customer', formData);
@@ -78,7 +78,7 @@ const AddWarehouseToCustomer = () => {
 
         } catch (error) {
             console.error('Error posting data:', error);
-            toast.error(error.message);
+            toast.error(error.response.data.message || errpr.message);
 
         }
         finally {
