@@ -2,9 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
-import { Input, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import { Input, TableContainer, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import AsinTableRow from './AsinTableRow';
+
+// import { Table } from 'rsuite';
+
+// const { Column, HeaderCell, Cell } = Table;
 
 const AddASINUPCList = () => {
     const data = useFetch('get-asin?page=1');
@@ -31,7 +35,7 @@ const AddASINUPCList = () => {
                 </div>
             </div>
             <TableContainer>
-                <Table variant='simple'>
+                <Table size={'lg'} variant='simple' >
                     <Thead>
                         <Tr>
                             <Th>ID</Th>
@@ -50,9 +54,48 @@ const AddASINUPCList = () => {
                             currentData?.data?.map((pd, id) => <AsinTableRow activePage={activePage} pd={pd} id={id + 1} />)
                         }
                     </Tbody>
-
                 </Table>
             </TableContainer>
+            {/* <Table
+
+                data={currentData.data}
+            >
+                <Column align="center" fixed>
+                    <HeaderCell>Id</HeaderCell>
+                    <Cell dataKey="id" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>First Name</HeaderCell>
+                    <Cell dataKey="firstName" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>Last Name</HeaderCell>
+                    <Cell dataKey="lastName" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>Gender</HeaderCell>
+                    <Cell dataKey="gender" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>Age</HeaderCell>
+                    <Cell dataKey="age" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>Postcode</HeaderCell>
+                    <Cell dataKey="postcode" />
+                </Column>
+
+                <Column>
+                    <HeaderCell>Email</HeaderCell>
+                    <Cell dataKey="email" />
+                </Column>
+
+            </Table> */}
             <div className='flex justify-between my-8 px-4'>
                 <p>Showing {((activePage - 1) * 10) + 1} to {((activePage - 1) * 10) + currentData?.data?.length || 0} of {currentData.totalProducts} entires</p>
                 <Pagination
@@ -72,3 +115,6 @@ const AddASINUPCList = () => {
 };
 
 export default AddASINUPCList;
+
+
+

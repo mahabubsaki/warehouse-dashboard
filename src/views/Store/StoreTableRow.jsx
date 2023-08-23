@@ -16,7 +16,7 @@ const StoreTableRow = ({ pd, id, activePage }) => {
         <Tr>
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
-            <Td>{pd['store-name'] || 'Not Found'}</Td>
+            <Td className='ds'>{pd['store-name'] || 'Not Found'}</Td>
             <Td>{pd['store-manager-name'] || 'Not Found'}</Td>
             <Td>{pd['store-type'] || 'Not Found'}</Td>
             <Td>{pd.status || 'Not Found'}</Td>

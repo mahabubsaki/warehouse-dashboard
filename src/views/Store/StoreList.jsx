@@ -36,7 +36,7 @@ const StoreList = () => {
                         <Tr>
                             <Th>ID</Th>
                             <Th>Date</Th>
-                            <Th>Store Name</Th>
+                            <Th >Store Name</Th>
                             <Th>Store Manager</Th>
                             <Th>Store Type</Th>
                             <Th>Store Status</Th>
