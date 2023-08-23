@@ -1,11 +1,45 @@
 import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useAxios from '../../hooks/useAxios';
+import Select from 'react-select';
+import fetchdata from '../../utilities/fetchData';
+
+
 
 const SupplierWarehouse = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [stores, setStores] = useState([]);
+    const [storeName, setStoreName] = useState(null);
+    const [singleasin, setSingleasin] = useState(null);
+    const [teamCode, setTeamCode] = useState(null);
+    const [asin, setasin] = useState([]);
+    const [nameAndCode, setNameAndCode] = useState(null);
+
     const axiosInstance = useAxios();
+
+    useEffect(() => {
+        async function fs() {
+            const newData = await fetchdata(`get-store`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin`, axiosInstance);
+            setStores(newData.data.map(e => {
+                return { value: e['store-name'], label: e['store-name'] };
+            }));
+            setasin(newData2.data.map(e => {
+                return {
+                    value: e['asinUpcCode'], label: e['asinUpcCode'], codetype: e.
+                        storeType, productName: e.productName
+                };
+            }));
+        }
+        fs();
+    }, []);
+
+    useEffect(() => {
+        if (storeName && singleasin) {
+            setTeamCode(storeName + '_' + singleasin);
+        }
+    }, [storeName, singleasin]);
     const handleAddtoWarehouse = async (e) => {
         e.preventDefault();
         if (isLoading) return;
@@ -35,6 +69,7 @@ const SupplierWarehouse = () => {
             supplierTracker: null,
             addedDate: new Date()
         };
+
         try {
             const response = await axiosInstance.post('add-supplier', formData);
             console.log('POST response:', response.data);
@@ -52,7 +87,25 @@ const SupplierWarehouse = () => {
         }
         finally {
             setIsLoading(false);
-            // e.target.reset();
+            e.target.reset();
+        }
+    };
+    const handleAsinSelectChange = async (e) => {
+        if (e.value) {
+            setSingleasin(e.value);
+            const data = asin.find(item => item.value == e.value);
+            setNameAndCode({ productName: data.productName, codetype: data.codetype });
+        } else {
+            setNameAndCode(null);
+            setSingleasin(null);
+        }
+    };
+
+    const handleStoreChange = async (e) => {
+        if (e.value) {
+            setStoreName(e.value);
+        } else {
+            setStoreName(null);
         }
     };
     return (
@@ -70,18 +123,19 @@ const SupplierWarehouse = () => {
                                 <div>
                                     <label htmlFor="date">Date: </label>
                                     <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+
                                 </div>
                                 <div>
                                     <label htmlFor="store-name">Store Name: </label>
-                                    <Input type="text" className='mt-3' id='store-name' name='store-name' placeholder='Enter Store Name' />
+                                    <Select onChange={handleStoreChange} className='mt-3' placeholder='Enter Store Name' id='store-name' name='store-name' options={stores} />
                                 </div>
                                 <div>
                                     <label htmlFor="asin">ASIN: </label>
-                                    <Input type="text" className='mt-3' id='asin' name='asin' placeholder='Enter ASIN Code' />
+                                    <Select onChange={handleAsinSelectChange} placeholder='Enter ASIN Code' className='mt-3' id='asin' name='asin' options={asin} />
                                 </div>
                                 <div>
                                     <label htmlFor="code-type">Code Type: </label>
-                                    <Input type="text" className='mt-3' id='code-type' name='code-type' placeholder='Enter Code Type' />
+                                    <Input readOnly value={nameAndCode ? nameAndCode.codetype : ''} type="text" className='mt-3' id='code-type' name='code-type' placeholder='Enter Code Type' />
                                 </div>
                                 <div>
                                     <label htmlFor="supplier-order-id">Supplier Order ID: </label>
@@ -89,11 +143,11 @@ const SupplierWarehouse = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="product-name">Product Name: </label>
-                                    <Input type="text" className='mt-3' id='product-name' name='product-name' placeholder='Enter Product Name' />
+                                    <Input readOnly value={nameAndCode ? nameAndCode.productName : ''} type="text" className='mt-3' id='product-name' name='product-name' placeholder='Enter Product Name' />
                                 </div>
                                 <div>
                                     <label htmlFor="team-code">Team Code: </label>
-                                    <Input type="text" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
+                                    <Input readOnly value={teamCode ? teamCode : ''} type="text" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>

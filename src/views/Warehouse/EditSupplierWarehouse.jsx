@@ -26,7 +26,7 @@ const EditSupplierWarehouse = () => {
         const supplierTracker = event.target.tracker.value;
 
         const formData = {
-            courier,
+            courier: courier.toLowerCase(),
             supplierTracker,
             id: myId
         };
