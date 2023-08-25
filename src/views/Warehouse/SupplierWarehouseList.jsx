@@ -73,7 +73,7 @@ const SupplierWarehouseList = () => {
                         next
                         first
                         size="lg"
-                        total={30 || 0}
+                        total={currentData.totalProducts || 0}
                         limit={10}
                         activePage={activePage}
                         onChangePage={setActivePage}
