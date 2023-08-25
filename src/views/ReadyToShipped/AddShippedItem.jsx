@@ -1,7 +1,109 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
+import fetchdata from '../../utilities/fetchData';
+import useAxios from '../../hooks/useAxios';
+import Select from 'react-select';
+import { toast } from 'react-hot-toast';
 
 const AddShippedItem = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [stores, setStores] = useState([]);
+    const [storeName, setStoreName] = useState(null);
+    const [singleasin, setSingleasin] = useState(null);
+    const [teamCode, setTeamCode] = useState(null);
+    const [asin, setasin] = useState([]);
+    const [nameAndCode, setNameAndCode] = useState(null);
+    const [warehouse, setWarehouse] = useState([]);
+    const [existing, setExisting] = useState(null);
+
+    const axiosInstance = useAxios();
+
+    useEffect(() => {
+        async function fs() {
+            const newData = await fetchdata(`get-store`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin`, axiosInstance);
+            const newData3 = await fetchdata('get-customer', axiosInstance);
+            setWarehouse(newData3.data);
+            setStores(newData.data.map(e => {
+                return { value: e['store-name'], label: e['store-name'] };
+            }));
+            setasin(newData2.data.map(e => {
+                return {
+                    value: e['asinUpcCode'], label: e['asinUpcCode'], codetype: e.
+                        storeType, productName: e.productName
+                };
+            }));
+        }
+        fs();
+    }, []);
+
+    useEffect(() => {
+        if (storeName && singleasin) {
+
+            setTeamCode(storeName + '_' + singleasin);
+
+        }
+        if (singleasin) {
+            const findAsin = warehouse.find(item => item.asin === singleasin);
+            console.log(findAsin);
+            setExisting(findAsin);
+        }
+    }, [storeName, singleasin]);
+    const handleAsinSelectChange = async (e) => {
+        if (e.value) {
+            setSingleasin(e.value);
+            const data = asin.find(item => item.value == e.value);
+            setNameAndCode({ productName: data.productName, codetype: data.codetype });
+        } else {
+            setNameAndCode(null);
+            setSingleasin(null);
+        }
+    };
+    const handleAddShipped = async (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = {
+            date: form.date.value,
+            storeName: form['store-name'].value,
+            asin: form['asin-upc'].value,
+            codeType: form['code-type'].value,
+            productName: form['product-name'].value,
+            teamCode: form['team-code'].value,
+            orderId: form['order-id'].value,
+            quantity: form.quantity.value,
+            courier: form.courier.value,
+            shippingLabel: form['shipping-label'].value,
+            tracker: form.tracker.value,
+            addedDate: new Date(),
+            shipped: 'No'
+        };
+        try {
+            const response = await axiosInstance.post('add-shipped', formData);
+            console.log('POST response:', response.data);
+            if (response.data.acknowledged) {
+                toast.success("Supplier data added successfully to warehouse");
+            } else {
+                toast.error("Something went wrong");
+            }
+
+
+        } catch (error) {
+            console.error('Error posting data:', error);
+            toast.error(error.response.data.message || error.message);
+
+        }
+        finally {
+            setIsLoading(false);
+            // e.target.reset();
+        }
+    };
+    const handleStoreChange = async (e) => {
+        if (e.value) {
+            setStoreName(e.value);
+        } else {
+            setStoreName(null);
+        }
+    };
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Ready To Shipped</h1>
@@ -11,55 +113,57 @@ const AddShippedItem = () => {
             >
                 <Stack>
                     <CardBody>
-                        <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
-                            <div>
-                                <label htmlFor="date">Date: </label>
-                                <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                        <form onSubmit={handleAddShipped}>
+                            <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
+                                <div>
+                                    <label htmlFor="date">Date: </label>
+                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                </div>
+                                <div>
+                                    <label htmlFor="store-name">Store Name: </label>
+                                    <Select onChange={handleStoreChange} className='mt-3' placeholder='Enter Store Name' id='store-name' name='store-name' options={stores} />
+                                </div>
+                                <div>
+                                    <label htmlFor="asin-upc">ASIN/UPC: </label>
+                                    <Select onChange={handleAsinSelectChange} placeholder='Enter ASIN Code' className='mt-3' id='asin-upc' name='asin-upc' options={asin} />
+                                </div>
+                                <div>
+                                    <label htmlFor="code-type">Code Type: </label>
+                                    <Input readOnly value={nameAndCode ? nameAndCode.codetype : ''} type="text" className='mt-3' id='code-type' name='code-type' placeholder='Enter Code Type' />
+                                </div>
+                                <div>
+                                    <label htmlFor="product-name">Product Name: </label>
+                                    <Input readOnly value={nameAndCode ? nameAndCode.productName : ''} type="text" className='mt-3' id='product-name' name='product-name' placeholder='Enter Product Name' />
+                                </div>
+                                <div>
+                                    <label htmlFor="team-code">Team Code: </label>
+                                    <Input readOnly value={teamCode ? teamCode : ''} type="text" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
+                                </div>
+                                <div>
+                                    <label htmlFor="quantity">Quantity: </label>
+                                    <Input readOnly value={existing ? existing.quantity : ''} type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                </div>
+                                <div>
+                                    <label htmlFor="courier">Courier: </label>
+                                    <Input readOnly value={existing ? existing.courier : ''} type="text" className='mt-3' id='courier' name='courier' placeholder='Enter Courier' />
+                                </div>
+                                <div>
+                                    <label htmlFor="tracker">Tracker: </label>
+                                    <Input readOnly value={existing ? existing.tracker : ''} type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
+                                </div>
+                                <div>
+                                    <label htmlFor="order-id">Order ID: </label>
+                                    <Input readOnly value={existing ? existing.orderId : ''} type="text" className='mt-3' id='order-id' name='order-id' placeholder='Enter Order ID' />
+                                </div>
+                                <div>
+                                    <label htmlFor="shipping-label">Shipping Label: </label>
+                                    <Input readOnly value={existing ? existing.shippingLabel : ''} type="text" className='mt-3' id='shipping-label' name='shipping-label' placeholder='Enter Shipping Label' />
+                                </div>
                             </div>
-                            <div>
-                                <label htmlFor="store-name">Store Name: </label>
-                                <Input type="text" className='mt-3' id='store-name' name='store-name' placeholder='Enter Store Name' />
+                            <div className='flex my-6'>
+                                <Button type='submit' colorScheme='purple'>Add Ready To Shipped</Button>
                             </div>
-                            <div>
-                                <label htmlFor="asin-upc">ASIN/UPC: </label>
-                                <Input type="text" className='mt-3' id='asin-upc' name='asin-upc' placeholder='Enter ASIN/UPC' />
-                            </div>
-                            <div>
-                                <label htmlFor="code-type">Code Type: </label>
-                                <Input type="text" className='mt-3' id='code-type' name='code-type' placeholder='Enter Code Type' />
-                            </div>
-                            <div>
-                                <label htmlFor="product-name">Product Name: </label>
-                                <Input type="text" className='mt-3' id='product-name' name='product-name' placeholder='Enter Product Name' />
-                            </div>
-                            <div>
-                                <label htmlFor="team-code">Team Code: </label>
-                                <Input type="text" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
-                            </div>
-                            <div>
-                                <label htmlFor="quantity">Quantity: </label>
-                                <Input type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
-                            </div>
-                            <div>
-                                <label htmlFor="courier">Courier: </label>
-                                <Input type="text" className='mt-3' id='courier' name='courier' placeholder='Enter Courier' />
-                            </div>
-                            <div>
-                                <label htmlFor="tracker">Tracker: </label>
-                                <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
-                            </div>
-                            <div>
-                                <label htmlFor="order-id">Order ID: </label>
-                                <Input type="text" className='mt-3' id='order-id' name='order-id' placeholder='Enter Order ID' />
-                            </div>
-                            <div>
-                                <label htmlFor="shipping-label">Shipping Label: </label>
-                                <Input type="text" className='mt-3' id='shipping-label' name='shipping-label' placeholder='Enter Shipping Label' />
-                            </div>
-                        </div>
-                        <div className='flex my-6'>
-                            <Button colorScheme='purple'>Add Ready To Shipped</Button>
-                        </div>
+                        </form>
                     </CardBody>
                 </Stack>
             </Card>

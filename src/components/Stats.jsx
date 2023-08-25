@@ -19,16 +19,20 @@ const Stats = () => {
     const [inactive, setInactive] = useState(0);
     const [solved, setSolved] = useState(0);
     const [stocks, setStocks] = useState(0);
+    const [shipped, setShipped] = useState(0);
     useEffect(() => {
         async function fs() {
             const newData = await fetchdata(`get-store?status=active`, axiosInstance);
             const newData2 = await fetchdata(`get-store?status=inactive`, axiosInstance);
             const newData3 = await fetchdata('get-missing?status=Solved', axiosInstance);
             const newData4 = await fetchdata('get-stocks', axiosInstance);
-            setActive(newData.data.length);
-            setInactive(newData2.data.length);
-            setSolved(newData3.data.length);
-            setStocks(newData4.data.length);
+            const newData5 = await fetchdata('get-shipped?shipped=Yes', axiosInstance);
+            console.log(newData2);
+            setActive(newData.totalProducts);
+            setInactive(newData2.totalProducts);
+            setSolved(newData3.totalProducts);
+            setStocks(newData4.totalProducts);
+            setShipped(newData5.totalProducts);
         }
         fs();
     }, []);
@@ -51,7 +55,7 @@ const Stats = () => {
                 <StatGroup>
                     <Stat>
                         <StatLabel>Total Shipped</StatLabel>
-                        <StatNumber>345,670</StatNumber>
+                        <StatNumber>{shipped}</StatNumber>
 
                     </Stat>
                 </StatGroup>

@@ -35,12 +35,12 @@ const AddASINUPC = () => {
 
         } catch (error) {
             console.error('Error posting data:', error);
-            toast.error(error.response.data.message);
+            toast.error(error.response.data.message || error.message);
 
         }
         finally {
             setIsLoading(false);
-            e.target.reset();
+            // e.target.reset();
         }
     };
     return (

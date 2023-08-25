@@ -3,7 +3,8 @@ import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CustomerTableRow = ({ pd, id, activePage }) => {
+const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped }) => {
+
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
     if (dd) {
@@ -19,20 +20,17 @@ const CustomerTableRow = ({ pd, id, activePage }) => {
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd['asin'] || 'Not Found'}</Td>
             <Td>{pd['storeName'] || 'Not Found'}</Td>
-            <Td>{pd['codeType'] || 'Not Found'}</Td>
-            <Td>{pd.orderId || 'Not Found'}</Td>
+            <Td>{pd.codeType || 'Not Found'}</Td>
             <Td>{pd.productName || 'Not Found'}</Td>
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.tracker || 'Not Found'}</Td>
+            <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.shippingLabel || 'Not Found'}</Td>
-            <Td>{pd.slip || 'Not Found'}</Td>
-            <Td>{pd.notes || 'Not Found'}</Td>
-
-            <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button>
+            {shipped ? <Button onClick={() => navigate('/total-shipped')}>Edit</Button> : <Button onClick={() => handleShip(pd)}>Shipped</Button>}
         </Tr>
     );
 };
 
-export default CustomerTableRow;
+export default ShippingTableRow;

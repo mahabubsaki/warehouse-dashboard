@@ -21,7 +21,7 @@ export const PriceAvrageTaxList = () => {
     return (
         <div>
             <div>
-                <h1 className='text-3xl text-center my-8'>Total stores : {currentData.totalProducts}</h1>
+                <h1 className='text-3xl text-center my-8'>Total Avarage Price,Avarage Tax : {currentData.totalProducts}</h1>
             </div>
             <div className='flex justify-between my-6' >
                 <p>Show Entries</p>
@@ -58,7 +58,7 @@ export const PriceAvrageTaxList = () => {
                 </Table>
             </TableContainer>
             <div className='flex justify-between my-8 px-4'>
-                <p>Showing {((activePage - 1) * 10) + 1} to {((activePage - 1) * 10) + currentData?.data?.length || 0} of {currentData.totalProducts} entires</p>
+                <p>Showing {currentData?.data?.length > 0 ? (((activePage - 1) * 10) + 1) : 0} to {((activePage - 1) * 10) + currentData?.data?.length || 0} of {currentData.totalProducts} entires</p>
                 <Pagination
                     prev
                     last
