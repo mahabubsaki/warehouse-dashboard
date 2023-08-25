@@ -13,7 +13,7 @@ const AddASINUPC = () => {
         setIsLoading(true);
 
         const formData = {
-            date: e.target.date.value,
+            date: new Date(e.target.date.value),
             asinUpcCode: e.target['asin-upc-code'].value,
             storeManagerName: e.target['store-manager-name'].value,
             productName: e.target['product-name'].value,

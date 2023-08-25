@@ -13,7 +13,7 @@ const AddPriceAvarageTax = () => {
         const form = e.target;
 
         const formData = {
-            date: form.date.value,
+            date: new Date(form.date.value),
             asin: form.asin.value,
             walmartLink: form['walmart-link'].value,
             walmartTracking: form['walmart-tracking'].value,

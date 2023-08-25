@@ -49,19 +49,23 @@ const MissingItemsSolved = () => {
                                 <Th>Date</Th>
                                 <Th>Store Name</Th>
                                 <Th>Code</Th>
-                                <Th>Product Name</Th>
+                                <Th>Code Type</Th>
                                 <Th>Order ID</Th>
+                                <Th>Product Name</Th>
                                 <Th>Team Code</Th>
-                                <Th>Expected Quantity</Th>
                                 <Th>Recieved Quantity</Th>
-                                <Th>Supplier Tracker</Th>
-                                <Th>EDA</Th>
-                                <Th>Action</Th>
+                                <Th>Quantity</Th>
+                                <Th>Missing Quantity</Th>
+                                <Th>Courier</Th>
+                                <Th>Tracker</Th>
+                                <Th>Shipping Label</Th>
+                                <Th>Shipping Slip</Th>
+                                <Th>Notes</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <MissingTableRow home={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

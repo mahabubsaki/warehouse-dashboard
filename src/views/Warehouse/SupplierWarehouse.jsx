@@ -44,7 +44,7 @@ const SupplierWarehouse = () => {
         e.preventDefault();
         if (isLoading) return;
         setIsLoading(true);
-        const date = e.target.date.value;
+        const date = new Date(e.target.date.value);
         const storeName = e.target['store-name'].value;
         const asin = e.target.asin.value;
         const codeType = e.target['code-type'].value;

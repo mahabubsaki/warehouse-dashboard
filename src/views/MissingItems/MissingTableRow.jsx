@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const MissingTableRow = ({ pd, activePage, id }) => {
+const MissingTableRow = ({ pd, activePage, id, home }) => {
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const eda = pd.eda ? format(new Date(pd.eda), 'P').split('/') : null;
     const navigate = useNavigate();
@@ -23,16 +23,21 @@ const MissingTableRow = ({ pd, activePage, id }) => {
         <Tr>
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
+            <Td>{pd['asin'] || 'Not Found'}</Td>
             <Td>{pd['storeName'] || 'Not Found'}</Td>
-            <Td>{pd['asinUpc'] || 'Not Found'}</Td>
-            <Td>{pd['productName'] || 'Not Found'}</Td>
+            <Td>{pd['codeType'] || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
+            <Td>{pd.productName || 'Not Found'}</Td>
             <Td>{pd.teamCode || 'Not Found'}</Td>
-            <Td>{pd.expectedQuantity || 'Not Found'}</Td>
-            <Td>{pd.receivedQuantity || 'Not Found'}</Td>
-            <Td>{pd.supplierTracker || 'Not Found'}</Td>
-            <Td>{pd.eda ? eda.reverse().join('-') : 'Not Found'}</Td>
-            <Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button>
+            <Td>{pd.quantity || 'Not Found'}</Td>
+            <Td>{pd.recivedQuantity || 'Not Found'}</Td>
+            <Td>{pd.missingQuantity || 'Not Found'}</Td>
+            <Td>{pd.courier || 'Not Found'}</Td>
+            <Td>{pd.tracker || 'Not Found'}</Td>
+            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+            <Td>{pd.slip || 'Not Found'}</Td>
+            <Td>{pd.notes || 'Not Found'}</Td>
+            {!home ? <Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button> : null}
         </Tr>
     );
 };

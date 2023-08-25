@@ -20,6 +20,8 @@ const Stats = () => {
     const [solved, setSolved] = useState(0);
     const [stocks, setStocks] = useState(0);
     const [shipped, setShipped] = useState(0);
+    const [current, setCurrent] = useState(0);
+    const [last, setLast] = useState(0);
     useEffect(() => {
         async function fs() {
             const newData = await fetchdata(`get-store?status=active`, axiosInstance);
@@ -27,7 +29,10 @@ const Stats = () => {
             const newData3 = await fetchdata('get-missing?status=Solved', axiosInstance);
             const newData4 = await fetchdata('get-stocks', axiosInstance);
             const newData5 = await fetchdata('get-shipped?shipped=Yes', axiosInstance);
-            console.log(newData2);
+            const newData6 = await fetchdata('get-month-sell?month=last', axiosInstance);
+            const newData7 = await fetchdata('get-month-sell?month=current', axiosInstance);
+            setCurrent(newData7.totalProducts);
+            setLast(newData6.totalProducts);
             setActive(newData.totalProducts);
             setInactive(newData2.totalProducts);
             setSolved(newData3.totalProducts);
@@ -79,7 +84,7 @@ const Stats = () => {
                 <StatGroup>
                     <Stat>
                         <StatLabel>Current Month Sell</StatLabel>
-                        <StatNumber>345,670</StatNumber>
+                        <StatNumber>{current}</StatNumber>
 
                     </Stat>
                 </StatGroup>
@@ -91,7 +96,7 @@ const Stats = () => {
                 <StatGroup>
                     <Stat>
                         <StatLabel>Last Month Sell</StatLabel>
-                        <StatNumber>345,670</StatNumber>
+                        <StatNumber>{last}</StatNumber>
 
                     </Stat>
                 </StatGroup>

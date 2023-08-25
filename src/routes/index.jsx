@@ -57,7 +57,7 @@ const router = createBrowserRouter([
             { path: "/supplier-warehouse", element: <SupplierWarehouse /> },
             { path: "/supplier-warehouse-list", element: <SupplierWarehouseList /> },
             { path: "/supplier-warehouse-list/:id", element: <EditSupplierWarehouse /> },
-            { path: "/add-missing-item", element: <AddMissingItem /> },
+            // { path: "/add-missing-item", element: <AddMissingItem /> },
             { path: "/add-missing-item-list", element: <AddMissingItemList /> },
             { path: "/add-missing-item-list/:id", element: <EditMissing /> },
             { path: "/add-asin-upc", element: <AddASINUPC /> },

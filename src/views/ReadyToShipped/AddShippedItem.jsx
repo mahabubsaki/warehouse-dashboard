@@ -63,7 +63,7 @@ const AddShippedItem = () => {
         e.preventDefault();
         const form = e.target;
         const formData = {
-            date: form.date.value,
+            date: new Date(form.date.value),
             storeName: form['store-name'].value,
             asin: form['asin-upc'].value,
             codeType: form['code-type'].value,

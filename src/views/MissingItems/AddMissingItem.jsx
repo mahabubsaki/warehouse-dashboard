@@ -46,7 +46,7 @@ const AddMissingItem = () => {
         const form = e.target;
 
         const formData = {
-            date: form.date.value,
+            date: new Date(form.date.value),
             storeName: form['store-name'].value,
             asinUpc: form['asin-upc'].value, // Corrected key
             productName: form['product-name'].value,
