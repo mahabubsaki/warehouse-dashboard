@@ -75,8 +75,7 @@ const AddMissingItem = () => {
 
 
         } catch (error) {
-            console.error('Error posting data:', error);
-            toast.error(error.message);
+            toast.error(err.response.message.data || err.message);
 
         }
         finally {

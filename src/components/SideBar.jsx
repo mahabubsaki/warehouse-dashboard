@@ -22,7 +22,7 @@ const SideBar = () => {
     return (
         <nav className='fixed sidebar duration-500 -left-[315px] lg:left-0 top-0  w-[315px] z-50  h-screen overflow-y-auto p-[30px]'>
             <div className='p-[20px] bg-white'>
-                <img src="https://demo.dashboardpack.com/finance-html/img/logo.png" alt="" />
+                <h1 className='text-4xl text-center text-[#805ad5]'>Fulfilbiz</h1>
             </div>
             <div className='sidenav_main-container'>
                 <ul className='my-[30px] capitalize sidenav_collapse-container'>
