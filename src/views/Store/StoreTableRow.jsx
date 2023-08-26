@@ -4,8 +4,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const StoreTableRow = ({ pd, id, activePage }) => {
-    const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
+    const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
+
     if (dd) {
         const temp = dd[0];
         const temp2 = dd[1];

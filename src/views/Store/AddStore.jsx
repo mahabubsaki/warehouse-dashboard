@@ -13,7 +13,7 @@ const AddStore = () => {
         setIsLoading(true);
 
         const formData = {
-            date: e.target.date.value,
+            date: new Date(e.target.date.value),
             'store-name': e.target['store-name'].value,
             'store-manager-name': e.target['store-manager-name'].value,
             'store-type': e.target['store-type'].value,
@@ -31,8 +31,9 @@ const AddStore = () => {
             }
 
 
-        } catch (error) {
-            toast.error(err.response.message.data || err.message);
+        } catch (err) {
+            console.log(err);
+            toast.error(err.response.data.message || err.message);
 
         }
         finally {

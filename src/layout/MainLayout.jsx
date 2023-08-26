@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import SideBar from '../components/SideBar';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { AuthContext } from '../context/Provider';
 
 const MainLayout = () => {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+    useEffect(() => {
+        if (!user) {
+            navigate("/auth/login");
+        }
+    }, [user]);
     useEffect(() => {
         window.scrollTo({ behavior: 'smooth', top: 0 });
     }, [pathname]);
+
     return (
         <>
             <section className='App bg-[#f7faff] min-h-screen'>
@@ -20,7 +29,7 @@ const MainLayout = () => {
                     </div>
                 </section>
             </section>
-            <Toaster />
+
         </>
 
     );

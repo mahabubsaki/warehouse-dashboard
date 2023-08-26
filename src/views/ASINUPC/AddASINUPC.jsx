@@ -19,8 +19,7 @@ const AddASINUPC = () => {
             productName: e.target['product-name'].value,
             productImage: e.target['product-image'].value,
             minimumPrice: e.target['minium-price'].value,
-            storeType: e.target['store-type'].value,
-            addedData: new Date()
+            storeType: e.target['store-type'].value
         };
         console.log(formData);
         try {
@@ -39,7 +38,7 @@ const AddASINUPC = () => {
         }
         finally {
             setIsLoading(false);
-            e.target.reset();
+            // e.target.reset();
         }
     };
     return (

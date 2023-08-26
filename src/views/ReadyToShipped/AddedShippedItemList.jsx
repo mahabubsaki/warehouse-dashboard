@@ -25,7 +25,7 @@ const AddedShippedItemList = () => {
             }
             fs();
         } catch (err) {
-            toast.error(err.response.message.data || err.message);
+            toast.error(err.response.data.message || err.message);
         }
     }, [activePage, refetch]);
     const handleShip = async (e) => {
@@ -37,7 +37,7 @@ const AddedShippedItemList = () => {
                 setRefetch(pre => !pre);
             }
         } catch (err) {
-            toast.error(err.response.message.data || err.message);
+            toast.error(err.response.data.message || err.message);
             setLoading(false);
         }
     };

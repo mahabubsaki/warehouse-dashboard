@@ -9,15 +9,19 @@ import {
 import './index.css';
 
 import routes from './routes/index.jsx';
+import Provider from './context/Provider.jsx';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 
-    <ChakraProvider>
-      <RouterProvider router={routes}>
-        {/* <App /> */}
-      </RouterProvider>
-    </ChakraProvider>
+    <Provider>
+      <ChakraProvider>
+        <RouterProvider router={routes}>
+
+        </RouterProvider>
+      </ChakraProvider>
+    </Provider>
 
   </React.StrictMode>,
 );

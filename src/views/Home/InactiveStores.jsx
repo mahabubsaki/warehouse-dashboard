@@ -32,7 +32,7 @@ const InactiveStores = () => {
             }
             fs();
         } catch (err) {
-            toast.error(err.response.message.data || err.message);
+            toast.error(err.response.data.message || err.message);
         }
     }, [activePage]);
     return (
