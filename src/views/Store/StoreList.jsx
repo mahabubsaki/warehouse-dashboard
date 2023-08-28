@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import { Pagination } from 'rsuite';
 import fetchdata from '../../utilities/fetchData';
 import useAxios from '../../hooks/useAxios';
 import { Input, Spinner, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import StoreTableRow from './StoreTableRow';
+import { AuthContext } from '../../context/Provider';
 
 const StoreList = () => {
-    const data = useFetch('get-store?page=1');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-store?page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -15,16 +17,19 @@ const StoreList = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        if (!user) return;
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-store?page=${activePage}`, axiosInstance);
+                const newData = await fetchdata(`get-store?page=${activePage}&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage]);
     return (

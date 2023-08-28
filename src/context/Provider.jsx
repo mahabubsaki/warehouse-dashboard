@@ -9,6 +9,7 @@ export const AuthContext = createContext(null);
 const Provider = ({ children }) => {
     const axiosInstance = useAxios();
     const [user, setUser] = useState(null);
+    const [mainLoading, setMainLoading] = useState(true);
 
     useEffect(() => {
         async function fs() {
@@ -21,17 +22,22 @@ const Provider = ({ children }) => {
                 setUser({ name: response.name, email: response.email, role: response.role, location: response.location });
                 localStorage.setItem('token', response.token);
 
+                setMainLoading(false);
             } catch (err) {
                 console.log(err);
-                toast.error(err?.response?.data?.message || err?.message || err);
+                toast.error(err?.response?.data?.message || err?.message || err, {
+                    id: 'clipboard',
+                });
 
+                setMainLoading(false);
+                console.log(mainLoading);
             }
         }
         fs();
     }, []);
 
     const authInfo = {
-        user, setUser
+        user, setUser, mainLoading, setMainLoading
     };
 
     return (

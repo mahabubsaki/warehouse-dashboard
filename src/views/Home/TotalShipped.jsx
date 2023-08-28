@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import ShippingTableRow from '../ReadyToShipped/ShippingTableRow';
+import { AuthContext } from '../../context/Provider';
 
 const TotalShipped = () => {
-    const data = useFetch('get-shipped?page=1&shipped=Yes');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-shipped?page=1&shipped=Yes&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [refetch, setRefetch] = useState(true);
     const [currentData, setCurrentData] = useState(data);
@@ -18,13 +20,15 @@ const TotalShipped = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-shipped?page=${activePage}&shipped=Yes`, axiosInstance);
+                const newData = await fetchdata(`get-shipped?page=${activePage}&shipped=Yes&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage, refetch]);
     const handleShip = async (e) => {
@@ -36,7 +40,9 @@ const TotalShipped = () => {
                 setRefetch(pre => !pre);
             }
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
             setLoading(false);
         }
     };

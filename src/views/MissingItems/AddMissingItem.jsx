@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import Select from 'react-select';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 const AddMissingItem = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [stores, setStores] = useState([]);
     const [storeName, setStoreName] = useState(null);
+    const { user } = useContext(AuthContext);
     const [singleasin, setSingleasin] = useState(null);
     const [teamCode, setTeamCode] = useState(null);
     const [asin, setasin] = useState([]);
@@ -58,7 +60,8 @@ const AddMissingItem = () => {
             supplierTracker: form['supplier-tracker'].value,
             eda: form.eda.value,
             status: 'Unsolved',
-            addedDate: new Date()
+            addedDate: new Date(),
+            email: user?.email
         };
 
         console.log(formData);
@@ -68,14 +71,20 @@ const AddMissingItem = () => {
             const response = await axiosInstance.post('add-missing', formData);
             console.log('POST response:', response.data);
             if (response.data.acknowledged) {
-                toast.success("Supplier data added successfully to warehouse");
+                toast.success("Supplier data added successfully to warehouse", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (error) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {

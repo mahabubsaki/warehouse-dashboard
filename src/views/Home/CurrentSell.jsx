@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import fetchdata from '../../utilities/fetchData';
 import { toast } from 'react-hot-toast';
 import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
@@ -6,9 +6,11 @@ import { Pagination } from 'rsuite';
 import StockTableRow from './StockTableRow';
 import useAxios from '../../hooks/useAxios';
 import { useFetch } from '../../hooks/useFetch';
+import { AuthContext } from '../../context/Provider';
 
 const CurrentSell = () => {
-    const data = useFetch('get-month-sell?month=current&page=1');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-month-sell?month=current&page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -18,13 +20,15 @@ const CurrentSell = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-month-sell?page=${activePage}&month=current`, axiosInstance);
+                const newData = await fetchdata(`get-month-sell?page=${activePage}&month=current&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage]);
     return (

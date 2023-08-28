@@ -2,7 +2,7 @@ import { Stat, StatGroup, StatLabel, StatNumber, useDisclosure } from '@chakra-u
 import React, { useEffect, useState } from 'react';
 import { AiOutlineFileDone } from 'react-icons/ai';
 import { FaListAlt, FaStoreAlt, FaStoreAltSlash, FaThList } from 'react-icons/fa';
-import { GrStorage } from 'react-icons/gr';
+import { TbShoppingCartDiscount } from 'react-icons/tb';
 import { MdOutlineLocalShipping } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import StockSearchModal from '../views/Home/StockSearchModal';
@@ -22,15 +22,17 @@ const Stats = () => {
     const [shipped, setShipped] = useState(0);
     const [current, setCurrent] = useState(0);
     const [last, setLast] = useState(0);
+    const [missing, setMissing] = useState(0);
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?status=active`, axiosInstance);
-            const newData2 = await fetchdata(`get-store?status=inactive`, axiosInstance);
-            const newData3 = await fetchdata('get-missing?status=Solved', axiosInstance);
-            const newData4 = await fetchdata('get-stocks', axiosInstance);
-            const newData5 = await fetchdata('get-shipped?shipped=Yes', axiosInstance);
-            const newData6 = await fetchdata('get-month-sell?month=last', axiosInstance);
-            const newData7 = await fetchdata('get-month-sell?month=current', axiosInstance);
+            const newData = await fetchdata(`get-store?status=active&email=s2@gmail.com`, axiosInstance);
+            const newData2 = await fetchdata(`get-store?status=inactive&email=s2@gmail.com`, axiosInstance);
+            const newData3 = await fetchdata('get-missing?status=Solved&email=s2@gmail.com', axiosInstance);
+            const newData4 = await fetchdata('get-stocks?email=s2@gmail.com', axiosInstance);
+            const newData5 = await fetchdata('get-shipped?shipped=Yes&email=s2@gmail.com', axiosInstance);
+            const newData6 = await fetchdata('get-month-sell?month=last&email=s2@gmail.com', axiosInstance);
+            const newData7 = await fetchdata('get-month-sell?month=current&email=s2@gmail.com', axiosInstance);
+            const newData8 = await fetchdata('get-missing?status=Unsolved&email=s2@gmail.com', axiosInstance);
             setCurrent(newData7.totalProducts);
             setLast(newData6.totalProducts);
             setActive(newData.totalProducts);
@@ -38,6 +40,7 @@ const Stats = () => {
             setSolved(newData3.totalProducts);
             setStocks(newData4.totalProducts);
             setShipped(newData5.totalProducts);
+            setMissing(newData8.totalProducts);
         }
         fs();
     }, []);
@@ -126,6 +129,18 @@ const Stats = () => {
                 </StatGroup>
                 <div>
                     <FaStoreAltSlash className='text-5xl' />
+                </div>
+            </div>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/add-missing-item-list")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>Missing Items</StatLabel>
+                        <StatNumber>{missing}</StatNumber>
+
+                    </Stat>
+                </StatGroup>
+                <div>
+                    <TbShoppingCartDiscount className='text-5xl' />
                 </div>
             </div>
         </div>

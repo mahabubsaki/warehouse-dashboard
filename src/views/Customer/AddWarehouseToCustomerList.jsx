@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import CustomerTableRow from './CustomerTableRow';
 import fetchdata from '../../utilities/fetchData';
+import { AuthContext } from '../../context/Provider';
 
 const AddWarehouseToCustomerList = () => {
-    const data = useFetch('get-customer?page=1');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-customer?page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -17,13 +19,15 @@ const AddWarehouseToCustomerList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-customer?page=${activePage}`, axiosInstance);
+                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage]);
 

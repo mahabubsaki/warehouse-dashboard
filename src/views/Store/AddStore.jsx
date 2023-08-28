@@ -1,12 +1,14 @@
 import { Button, Card, CardBody, CircularProgress, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
-import axios from 'axios';
-import React, { useState } from 'react';
+
+import React, { useContext, useState } from 'react';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 
 const AddStore = () => {
     const [isLoading, setIsLoading] = useState(false);
     const axiosInstance = useAxios();
+    const { user } = useContext(AuthContext);
     const handlePostStore = async (e) => {
         e.preventDefault();
         if (isLoading) return;
@@ -19,21 +21,28 @@ const AddStore = () => {
             'store-type': e.target['store-type'].value,
             status: 'empty',
             notes: 'empty',
+            email: user?.email,
             addedDate: new Date()
         };
         try {
             const response = await axiosInstance.post('add-store', formData);
             console.log('POST response:', response.data);
             if (response.data.acknowledged) {
-                toast.success("Store added successfully");
+                toast.success("Store added successfully", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {

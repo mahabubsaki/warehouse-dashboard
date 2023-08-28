@@ -6,10 +6,13 @@ import { Input, TableContainer, Table, Tbody, Th, Thead, Tr, Spinner } from '@ch
 import { Pagination } from 'rsuite';
 import AsinTableRow from './AsinTableRow';
 import { toast } from 'react-hot-toast';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/Provider';
 
 
 const AddASINUPCList = () => {
-    const data = useFetch('get-asin?page=1');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-asin?page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -19,13 +22,15 @@ const AddASINUPCList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-asin?page=${activePage}`, axiosInstance);
+                const newData = await fetchdata(`get-asin?page=${activePage}&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage]);
     return (

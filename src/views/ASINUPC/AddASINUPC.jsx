@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, Card, CardBody, CircularProgress, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 
 const AddASINUPC = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const { user } = useContext(AuthContext);
     const axiosInstance = useAxios();
     const handlePostAsin = async (e) => {
         e.preventDefault();
@@ -19,21 +21,28 @@ const AddASINUPC = () => {
             productName: e.target['product-name'].value,
             productImage: e.target['product-image'].value,
             minimumPrice: e.target['minium-price'].value,
-            storeType: e.target['store-type'].value
+            storeType: e.target['store-type'].value,
+            email: user?.email
         };
         console.log(formData);
         try {
             const response = await axiosInstance.post('add-asin', formData);
             console.log('POST response:', response.data);
             if (response.data.acknowledged) {
-                toast.success("ASIN/UPC added successfully");
+                toast.success("ASIN/UPC added successfully", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message);
+            toast.error(error.response.data.message || error.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {

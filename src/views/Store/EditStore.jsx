@@ -35,9 +35,13 @@ const EditStore = () => {
         const { data } = await axiosInstance.put('update-store', formData);
         if (data.modifiedCount) {
             setUpdate((pre) => !pre);
-            toast.success("Store details updated successfully");
+            toast.success("Store details updated successfully", {
+                id: 'clipboard',
+            });
         } else {
-            toast.error("Something went wrong");
+            toast.error("Something went wrong", {
+                id: 'clipboard',
+            });
         }
         event.target.reset();
     };

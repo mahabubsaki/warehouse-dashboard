@@ -34,9 +34,13 @@ const EditMissing = () => {
         console.log(data);
         if (data.modifiedCount) {
             setUpdate((pre) => !pre);
-            toast.success("Missing Details Updated succesfully");
+            toast.success("Missing Details Updated succesfully", {
+                id: 'clipboard',
+            });
         } else {
-            toast.error("Something went wrong");
+            toast.error("Something went wrong", {
+                id: 'clipboard',
+            });
         }
         event.target.reset();
     };

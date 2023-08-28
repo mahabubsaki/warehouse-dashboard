@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Card, CardBody, CircularProgress, Input, Stack } from '@chakra-ui/react';
 import fetchdata from '../../utilities/fetchData';
 import useAxios from '../../hooks/useAxios';
 import Select from 'react-select';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 
 const AddShippedItem = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -17,12 +18,13 @@ const AddShippedItem = () => {
     const [existing, setExisting] = useState(null);
 
     const axiosInstance = useAxios();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store`, axiosInstance);
-            const newData2 = await fetchdata(`get-asin`, axiosInstance);
-            const newData3 = await fetchdata('get-customer', axiosInstance);
+            const newData = await fetchdata(`get-store?email=${user.email}`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin?email=${user.email}`, axiosInstance);
+            const newData3 = await fetchdata(`get-customer?email=${user.email}`, axiosInstance);
             setWarehouse(newData3.data);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
@@ -61,6 +63,8 @@ const AddShippedItem = () => {
     };
     const handleAddShipped = async (e) => {
         e.preventDefault();
+        if (isLoading) return;
+        setIsLoading(true);
         const form = e.target;
         const formData = {
             date: new Date(form.date.value),
@@ -75,20 +79,27 @@ const AddShippedItem = () => {
             shippingLabel: form['shipping-label'].value,
             tracker: form.tracker.value,
             addedDate: new Date(),
-            shipped: 'No'
+            shipped: 'No',
+            email: user?.email
         };
         try {
             const response = await axiosInstance.post('add-shipped', formData);
             console.log('POST response:', response.data);
             if (response.data.acknowledged) {
-                toast.success("Supplier data added successfully to warehouse");
+                toast.success("Supplier data added successfully to warehouse", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message);
+            toast.error(error.response.data.message || error.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {
@@ -160,7 +171,11 @@ const AddShippedItem = () => {
                                 </div>
                             </div>
                             <div className='flex my-6'>
-                                <Button type='submit' colorScheme='purple'>Add Ready To Shipped</Button>
+                                {/* <Button type='submit' colorScheme='purple'>Add Ready To Shipped</Button> */}
+                                <Button disabled={isLoading} type='submit' className='flex gap-3' colorScheme={`purple`}>
+                                    <span>Add Ready To Shipped</span>
+                                    {isLoading ? <CircularProgress size={'20px'} isIndeterminate color='green.300' /> : null}
+                                </Button>
                             </div>
                         </form>
                     </CardBody>

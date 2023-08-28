@@ -34,9 +34,13 @@ const EditSupplierWarehouse = () => {
         console.log(data);
         if (data.modifiedCount) {
             setUpdate((pre) => !pre);
-            toast.success("Supplier Details Updated succesfully");
+            toast.success("Supplier Details Updated succesfully", {
+                id: 'clipboard',
+            });
         } else {
-            toast.error("Something went wrong");
+            toast.error("Something went wrong", {
+                id: 'clipboard',
+            });
         }
         event.target.reset();
     };

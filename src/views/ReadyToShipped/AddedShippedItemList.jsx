@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import fetchdata from '../../utilities/fetchData';
 import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import useAxios from '../../hooks/useAxios';
 import { useFetch } from '../../hooks/useFetch';
 import ShippingTableRow from './ShippingTableRow';
+import { AuthContext } from '../../context/Provider';
 
 const AddedShippedItemList = () => {
-    const data = useFetch('get-shipped?page=1&shipped=No');
+    const { user } = useContext(AuthContext);
+    const data = useFetch(`get-shipped?page=1&shipped=No&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [refetch, setRefetch] = useState(true);
     const [currentData, setCurrentData] = useState(data);
+
     const [activePage, setActivePage] = useState(1);
 
     const [loading, setLoading] = useState(true);
@@ -19,13 +22,15 @@ const AddedShippedItemList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-shipped?page=${activePage}&shipped=No`, axiosInstance);
+                const newData = await fetchdata(`get-shipped?page=${activePage}&shipped=No&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage, refetch]);
     const handleShip = async (e) => {
@@ -37,7 +42,9 @@ const AddedShippedItemList = () => {
                 setRefetch(pre => !pre);
             }
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
             setLoading(false);
         }
     };

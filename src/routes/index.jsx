@@ -30,6 +30,8 @@ import EditAsin from "../views/ASINUPC/EditAsin";
 import EditSupplierWarehouse from "../views/Warehouse/EditSupplierWarehouse";
 import EditCustomer from "../views/Customer/EditCustomer";
 import EditMissing from "../views/MissingItems/EditMissing";
+import StoreManagerRoute from "../hoc/StoreManagerRoute";
+import WareHouseManagerRoute from "../hoc/WareHouseManagerRoute";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -51,24 +53,24 @@ const router = createBrowserRouter([
             { path: "/missing-items-solved", element: <MissingItemsSolved /> },
             { path: "/current-month-sell", element: <CurrentSell /> },
             { path: "/last-month-sell", element: <LastSell /> },
-            { path: "/add-store", element: <AddStore /> },
+            { path: "/add-store", element: <StoreManagerRoute><AddStore /></StoreManagerRoute> },
             { path: "/store-list", element: <StoreList /> },
             { path: "/store-list/:id", element: <EditStore /> },
-            { path: "/supplier-warehouse", element: <SupplierWarehouse /> },
+            { path: "/supplier-warehouse", element: <StoreManagerRoute><SupplierWarehouse /></StoreManagerRoute> },
             { path: "/supplier-warehouse-list", element: <SupplierWarehouseList /> },
             { path: "/supplier-warehouse-list/:id", element: <EditSupplierWarehouse /> },
             // { path: "/add-missing-item", element: <AddMissingItem /> },
             { path: "/add-missing-item-list", element: <AddMissingItemList /> },
             { path: "/add-missing-item-list/:id", element: <EditMissing /> },
-            { path: "/add-asin-upc", element: <AddASINUPC /> },
+            { path: "/add-asin-upc", element: <StoreManagerRoute><AddASINUPC /></StoreManagerRoute> },
             { path: "/add-asin-upc-list", element: <AddASINUPCList /> },
             { path: "/add-asin-upc-list/:id", element: <EditAsin /> },
-            { path: "/add-shipped-item", element: <AddShippedItem /> },
+            { path: "/add-shipped-item", element: <WareHouseManagerRoute><AddShippedItem /></WareHouseManagerRoute> },
             { path: "/added-shipped-item-list", element: <AddedShippedItemList /> },
-            { path: "/add-warehouse-to-customer", element: <AddWarehouseToCustomer /> },
+            { path: "/add-warehouse-to-customer", element: <StoreManagerRoute><AddWarehouseToCustomer /></StoreManagerRoute> },
             { path: "/add-warehouse-to-customer-list", element: <AddWarehouseToCustomerList /> },
             { path: "/add-warehouse-to-customer-list/:id", element: <EditCustomer /> },
-            { path: "/add-price-avarage-tax", element: <AddPriceAvarageTax /> },
+            { path: "/add-price-avarage-tax", element: <StoreManagerRoute><AddPriceAvarageTax /></StoreManagerRoute> },
             { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
             { path: "/active-stores", element: <ActiveStores /> },
             { path: "/inactive-stores", element: <InactiveStores /> },

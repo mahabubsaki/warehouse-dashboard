@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
+import React, { useContext, useState } from 'react';
+import { Button, Card, CardBody, CircularProgress, Input, Stack } from '@chakra-ui/react';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 const AddPriceAvarageTax = () => {
     const [isLoading, setIsLoading] = useState(false);
     const axiosInstance = useAxios();
+    const { user } = useContext(AuthContext);
 
     const handleAdd = async (e) => {
         e.preventDefault();
+        if (isLoading) return;
         setIsLoading(true);
 
         const form = e.target;
@@ -25,20 +28,28 @@ const AddPriceAvarageTax = () => {
             quantityReceived: form['quantity-recieved'].value,
             eda: form.eda.value,
             addedDate: new Date(),
+            email: user?.email,
+            admin: user?.role == 'admin'
         };
         console.log(formData);
         try {
             const response = await axiosInstance.post('add-tax', formData);
             console.log('POST response:', response.data);
             if (response.data.acknowledged) {
-                toast.success("Tax data added successfully");
+                toast.success("Tax data added successfully", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message);
+            toast.error(error.response.data.message || error.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {
@@ -106,7 +117,11 @@ const AddPriceAvarageTax = () => {
                                 </div>
                             </div>
                             <div className='flex my-6'>
-                                <Button type='submit' colorScheme='purple'>Add Avarage Price, Avarage Tax</Button>
+                                {/* <Button type='submit' colorScheme='purple'>Add Avarage Price, Avarage Tax</Button> */}
+                                <Button disabled={isLoading} type='submit' className='flex gap-3' colorScheme={`purple`}>
+                                    <span>Add Avarage Price, Avarage Tax</span>
+                                    {isLoading ? <CircularProgress size={'20px'} isIndeterminate color='green.300' /> : null}
+                                </Button>
                             </div>
                         </form>
                     </CardBody>

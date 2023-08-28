@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import MissingTableRow from './MissingTableRow';
+import { AuthContext } from '../../context/Provider';
 
 const AddMissingItemList = () => {
-    const data = useFetch('get-missing?page=1&status=Unsolved');
+    const { user } = useContext(AuthContext);
+    console.log(user);
+    const data = useFetch(`get-missing?page=1&status=Unsolved&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -19,13 +22,15 @@ const AddMissingItemList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-missing?page=${activePage}&status=Unsolved`, axiosInstance);
+                const newData = await fetchdata(`get-missing?page=${activePage}&status=Unsolved&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
     }, [activePage]);
     return (

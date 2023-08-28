@@ -1,9 +1,10 @@
-import { Button, Card, CardBody, Input, Stack } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Button, Card, CardBody, CircularProgress, Input, Stack } from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import useAxios from '../../hooks/useAxios';
 import Select from 'react-select';
 import fetchdata from '../../utilities/fetchData';
+import { AuthContext } from '../../context/Provider';
 
 
 
@@ -17,11 +18,12 @@ const SupplierWarehouse = () => {
     const [nameAndCode, setNameAndCode] = useState(null);
 
     const axiosInstance = useAxios();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store`, axiosInstance);
-            const newData2 = await fetchdata(`get-asin`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=${user.email}`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin?email=${user.email}`, axiosInstance);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
             }));
@@ -65,6 +67,7 @@ const SupplierWarehouse = () => {
             quantity,
             unitPrice,
             eda,
+            email: user?.email,
             courier: null,
             supplierTracker: null,
             addedDate: new Date()
@@ -74,14 +77,20 @@ const SupplierWarehouse = () => {
             const response = await axiosInstance.post('add-supplier', formData);
             console.log('POST response:', response.data);
             if (response.data.stocksAdd.acknowledged && response.data.supplierAdd.acknowledged) {
-                toast.success("Supplier data added successfully to warehouse");
+                toast.success("Supplier data added successfully to warehouse", {
+                    id: 'clipboard',
+                });
             } else {
-                toast.error("Something went wrong");
+                toast.error("Something went wrong", {
+                    id: 'clipboard',
+                });
             }
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message);
+            toast.error(error.response.data.message || error.message, {
+                id: 'clipboard',
+            });
 
         }
         finally {
@@ -162,7 +171,11 @@ const SupplierWarehouse = () => {
                                 </div>
                             </div>
                             <div className='flex my-6'>
-                                <Button type='submit' colorScheme='purple'>Add Order To Warehouse</Button>
+                                {/* <Button type='submit' colorScheme='purple'>Add Order To Warehouse</Button> */}
+                                <Button disabled={isLoading} type='submit' className='flex gap-3' colorScheme={`purple`}>
+                                    <span>Add Order To Warehouse</span>
+                                    {isLoading ? <CircularProgress size={'20px'} isIndeterminate color='green.300' /> : null}
+                                </Button>
                             </div>
                         </form>
                     </CardBody>

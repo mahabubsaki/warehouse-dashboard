@@ -25,11 +25,13 @@ const Register = () => {
         const data = { name, role, location, email, password, confirmPassword };
         try {
             const { data: response } = await axiosInstance.post('signup', data);
-            setUser({ name: response.name, email: response.email, role: response.role, location: response.location });
+            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id });
             localStorage.setItem('token', response.token);
         } catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message);
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
         }
 
     };

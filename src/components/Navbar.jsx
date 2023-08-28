@@ -29,7 +29,7 @@ const Navbar = () => {
                             <AiOutlineMenu className='text-xl' />
                         </Button>
                     </div>
-                    <div className='relative md:w-[400px] lg:w-[500px] xl:w-[600px] sm:flex items-center hidden'>
+                    <div className='relative md:w-[370px] xl:w-[600px] sm:flex items-center hidden'>
                         <input placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
                         <button className='absolute left-[36px] top-[19px]'>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />
@@ -37,11 +37,6 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div className='flex items-center gap-4 lg:gap-14'>
-                    <button className='relative flex items-center gap-4'>
-                        {user ? <p>{user.location}</p> : null}
-                        <MdLocationPin className='text-4xl text-[#ffffff]' />
-
-                    </button>
                     <Menu>
                         <MenuButton>
                             <div className='overflow-hidden rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
@@ -52,10 +47,11 @@ const Navbar = () => {
                             <div className='p-[30px] pb-[20px] text-right navbar_profile-dropdown text-sm'>
                                 <p className='text-[#828bb2] leading-6'>Welcome User!</p>
                                 {user ? <p className='text-white mb-2 mt-1'>{user.name}</p> : null}
+                                {user ? <p className='text-white mb-2 mt-1'>{user.email}</p> : null}
                                 <div className='mt-5 border-t pt-2.5 text-white border-t-[#79838b]'>
                                     <p className='py-2.5 flex gap-5 cursor-pointer w-fit ms-auto justify-end items-center group'>
-                                        <span>My Profile</span>
-                                        <BiUser className='text-[#ccc] duration-100 group-hover:text-white text-lg' />
+                                        {user ? <p>{user.location}</p> : null}
+                                        <MdLocationPin className='text-4xl text-[#ffffff]' />
                                     </p>
                                     <p className='py-2.5 flex gap-5 cursor-pointer w-fit ms-auto justify-end items-center group'>
                                         <span onClick={() => {
