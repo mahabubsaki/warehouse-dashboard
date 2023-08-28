@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const WareHouseManagerRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    if (user.role == 'warehouseManager') {
+    if (user.role == 'warehouseManager' || user.role == 'admin') {
         return children;
     }
     return <Navigate to={'/'} />;

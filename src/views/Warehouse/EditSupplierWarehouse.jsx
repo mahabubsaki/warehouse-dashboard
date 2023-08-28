@@ -4,7 +4,7 @@ import useAxios from '../../hooks/useAxios';
 import { Button, CircularProgress, Input } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { toast } from 'react-hot-toast';
-
+import Select from 'react-select';
 const EditSupplierWarehouse = () => {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -80,7 +80,10 @@ const EditSupplierWarehouse = () => {
                     <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
                             <label htmlFor="courier">Courier: </label>
-                            <Input type="text" className='mt-3' id='courier' name='courier' placeholder='Enter Courier' />
+
+                            <label htmlFor="courier">Courier: </label>
+                            <Select className='mt-3' options={[{ value: 'USPS', label: 'USPC' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
+                            </Select>
                         </div>
                         <div className='flex-1'>
                             <label htmlFor="tracker">Supplier Tracker: </label>

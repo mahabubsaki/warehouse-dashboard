@@ -22,11 +22,11 @@ const EditAsin = () => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-        const storeManager = event.target['minimum-price'].value;
+        const minimumPrice = event.target['minimum-price'].value;
         const productImage = event.target['product-image'].value;
 
         const formData = {
-            storeManagerName: storeManager,
+            minimumPrice: minimumPrice,
             productImage,
             id: myId
         };

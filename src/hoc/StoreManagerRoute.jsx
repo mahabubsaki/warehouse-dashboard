@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const StoreManagerRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    if (user.role == 'storeManager') {
+    if (user.role == 'storeManager' || user.role == 'admin') {
         return children;
     }
     return <Navigate to={'/'} />;
