@@ -98,6 +98,7 @@ const SupplierWarehouseList = () => {
                     <Pagination
                         prev
                         last
+                        maxButtons={10}
                         next
                         first
                         size="lg"

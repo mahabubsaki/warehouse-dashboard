@@ -102,6 +102,7 @@ const LastSell = () => {
                     <Pagination
                         prev
                         last
+                        maxButtons={10}
                         next
                         first
                         size="lg"

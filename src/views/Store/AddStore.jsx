@@ -1,6 +1,6 @@
 import { Button, Card, CardBody, CircularProgress, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/Provider';
@@ -50,6 +50,7 @@ const AddStore = () => {
             e.target.reset();
         }
     };
+
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add Store</h1>

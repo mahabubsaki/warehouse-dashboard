@@ -105,6 +105,7 @@ const InactiveStores = () => {
                         last
                         next
                         first
+                        maxButtons={10}
                         size="lg"
                         total={currentData.totalProducts || 0}
                         limit={10}

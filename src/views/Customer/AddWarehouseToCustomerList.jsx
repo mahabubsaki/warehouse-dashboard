@@ -103,6 +103,7 @@ const AddWarehouseToCustomerList = () => {
                     <Pagination
                         prev
                         last
+                        maxButtons={10}
                         next
                         first
                         size="lg"

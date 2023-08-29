@@ -95,6 +95,7 @@ const Stock = () => {
                         prev
                         last
                         next
+                        maxButtons={10}
                         first
                         size="lg"
                         total={currentData.totalProducts || 0}
