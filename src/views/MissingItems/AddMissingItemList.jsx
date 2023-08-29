@@ -1,21 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
-import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import MissingTableRow from './MissingTableRow';
 import { AuthContext } from '../../context/Provider';
+import { FiSearch } from 'react-icons/fi';
 
 const AddMissingItemList = () => {
     const { user } = useContext(AuthContext);
-    console.log(user);
     const data = useFetch(`get-missing?page=1&status=Unsolved&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
 
-
+    const inputRef = useRef();
     const [loading, setLoading] = useState(true);
     console.log(currentData);
     useEffect(() => {
@@ -33,6 +33,22 @@ const AddMissingItemList = () => {
             });
         }
     }, [activePage]);
+    const handleOnClick = async () => {
+        setLoading(true);
+        if (!inputRef.current.value) {
+            const newData = await fetchdata(`get-missing?page=1&status=Unsolved&email=${user?.email}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+
+        } else {
+            const newData = await fetchdata(`get-missing?page=1&status=Unsolved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            setCurrentData(newData);
+            setActivePage(1);
+            setLoading(false);
+        }
+
+    };
     return (
         <div>
             {!loading ? <> <div>
@@ -40,8 +56,15 @@ const AddMissingItemList = () => {
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
-                    <div>
-                        <Input placeholder='Search...' />
+                    <div className='flex'>
+                        <Input ref={inputRef} placeholder='Search...' />
+                        <IconButton
+                            onClick={handleOnClick}
+                            className='-ml-2'
+                            colorScheme='blue'
+                            aria-label='Search database'
+                            icon={<FiSearch />}
+                        />
                     </div>
                 </div>
                 <TableContainer>
@@ -58,7 +81,6 @@ const AddMissingItemList = () => {
                                 <Th>Team Code</Th>
                                 <Th>Recieved Quantity</Th>
                                 <Th>Quantity</Th>
-
                                 <Th>Missing Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>

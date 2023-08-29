@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
-import { Input, TableContainer, Table, Tbody, Th, Thead, Tr, Spinner } from '@chakra-ui/react';
+import { Input, TableContainer, Table, Tbody, Th, Thead, Tr, Spinner, IconButton } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import AsinTableRow from './AsinTableRow';
 import { toast } from 'react-hot-toast';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/Provider';
+import { FiSearch } from 'react-icons/fi';
 
 
 const AddASINUPCList = () => {
     const { user } = useContext(AuthContext);
+    const inputRef = useRef();
     const data = useFetch(`get-asin?page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
@@ -33,6 +35,22 @@ const AddASINUPCList = () => {
             });
         }
     }, [activePage]);
+    const handleOnClick = async () => {
+        setLoading(true);
+        if (!inputRef.current.value) {
+            const newData = await fetchdata(`get-asin?page=1&email=${user?.email}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+
+        } else {
+            const newData = await fetchdata(`get-asin?page=1&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+        }
+
+    };
     return (
 
         <div>
@@ -43,8 +61,15 @@ const AddASINUPCList = () => {
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
-                    <div>
-                        <Input placeholder='Search...' />
+                    <div className='flex'>
+                        <Input ref={inputRef} placeholder='Search...' />
+                        <IconButton
+                            onClick={handleOnClick}
+                            className='-ml-2'
+                            colorScheme='blue'
+                            aria-label='Search database'
+                            icon={<FiSearch />}
+                        />
                     </div>
                 </div>
 

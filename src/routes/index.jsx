@@ -32,6 +32,7 @@ import EditCustomer from "../views/Customer/EditCustomer";
 import EditMissing from "../views/MissingItems/EditMissing";
 import StoreManagerRoute from "../hoc/StoreManagerRoute";
 import WareHouseManagerRoute from "../hoc/WareHouseManagerRoute";
+import Search from "../components/Search";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -74,6 +75,7 @@ const router = createBrowserRouter([
             { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
             { path: "/active-stores", element: <ActiveStores /> },
             { path: "/inactive-stores", element: <InactiveStores /> },
+            { path: "/search", element: <Search /> }
         ],
 
     },

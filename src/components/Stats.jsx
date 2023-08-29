@@ -25,14 +25,14 @@ const Stats = () => {
     const [missing, setMissing] = useState(0);
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?status=active&email=s2@gmail.com`, axiosInstance);
-            const newData2 = await fetchdata(`get-store?status=inactive&email=s2@gmail.com`, axiosInstance);
-            const newData3 = await fetchdata('get-missing?status=Solved&email=s2@gmail.com', axiosInstance);
-            const newData4 = await fetchdata('get-stocks?email=s2@gmail.com', axiosInstance);
-            const newData5 = await fetchdata('get-shipped?shipped=Yes&email=s2@gmail.com', axiosInstance);
-            const newData6 = await fetchdata('get-month-sell?month=last&email=s2@gmail.com', axiosInstance);
-            const newData7 = await fetchdata('get-month-sell?month=current&email=s2@gmail.com', axiosInstance);
-            const newData8 = await fetchdata('get-missing?status=Unsolved&email=s2@gmail.com', axiosInstance);
+            const newData = await fetchdata(`get-store?status=active&email=admin@admin.com`, axiosInstance);
+            const newData2 = await fetchdata(`get-store?status=inactive&email=admin@admin.com`, axiosInstance);
+            const newData3 = await fetchdata('get-missing?status=Solved&email=admin@admin.com', axiosInstance);
+            const newData4 = await fetchdata('get-stocks?email=admin@admin.com', axiosInstance);
+            const newData5 = await fetchdata('get-shipped?shipped=Yes&email=admin@admin.com', axiosInstance);
+            const newData6 = await fetchdata('get-month-sell?month=last&email=admin@admin.com', axiosInstance);
+            const newData7 = await fetchdata('get-month-sell?month=current&email=admin@admin.com', axiosInstance);
+            const newData8 = await fetchdata('get-missing?status=Unsolved&email=admin@admin.com', axiosInstance);
             setCurrent(newData7.totalProducts);
             setLast(newData6.totalProducts);
             setActive(newData.totalProducts);

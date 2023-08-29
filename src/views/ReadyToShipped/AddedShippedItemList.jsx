@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import fetchdata from '../../utilities/fetchData';
-import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import useAxios from '../../hooks/useAxios';
 import { useFetch } from '../../hooks/useFetch';
 import ShippingTableRow from './ShippingTableRow';
 import { AuthContext } from '../../context/Provider';
+import { FiSearch } from 'react-icons/fi';
 
 const AddedShippedItemList = () => {
     const { user } = useContext(AuthContext);
@@ -15,7 +16,7 @@ const AddedShippedItemList = () => {
     const [currentData, setCurrentData] = useState(data);
 
     const [activePage, setActivePage] = useState(1);
-
+    const inputRef = useRef();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -48,6 +49,22 @@ const AddedShippedItemList = () => {
             setLoading(false);
         }
     };
+    const handleOnClick = async () => {
+        setLoading(true);
+        if (!inputRef.current.value) {
+            const newData = await fetchdata(`get-shipped?page=1&shipped=No&email=${user?.email}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+
+        } else {
+            const newData = await fetchdata(`get-shipped?page=1&shipped=No&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+        }
+
+    };
     return (
         <div>
             {!loading ? <> <div>
@@ -55,8 +72,15 @@ const AddedShippedItemList = () => {
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
-                    <div>
-                        <Input placeholder='Search...' />
+                    <div className='flex'>
+                        <Input ref={inputRef} placeholder='Search...' />
+                        <IconButton
+                            onClick={handleOnClick}
+                            className='-ml-2'
+                            colorScheme='blue'
+                            aria-label='Search database'
+                            icon={<FiSearch />}
+                        />
                     </div>
                 </div>
                 <TableContainer>

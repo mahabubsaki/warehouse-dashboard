@@ -17,8 +17,10 @@ const CustomerTableRow = ({ pd, id, activePage }) => {
         <Tr>
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
-            <Td>{pd['asin'] || 'Not Found'}</Td>
             <Td>{pd['storeName'] || 'Not Found'}</Td>
+
+            <Td>{pd['asin'] || 'Not Found'}</Td>
+
             <Td>{pd['codeType'] || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.productName || 'Not Found'}</Td>

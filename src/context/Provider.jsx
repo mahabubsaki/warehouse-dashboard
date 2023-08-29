@@ -9,6 +9,7 @@ export const AuthContext = createContext(null);
 const Provider = ({ children }) => {
     const axiosInstance = useAxios();
     const [user, setUser] = useState(null);
+    const [search, setSearch] = useState('');
     const [mainLoading, setMainLoading] = useState(true);
 
     useEffect(() => {
@@ -37,7 +38,7 @@ const Provider = ({ children }) => {
     }, []);
 
     const authInfo = {
-        user, setUser, mainLoading, setMainLoading
+        user, setUser, mainLoading, setMainLoading, search, setSearch
     };
 
     return (

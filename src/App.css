@@ -53,3 +53,24 @@
   border-color: #4776E6 !important;
   color: white !important; /* Change this to the desired hover/focus border color */
 }
+
+
+         
+.btn-grad-search {
+  background-image: linear-gradient(to right, #1FA2FF 0%, #12D8FA  51%, #1FA2FF  100%);
+
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+
+
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

@@ -31,7 +31,6 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.recivedQuantity || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>
-
             <Td>{pd.missingQuantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.tracker || 'Not Found'}</Td>

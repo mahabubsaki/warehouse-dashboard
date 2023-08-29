@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import {
@@ -15,11 +15,20 @@ import { MdLocationPin } from 'react-icons/md';
 import '../styles/Navbar.css';
 import NavDrawer from './NavDrawer';
 import { AuthContext } from '../context/Provider';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, setSearch } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const inputRef = useRef();
+    const handleOnclick = () => {
+        if (inputRef?.current?.value) {
+            setSearch(inputRef.current.value);
+            navigate(`/search?keyword=${inputRef.current.value}`);
+        }
+    };
     return (
         <>
             <header className='nav-header p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
@@ -30,10 +39,11 @@ const Navbar = () => {
                         </Button>
                     </div>
                     <div className='relative md:w-[370px] xl:w-[600px] sm:flex items-center hidden'>
-                        <input placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
-                        <button className='absolute left-[36px] top-[19px]'>
+                        <input ref={inputRef} placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
+                        <button className='absolute left-[36px] top-[19px] '>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />
                         </button>
+                        <button onClick={handleOnclick} className='btn-grad-search absolute right-0 rounded-[30px] py-5 px-6'>Search</button>
                     </div>
                 </div>
                 <div className='flex items-center gap-4 lg:gap-14'>

@@ -19,12 +19,13 @@ const AddShippedItem = () => {
 
     const axiosInstance = useAxios();
     const { user } = useContext(AuthContext);
-
+    console.log(warehouse);
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?email=${user.email}`, axiosInstance);
-            const newData2 = await fetchdata(`get-asin?email=${user.email}`, axiosInstance);
-            const newData3 = await fetchdata(`get-customer?email=${user.email}`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=admin@admin.com&select=yes`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin?email=admin@admin.com&select=yes`, axiosInstance);
+            const newData3 = await fetchdata(`get-customer?email=admin@admin.com&select=yes`, axiosInstance);
+            console.log(newData3);
             setWarehouse(newData3.data);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };

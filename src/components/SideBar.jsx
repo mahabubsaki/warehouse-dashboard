@@ -54,7 +54,7 @@ const SideBar = () => {
 
 
     ] : [...list].filter(item => item.role == user.role);
-    console.log(otherRoutes);
+
 
     const navmenus = [
         { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },

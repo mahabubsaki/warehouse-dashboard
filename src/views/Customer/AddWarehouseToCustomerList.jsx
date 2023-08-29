@@ -1,11 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
-import { Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
 import CustomerTableRow from './CustomerTableRow';
 import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
+import { FiSearch } from 'react-icons/fi';
 
 const AddWarehouseToCustomerList = () => {
     const { user } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const AddWarehouseToCustomerList = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
-
+    const inputRef = useRef();
     useEffect(() => {
         setLoading(true);
         try {
@@ -31,7 +32,22 @@ const AddWarehouseToCustomerList = () => {
         }
     }, [activePage]);
 
+    const handleOnClick = async () => {
+        setLoading(true);
+        if (!inputRef.current.value) {
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
 
+        } else {
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            setActivePage(1);
+            setCurrentData(newData);
+            setLoading(false);
+        }
+
+    };
     return (
         <div>
             {loading ? <div className='min-h-[500px] flex justify-center items-center'>
@@ -41,8 +57,15 @@ const AddWarehouseToCustomerList = () => {
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
-                    <div>
-                        <Input placeholder='Search...' />
+                    <div className='flex'>
+                        <Input ref={inputRef} placeholder='Search...' />
+                        <IconButton
+                            onClick={handleOnClick}
+                            className='-ml-2'
+                            colorScheme='blue'
+                            aria-label='Search database'
+                            icon={<FiSearch />}
+                        />
                     </div>
                 </div>
 
