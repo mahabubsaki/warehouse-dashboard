@@ -10,6 +10,8 @@ import { TfiSearch } from 'react-icons/tfi';
 import getRandomPurpleShade from '../utilities/randomColorGenerator';
 import useAxios from '../hooks/useAxios';
 import fetchdata from '../utilities/fetchData';
+import { FcShipped } from 'react-icons/fc';
+import { BsGraphDownArrow } from 'react-icons/bs';
 
 const Stats = () => {
     const navigate = useNavigate();
@@ -23,16 +25,21 @@ const Stats = () => {
     const [current, setCurrent] = useState(0);
     const [last, setLast] = useState(0);
     const [missing, setMissing] = useState(0);
+    const [ready, setReady] = useState(0);
+    const [oos, setOos] = useState(0);
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?status=active&email=admin@admin.com`, axiosInstance);
-            const newData2 = await fetchdata(`get-store?status=inactive&email=admin@admin.com`, axiosInstance);
-            const newData3 = await fetchdata('get-missing?status=Solved&email=admin@admin.com', axiosInstance);
-            const newData4 = await fetchdata('get-stocks?email=admin@admin.com', axiosInstance);
-            const newData5 = await fetchdata('get-shipped?shipped=Yes&email=admin@admin.com', axiosInstance);
-            const newData6 = await fetchdata('get-month-sell?month=last&email=admin@admin.com', axiosInstance);
-            const newData7 = await fetchdata('get-month-sell?month=current&email=admin@admin.com', axiosInstance);
-            const newData8 = await fetchdata('get-missing?status=Unsolved&email=admin@admin.com', axiosInstance);
+            const newData = await fetchdata(`get-store?status=active&email=bizfulfill@gmail.com`, axiosInstance);
+            const newData2 = await fetchdata(`get-store?status=inactive&email=bizfulfill@gmail.com`, axiosInstance);
+            const newData3 = await fetchdata('get-missing?status=Solved&email=bizfulfill@gmail.com', axiosInstance);
+            const newData4 = await fetchdata('get-stocks?email=bizfulfill@gmail.com', axiosInstance);
+            const newData5 = await fetchdata('get-customer?status=Shipped&email=bizfulfill@gmail.com', axiosInstance);
+            const newData6 = await fetchdata('get-month-sell?month=last&email=bizfulfill@gmail.com&status=Shipped', axiosInstance);
+            const newData7 = await fetchdata('get-month-sell?month=current&email=bizfulfill@gmail.com&status=Shipped', axiosInstance);
+            const newData8 = await fetchdata('get-missing?status=Unsolved&email=bizfulfill@gmail.com', axiosInstance);
+
+            const newData9 = await fetchdata('get-customer?status=Ready&email=bizfulfill@gmail.com', axiosInstance);
+            const newData10 = await fetchdata('get-customer?status=OOS&email=bizfulfill@gmail.com', axiosInstance);
             setCurrent(newData7.totalProducts);
             setLast(newData6.totalProducts);
             setActive(newData.totalProducts);
@@ -41,6 +48,8 @@ const Stats = () => {
             setStocks(newData4.totalProducts);
             setShipped(newData5.totalProducts);
             setMissing(newData8.totalProducts);
+            setReady(newData9.totalProducts);
+            setOos(newData10.totalProducts);
         }
         fs();
     }, []);
@@ -141,6 +150,30 @@ const Stats = () => {
                 </StatGroup>
                 <div>
                     <TbShoppingCartDiscount className='text-5xl' />
+                </div>
+            </div>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/ready-to-shipped")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>Ready To Shipped</StatLabel>
+                        <StatNumber>{ready}</StatNumber>
+
+                    </Stat>
+                </StatGroup>
+                <div>
+                    <FcShipped className='text-5xl' />
+                </div>
+            </div>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/out-of-stock")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>Out Of Stock</StatLabel>
+                        <StatNumber>{oos}</StatNumber>
+
+                    </Stat>
+                </StatGroup>
+                <div>
+                    <BsGraphDownArrow className='text-5xl' />
                 </div>
             </div>
         </div>

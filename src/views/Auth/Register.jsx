@@ -57,7 +57,6 @@ const Register = () => {
                             <label for="role" className="text-sm">Role</label>
                         </div>
                         <Select required id='role' name='role' placeholder='Select Role'>
-                            <option value='admin'>Admin</option>
                             <option value='storeManager'>Store Manager</option>
                             <option value='warehouseManager'>Warehouse Manager</option>
                         </Select>

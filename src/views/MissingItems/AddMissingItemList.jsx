@@ -84,8 +84,6 @@ const AddMissingItemList = () => {
                                 <Th>Missing Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
-                                <Th>Shipping Label</Th>
-                                <Th>Shipping Slip</Th>
                                 <Th>Notes</Th>
                                 <Th>Action</Th>
                             </Tr>

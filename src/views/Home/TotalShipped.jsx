@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { AuthContext } from '../../context/Provider';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
-import fetchdata from '../../utilities/fetchData';
 import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
-import { Pagination } from 'rsuite';
-import ShippingTableRow from '../ReadyToShipped/ShippingTableRow';
-import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import CustomerTableRow from '../Customer/CustomerTableRow';
+import { Pagination } from 'rsuite';
+import fetchdata from '../../utilities/fetchData';
 
 const TotalShipped = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-shipped?page=1&shipped=Yes&email=${user?.email}`);
+    const data = useFetch(`get-customer?page=1&email=${user?.email}&status=Shipped`);
     const axiosInstance = useAxios();
-    const [refetch, setRefetch] = useState(true);
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
@@ -21,7 +20,7 @@ const TotalShipped = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-shipped?page=${activePage}&shipped=Yes&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}&status=Shipped`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -31,32 +30,18 @@ const TotalShipped = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage, refetch]);
-    const handleShip = async (e) => {
-        setLoading(true);
-        try {
-            const { data } = await axiosInstance.put('update-shipped', { id: e._id });
+    }, [activePage]);
 
-            if (data.modifiedCount == 1) {
-                setRefetch(pre => !pre);
-            }
-        } catch (err) {
-            toast.error(err.response.data.message || err.message, {
-                id: 'clipboard',
-            });
-            setLoading(false);
-        }
-    };
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-shipped?page=1&shipped=Yes&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&status=Shipped`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-shipped?page=1&shipped=Yes&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Shipped`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
@@ -67,8 +52,8 @@ const TotalShipped = () => {
         <div>
             {loading ? <div className='min-h-[500px] flex justify-center items-center'>
                 <Spinner />
-            </div> : <>      <div>
-                <h1 className='text-3xl text-center my-8'>Total  Shipped : {currentData.totalProducts || 0}</h1>
+            </div> : <> <div>
+                <h1 className='text-3xl text-center my-8'>Total Shipped : {currentData.totalProducts || 0}</h1>
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
@@ -83,6 +68,7 @@ const TotalShipped = () => {
                         />
                     </div>
                 </div>
+
                 <TableContainer>
                     <Table variant='simple'>
                         <Thead>
@@ -92,19 +78,21 @@ const TotalShipped = () => {
                                 <Th>Store Name</Th>
                                 <Th>Code</Th>
                                 <Th>Code Type</Th>
+                                <Th>Order ID</Th>
                                 <Th>Product Name</Th>
                                 <Th>Team Code</Th>
                                 <Th>Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
-                                <Th>Order ID</Th>
                                 <Th>Shipping Label</Th>
-                                <Th>Action</Th>
+                                <Th>Shipping Slip</Th>
+                                <Th>Notes</Th>
+
                             </Tr>
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <ShippingTableRow shipped={true} handleShip={handleShip} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow action={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 
@@ -115,9 +103,9 @@ const TotalShipped = () => {
                     <Pagination
                         prev
                         last
+                        maxButtons={10}
                         next
                         first
-                        maxButtons={10}
                         size="lg"
                         total={currentData.totalProducts || 0}
                         limit={10}

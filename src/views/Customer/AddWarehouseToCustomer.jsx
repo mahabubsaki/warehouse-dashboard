@@ -21,8 +21,8 @@ const AddWarehouseToCustomer = () => {
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?email=admin@admin.com&select=yes`, axiosInstance);
-            const newData2 = await fetchdata(`get-asin?email=admin@admin.com&select=yes`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
             }));
@@ -64,7 +64,8 @@ const AddWarehouseToCustomer = () => {
             addedDate: new Date(),
             slip: null,
             notes: null,
-            email: user?.email
+            email: user?.email,
+            status: 'None'
         };
 
 

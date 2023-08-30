@@ -10,7 +10,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const AddWarehouseToCustomerList = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-customer?page=1&email=${user?.email}`);
+    const data = useFetch(`get-customer?page=1&email=${user?.email}&status=None`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -20,7 +20,7 @@ const AddWarehouseToCustomerList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}&status=None`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -35,13 +35,13 @@ const AddWarehouseToCustomerList = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&status=None`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=None`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);

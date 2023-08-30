@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const CustomerTableRow = ({ pd, id, activePage }) => {
+const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }) => {
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
     if (dd) {
@@ -32,7 +32,7 @@ const CustomerTableRow = ({ pd, id, activePage }) => {
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
 
-            <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button>
+            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : <Button onClick={() => handleShipped(pd._id)}>Shipped</Button>}
         </Tr>
     );
 };

@@ -23,8 +23,9 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
         <Tr>
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
-            <Td>{pd['asin'] || 'Not Found'}</Td>
             <Td>{pd['storeName'] || 'Not Found'}</Td>
+            <Td>{pd['asin'] || 'Not Found'}</Td>
+
             <Td>{pd['codeType'] || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.productName || 'Not Found'}</Td>
@@ -34,8 +35,6 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
             <Td>{pd.missingQuantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.tracker || 'Not Found'}</Td>
-            <Td>{pd.shippingLabel || 'Not Found'}</Td>
-            <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
             {!home ? <Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button> : null}
         </Tr>

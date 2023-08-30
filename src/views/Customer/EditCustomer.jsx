@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { Button, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 
 const EditCustomer = () => {
     const [isLoading, setIsLoading] = useState(false);
-
+    const { user } = useContext(AuthContext);
     const [update, setUpdate] = useState(true);
     const { id: myId } = useParams();
     const [data, setData] = useState(null);
@@ -49,7 +50,19 @@ const EditCustomer = () => {
         }
         event.target.reset();
     };
-
+    const handleBtnUpdate = async (status) => {
+        const { data } = await axiosInstance.put('update-customer', { status: status, id: myId });
+        if (data.modifiedCount) {
+            setUpdate((pre) => !pre);
+            toast.success("Supplier Details Updated succesfully", {
+                id: 'clipboard',
+            });
+        } else {
+            toast.error("Something went wrong", {
+                id: 'clipboard',
+            });
+        }
+    };
     const { date, addedDate, storeName, asin, quantity, courier, teamCode, productName, tracker, shippingLabel, invoice } = data || {};
     const dd = date ? format(new Date(date), 'P').split('/') : null;
     if (dd) {
@@ -76,7 +89,7 @@ const EditCustomer = () => {
             </div>
             <div className='flex-1'>
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
-                <form onSubmit={handleUpdate}>
+                {(user.role == 'admin' || user.role == 'storeManager') ? <form onSubmit={handleUpdate}>
                     <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
                             <label htmlFor="tracker">Supplier Tracker: </label>
@@ -126,7 +139,10 @@ const EditCustomer = () => {
                             {isLoading ? <CircularProgress size={'20px'} isIndeterminate color='green.300' /> : null}
                         </Button>
                     </div>
-                </form>
+                </form> : <div className='flex justify-center gap-5 my-4'>
+                    <Button onClick={() => handleBtnUpdate('Ready')}>Ready To Shipped</Button>
+                    <Button onClick={() => handleBtnUpdate('OOS')}>Out Of Stock</Button>
+                </div>}
             </div>
         </div>
     );

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { Button, CircularProgress, Input } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { toast } from 'react-hot-toast';
 import Select from 'react-select';
+import { AuthContext } from '../../context/Provider';
 const EditSupplierWarehouse = () => {
     const [isLoading, setIsLoading] = useState(false);
-
+    const { user } = useContext(AuthContext);
     const [update, setUpdate] = useState(true);
     const { id: myId } = useParams();
     const [data, setData] = useState(null);
@@ -22,27 +23,35 @@ const EditSupplierWarehouse = () => {
 
     const handleUpdate = async (event) => {
         event.preventDefault();
-        const courier = event.target['courier'].value;
-        const supplierTracker = event.target.tracker.value;
+        const courier = event?.target?.['courier']?.value;
+        const supplierTracker = event?.target?.tracker?.value;
+        const notes = event?.target?.notes?.value;
+        const recieved = event?.target?.recieved?.value;
 
-        const formData = {
+        const formData = (user.role == 'warehouseManager') ? {
+            notes,
+            recievedQuantity: recieved,
+            id: myId
+        } : {
             courier: courier.toLowerCase(),
             supplierTracker,
             id: myId
         };
-        const { data } = await axiosInstance.put('update-supplier', formData);
-        console.log(data);
-        if (data.modifiedCount) {
-            setUpdate((pre) => !pre);
-            toast.success("Supplier Details Updated succesfully", {
-                id: 'clipboard',
-            });
-        } else {
-            toast.error("Something went wrong", {
+        try {
+            const { data } = await axiosInstance.put('update-supplier', formData);
+            console.log(data);
+            if (data.success || data.modifiedCount) {
+                setUpdate((pre) => !pre);
+                toast.success("Supplier Details Updated succesfully", {
+                    id: 'clipboard',
+                });
+            }
+            event.target.reset();
+        } catch (err) {
+            toast.error(err.response.data.message || err.message, {
                 id: 'clipboard',
             });
         }
-        event.target.reset();
     };
 
     const { date, addedDate, asin, codeType, supplierOrderId, productName, teamCode, quantity, unitPrice, eda, courier, supplierTracker, _id, storeName } = data || {};
@@ -60,6 +69,7 @@ const EditSupplierWarehouse = () => {
         edd[0] = temp2;
         edd[1] = temp;
     }
+    console.log(user);
     return (
         <div className='flex flex-col md:flex-row bg-white shadow-md p-12 gap-8'>
             <div className='flex-1'>
@@ -77,10 +87,8 @@ const EditSupplierWarehouse = () => {
             <div className='flex-1'>
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
                 <form onSubmit={handleUpdate}>
-                    <div className='flex gap-4 my-4'>
+                    {(user.role == 'storeManager' || user.role == 'admin') ? <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
-                            <label htmlFor="courier">Courier: </label>
-
                             <label htmlFor="courier">Courier: </label>
                             <Select className='mt-3' options={[{ value: 'USPS', label: 'USPC' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
                             </Select>
@@ -89,7 +97,19 @@ const EditSupplierWarehouse = () => {
                             <label htmlFor="tracker">Supplier Tracker: </label>
                             <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
                         </div>
-                    </div>
+                    </div> : <div className='flex gap-4 my-4'>
+                        <div className='flex-1'>
+
+
+                            <label htmlFor="recieved">Recieved Quantity: </label>
+                            <Input type="number" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
+                        </div>
+                        <div className='flex-1'>
+                            <label htmlFor="notes">Notes: </label>
+                            <Input type="text" className='mt-3' id='notes' name='notes' placeholder='Enter Notes' />
+                        </div>
+                    </div>}
+
                     <div className='flex my-6'>
 
                         <Button disabled={isLoading} type='submit' className='flex gap-3' colorScheme={`purple`}>

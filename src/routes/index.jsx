@@ -33,6 +33,8 @@ import EditMissing from "../views/MissingItems/EditMissing";
 import StoreManagerRoute from "../hoc/StoreManagerRoute";
 import WareHouseManagerRoute from "../hoc/WareHouseManagerRoute";
 import Search from "../components/Search";
+import ReadyToShipped from "../views/Home/ReadyToShipped";
+import OutOfStock from "../views/Home/OutOfStock";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -54,6 +56,8 @@ const router = createBrowserRouter([
             { path: "/missing-items-solved", element: <MissingItemsSolved /> },
             { path: "/current-month-sell", element: <CurrentSell /> },
             { path: "/last-month-sell", element: <LastSell /> },
+            { path: "/ready-to-shipped", element: <ReadyToShipped /> },
+            { path: "/out-of-stock", element: <OutOfStock /> },
             { path: "/add-store", element: <StoreManagerRoute><AddStore /></StoreManagerRoute> },
             { path: "/store-list", element: <StoreList /> },
             { path: "/store-list/:id", element: <EditStore /> },
@@ -66,8 +70,8 @@ const router = createBrowserRouter([
             { path: "/add-asin-upc", element: <StoreManagerRoute><AddASINUPC /></StoreManagerRoute> },
             { path: "/add-asin-upc-list", element: <AddASINUPCList /> },
             { path: "/add-asin-upc-list/:id", element: <EditAsin /> },
-            { path: "/add-shipped-item", element: <WareHouseManagerRoute><AddShippedItem /></WareHouseManagerRoute> },
-            { path: "/added-shipped-item-list", element: <AddedShippedItemList /> },
+            // { path: "/add-shipped-item", element: <WareHouseManagerRoute><AddShippedItem /></WareHouseManagerRoute> },
+            // { path: "/added-shipped-item-list", element: <AddedShippedItemList /> },
             { path: "/add-warehouse-to-customer", element: <StoreManagerRoute><AddWarehouseToCustomer /></StoreManagerRoute> },
             { path: "/add-warehouse-to-customer-list", element: <AddWarehouseToCustomerList /> },
             { path: "/add-warehouse-to-customer-list/:id", element: <EditCustomer /> },

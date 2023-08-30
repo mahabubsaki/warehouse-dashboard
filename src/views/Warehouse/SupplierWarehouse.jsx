@@ -22,8 +22,8 @@ const SupplierWarehouse = () => {
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?email=${user.email}`, axiosInstance);
-            const newData2 = await fetchdata(`get-asin?email=${user.email}`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
+            const newData2 = await fetchdata(`get-asin?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
             }));
@@ -76,7 +76,7 @@ const SupplierWarehouse = () => {
         try {
             const response = await axiosInstance.post('add-supplier', formData);
             console.log('POST response:', response.data);
-            if (response.data.stocksAdd.acknowledged && response.data.supplierAdd.acknowledged) {
+            if (response.data.supplierAdd.acknowledged) {
                 toast.success("Supplier data added successfully to warehouse", {
                     id: 'clipboard',
                 });
@@ -88,7 +88,8 @@ const SupplierWarehouse = () => {
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message, {
+            console.log(error);
+            toast.error(error?.response?.data?.message || error?.message, {
                 id: 'clipboard',
             });
 
