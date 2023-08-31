@@ -12,7 +12,7 @@ import ShippingTableRow from '../ReadyToShipped/ShippingTableRow';
 
 const CurrentSell = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-month-sell?month=current&page=1&email=${user?.email}`);
+    const data = useFetch(`get-month-sell?status=Shipped&month=current&page=1&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -22,7 +22,7 @@ const CurrentSell = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-month-sell?page=${activePage}&month=current&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(`get-month-sell?status=Shipped&page=${activePage}&month=current&email=${user?.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -36,13 +36,13 @@ const CurrentSell = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-month-sell?page=1&month=current&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(`get-month-sell?status=Shipped&page=1&month=current&email=${user?.email}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-month-sell?page=1&month=current&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(`get-month-sell?status=Shipped&page=1&month=current&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);

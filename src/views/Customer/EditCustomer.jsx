@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { Button, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { format } from 'date-fns';
@@ -13,6 +13,7 @@ const EditCustomer = () => {
     const { id: myId } = useParams();
     const [data, setData] = useState(null);
     const axiosInstance = useAxios();
+    const navigate = useNavigate();
     useEffect(() => {
         async function fetchdata() {
             const { data } = await axiosInstance.get(`get-single-customer/${myId}`);
@@ -57,6 +58,7 @@ const EditCustomer = () => {
             toast.success("Supplier Details Updated succesfully", {
                 id: 'clipboard',
             });
+            navigate('/');
         } else {
             toast.error("Something went wrong", {
                 id: 'clipboard',

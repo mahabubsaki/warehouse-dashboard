@@ -19,9 +19,8 @@ const StockTableRow = ({ pd, activePage, id, date }) => {
             <Td>{pd['teamCode'] || 'Not Found'}</Td>
             <Td>{pd['productName'] || 'Not Found'}</Td>
             <Td>{pd.totalQuanity || 'Not Found'}</Td>
-
-            <Td>Not Available</Td>
-            <Td>Not Available</Td>
+            <Td>{pd.sold || 'Not Found'}</Td>
+            <Td>{pd.stock || 'Not Found'}</Td>
         </Tr>
     );
 };

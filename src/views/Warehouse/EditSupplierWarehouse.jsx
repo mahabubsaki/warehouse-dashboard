@@ -21,6 +21,9 @@ const EditSupplierWarehouse = () => {
         fetchdata();
     }, [myId, update]);
 
+
+
+    const { date, addedDate, asin, codeType, supplierOrderId, productName, teamCode, quantity, unitPrice, eda, courier, supplierTracker, _id, storeName } = data || {};
     const handleUpdate = async (event) => {
         event.preventDefault();
         const courier = event?.target?.['courier']?.value;
@@ -31,6 +34,7 @@ const EditSupplierWarehouse = () => {
         const formData = (user.role == 'warehouseManager') ? {
             notes,
             recievedQuantity: recieved,
+            teamCode: teamCode,
             id: myId
         } : {
             courier: courier.toLowerCase(),
@@ -53,8 +57,6 @@ const EditSupplierWarehouse = () => {
             });
         }
     };
-
-    const { date, addedDate, asin, codeType, supplierOrderId, productName, teamCode, quantity, unitPrice, eda, courier, supplierTracker, _id, storeName } = data || {};
     const dd = date ? format(new Date(date), 'P').split('/') : null;
     if (dd) {
         const temp = dd[0];
