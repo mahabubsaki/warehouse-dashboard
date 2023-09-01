@@ -45,6 +45,10 @@ const Search = () => {
         }
     ]);
 
+
+    const price = allData[6].data.reduce((pre, cur) => pre + parseInt(cur.price), 0);
+    const quantity = allData[6].data.reduce((pre, cur) => pre + parseInt(cur.quantity), 0);
+    const tax = allData[6].data.reduce((pre, cur) => pre + parseInt(cur.totalTax), 0);
     const value = searchParams.get('keyword');
 
     const axiosInstance = useAxios();
@@ -332,14 +336,13 @@ const Search = () => {
                                     allData[5].data.map((pd, index) =>
                                         <Tr>
                                             <Td>{index + 1}</Td>
-                                            <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>
                                             <Td>{pd['productName'] || 'Not Found'}</Td>
-                                            <Td>{pd.recievedQuanity || 'Not Found'}</Td>
+                                            <Td>{pd.totalQuanity || 'Not Found'}</Td>
 
-                                            <Td>{(pd.recievedQuanity && pd.quantity) ? pd.recievedQuanity - pd.quantity : '0'}</Td>
-                                            <Td>{pd.quantity || 'Not Found'}</Td>
+                                            <Td>{pd.sold || 'Not Found'}</Td>
+                                            <Td>{pd.stock || 'Not Found'}</Td>
                                         </Tr>
                                     )
                                 }
@@ -390,8 +393,8 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantityReceived || 'Not Found'}</Td>
                                             <Td>{pd.eda ? format(new Date(pd.eda), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
-                                            {id == 1 ? <> <Td rowSpan={allData[6].data.length}>{avgPrice}</Td>
-                                                <Td rowSpan={allData[6].data.length}>{avgTaxQuan}</Td></> : null}
+                                            {index == 0 ? <> <Td rowSpan={allData[6].data.length}>{(price / quantity).toFixed(3)}</Td>
+                                                <Td rowSpan={allData[6].data.length}>{(tax / quantity).toFixed(3)}</Td></> : null}
                                         </Tr>
                                     )
                                 }
@@ -430,8 +433,9 @@ const Search = () => {
                                         <Tr>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
-                                            <Td>{pd['asin'] || 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
+                                            <Td>{pd['asin'] || 'Not Found'}</Td>
+
                                             <Td>{pd.codeType || 'Not Found'}</Td>
                                             <Td>{pd.productName || 'Not Found'}</Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>

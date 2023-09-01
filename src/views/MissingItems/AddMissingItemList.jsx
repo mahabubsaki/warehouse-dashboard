@@ -36,13 +36,13 @@ const AddMissingItemList = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-missing?page=1&status=Unsolved&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(`get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-missing?page=1&status=Unsolved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(`get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
             setCurrentData(newData);
             setActivePage(1);
             setLoading(false);
