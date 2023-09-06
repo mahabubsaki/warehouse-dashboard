@@ -10,7 +10,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const Stock = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-stocks?page=1&email=${user?.email}`);
+    const data = useFetch(`get-stocks?page=1&email=bizfulfill@gmail.com`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -20,7 +20,7 @@ const Stock = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-stocks?page=${activePage}&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(`get-stocks?page=${activePage}&email=bizfulfill@gmail.com`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -75,7 +75,7 @@ const Stock = () => {
                                 <Th>Store Name</Th>
                                 <Th>Team Code</Th>
                                 <Th>Product Name</Th>
-                                <Th>Total Quantity</Th>
+                                <Th>Total Recieved</Th>
                                 <Th>Sold</Th>
                                 <Th>Stock</Th>
 

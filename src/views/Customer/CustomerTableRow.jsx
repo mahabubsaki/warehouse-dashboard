@@ -1,11 +1,13 @@
 import { Button, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Provider';
 
 const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }) => {
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
     if (dd) {
         const temp = dd[0];
         const temp2 = dd[1];
@@ -32,7 +34,7 @@ const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
 
-            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : <Button onClick={() => handleShipped(pd._id)}>Shipped</Button>}
+            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : (user.role == 'admin' || user.role == 'warehouseManager') ? <Button onClick={() => handleShipped(pd._id)}>Shipped</Button> : null}
         </Tr>
     );
 };

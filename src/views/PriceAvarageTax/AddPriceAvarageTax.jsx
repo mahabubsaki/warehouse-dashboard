@@ -57,6 +57,7 @@ const AddPriceAvarageTax = () => {
             e.target.reset();
         }
     };
+
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Average Price, Avarage TAX</h1>
@@ -72,7 +73,7 @@ const AddPriceAvarageTax = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
 
                                 <div>
@@ -89,31 +90,31 @@ const AddPriceAvarageTax = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="price">Price: </label>
-                                    <Input type="number" className='mt-3' id='price' name='price' placeholder='Enter Price' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='price' name='price' placeholder='Enter Price' />
                                 </div>
                                 <div>
                                     <label htmlFor="total-tax">Total TAX: </label>
-                                    <Input type="number" className='mt-3' id='total-tax' name='total-tax' placeholder='Enter Total TAX' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='total-tax' name='total-tax' placeholder='Enter Total TAX' />
                                 </div>
                                 <div>
                                     <label htmlFor="order-id">Order ID: </label>
-                                    <Input type="number" className='mt-3' id='order-id' name='order-id' placeholder='Enter Order ID' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='order-id' name='order-id' placeholder='Enter Order ID' />
                                 </div>
                                 <div>
                                     <label htmlFor="team-code">Team Code: </label>
-                                    <Input type="number" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='team-code' name='team-code' placeholder='Enter Team Code' />
                                 </div>
                                 <div>
                                     <label htmlFor="quantity-recieved">Quantity Recieved: </label>
-                                    <Input type="number" className='mt-3' id='quantity-recieved' name='quantity-recieved' placeholder='Enter Quantity Recieved' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='quantity-recieved' name='quantity-recieved' placeholder='Enter Quantity Recieved' />
                                 </div>
                                 <div>
                                     <label htmlFor="eda">EDA: </label>
-                                    <Input type="datetime-local" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
+                                    <Input type="date" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
                                 </div>
                             </div>
                             <div className='flex my-6'>
@@ -131,4 +132,4 @@ const AddPriceAvarageTax = () => {
     );
 };
 
-export default AddPriceAvarageTax;
+export default AddPriceAvarageTax;;

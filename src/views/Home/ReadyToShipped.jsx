@@ -100,7 +100,7 @@ const ReadyToShipped = () => {
                                 <Th>Shipping Label</Th>
                                 <Th>Shipping Slip</Th>
                                 <Th>Notes</Th>
-                                <Th>Action</Th>
+                                {user.role == 'admin' ? <Th>Action</Th> : null}
                             </Tr>
                         </Thead>
                         <Tbody>

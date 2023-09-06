@@ -69,7 +69,7 @@ const EditAsin = () => {
                     <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
                             <label htmlFor="minimum-price">New Minimum Price: </label>
-                            <Input type="number" className='mt-3' id='minimum-price' name='minimum-price' placeholder='Enter New Minimum Price' />
+                            <Input type="number" step="0.00001" className='mt-3' id='minimum-price' name='minimum-price' placeholder='Enter New Minimum Price' />
                         </div>
                         <div className='flex-1'>
                             <label htmlFor="product-image">Product Image: </label>

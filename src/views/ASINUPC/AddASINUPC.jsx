@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Button, Card, CardBody, CircularProgress, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
@@ -50,6 +50,11 @@ const AddASINUPC = () => {
             // e.target.reset();
         }
     };
+    const [autoDate, setAutoDate] = useState(new Date().toISOString().split('T')[0]);
+    useEffect(() => {
+        const [month, date, year] = new Date().toLocaleDateString().split('/');
+        setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
+    }, []);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add ASIN/UPC</h1>
@@ -63,7 +68,7 @@ const AddASINUPC = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input disabled value={autoDate} type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
                                 <div>
                                     <label htmlFor="asin-upc-code">ASIN/UPC Code: </label>
@@ -83,7 +88,7 @@ const AddASINUPC = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="minium-price">Minimum Price: </label>
-                                    <Input type="number" className='mt-3' id='minium-price' name='minium-price' placeholder='Enter Minimum Price' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='minium-price' name='minium-price' placeholder='Enter Minimum Price' />
                                 </div>
                                 <div>
                                     <label htmlFor="store-type">Code Type: </label>
@@ -109,7 +114,7 @@ const AddASINUPC = () => {
                     </CardBody>
                 </Stack>
             </Card>
-        </div>
+        </div >
     );
 };
 

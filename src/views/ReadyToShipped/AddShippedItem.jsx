@@ -115,6 +115,11 @@ const AddShippedItem = () => {
             setStoreName(null);
         }
     };
+    const [autoDate, setAutoDate] = useState(new Date().toISOString().split('T')[0]);
+    useEffect(() => {
+        const [month, date, year] = new Date().toLocaleDateString().split('/');
+        setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
+    }, []);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Ready To Shipped</h1>
@@ -128,7 +133,7 @@ const AddShippedItem = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input disabled value={autoDate} type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
                                 <div>
                                     <label htmlFor="store-name">Store Name: </label>
@@ -152,7 +157,7 @@ const AddShippedItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input readOnly value={existing ? existing.quantity : ''} type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input readOnly value={existing ? existing.quantity : ''} type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="courier">Courier: </label>
@@ -182,7 +187,7 @@ const AddShippedItem = () => {
                     </CardBody>
                 </Stack>
             </Card>
-        </div>
+        </div >
     );
 };
 

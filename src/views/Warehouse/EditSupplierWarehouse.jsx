@@ -89,28 +89,53 @@ const EditSupplierWarehouse = () => {
             <div className='flex-1'>
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
                 <form onSubmit={handleUpdate}>
-                    {(user.role == 'storeManager' || user.role == 'admin') ? <div className='flex gap-4 my-4'>
-                        <div className='flex-1'>
-                            <label htmlFor="courier">Courier: </label>
-                            <Select className='mt-3' options={[{ value: 'USPS', label: 'USPC' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
-                            </Select>
-                        </div>
-                        <div className='flex-1'>
-                            <label htmlFor="tracker">Supplier Tracker: </label>
-                            <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
-                        </div>
-                    </div> : <div className='flex gap-4 my-4'>
-                        <div className='flex-1'>
+                    {user.role == 'storeManager' ?
+                        <div className='flex gap-4 my-4'>
+                            <div className='flex-1'>
+                                <label htmlFor="courier">Courier: </label>
+                                <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
+                                </Select>
+                            </div>
+                            <div className='flex-1'>
+                                <label htmlFor="tracker">Supplier Tracker: </label>
+                                <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                            </div>
+                        </div> : user.role == 'warehouseManager' ? <div className='flex gap-4 my-4'>
+                            <div className='flex-1'>
 
 
-                            <label htmlFor="recieved">Recieved Quantity: </label>
-                            <Input type="number" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
-                        </div>
-                        <div className='flex-1'>
-                            <label htmlFor="notes">Notes: </label>
-                            <Input type="text" className='mt-3' id='notes' name='notes' placeholder='Enter Notes' />
-                        </div>
-                    </div>}
+                                <label htmlFor="recieved">Recieved Quantity: </label>
+                                <Input type="number" step="0.00001" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
+                            </div>
+                            <div className='flex-1'>
+                                <label htmlFor="notes">Notes: </label>
+                                <Input type="text" className='mt-3' id='notes' name='notes' placeholder='Enter Notes' />
+                            </div>
+                        </div> : <>
+                            <div className='flex gap-4 my-4'>
+                                <div className='flex-1'>
+                                    <label htmlFor="courier">Courier: </label>
+                                    <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
+                                    </Select>
+                                </div>
+                                <div className='flex-1'>
+                                    <label htmlFor="tracker">Supplier Tracker: </label>
+                                    <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                                </div>
+                            </div>
+                            <div className='flex gap-4 my-4'>
+                                <div className='flex-1'>
+
+
+                                    <label htmlFor="recieved">Recieved Quantity: </label>
+                                    <Input type="number" step="0.00001" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
+                                </div>
+                                <div className='flex-1'>
+                                    <label htmlFor="notes">Notes: </label>
+                                    <Input type="text" className='mt-3' id='notes' name='notes' placeholder='Enter Notes' />
+                                </div>
+                            </div>
+                        </>}
 
                     <div className='flex my-6'>
 

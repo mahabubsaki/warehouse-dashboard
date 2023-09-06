@@ -20,6 +20,7 @@ const AddASINUPCList = () => {
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         setLoading(true);
         try {

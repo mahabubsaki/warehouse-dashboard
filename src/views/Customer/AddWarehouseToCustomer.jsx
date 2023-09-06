@@ -21,7 +21,7 @@ const AddWarehouseToCustomer = () => {
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=${user.email}&select=yes`, axiosInstance);
             const newData2 = await fetchdata(`get-asin?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
@@ -59,7 +59,7 @@ const AddWarehouseToCustomer = () => {
             quantity: form.quantity.value,
             courier: form.courier.value,
             shippingLabel: form['shipping-label'].value,
-            invoice: form.invoice.value,
+            invoice: !!form.invoice.value ? form.tracker.value : 'Not Available',
             tracker: form.tracker.value,
             addedDate: new Date(),
             slip: null,
@@ -67,7 +67,7 @@ const AddWarehouseToCustomer = () => {
             email: user?.email,
             status: 'None'
         };
-
+        console.log(formData);
 
 
         try {
@@ -113,6 +113,11 @@ const AddWarehouseToCustomer = () => {
             setStoreName(null);
         }
     };
+    const [autoDate, setAutoDate] = useState(new Date().toISOString().split('T')[0]);
+    useEffect(() => {
+        const [month, date, year] = new Date().toLocaleDateString().split('/');
+        setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
+    }, []);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add Shipping Items</h1>
@@ -126,7 +131,7 @@ const AddWarehouseToCustomer = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input disabled value={autoDate} type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
                                 <div>
                                     <label htmlFor="store-name">Store Name: </label>
@@ -154,7 +159,7 @@ const AddWarehouseToCustomer = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="courier">Courier: </label>
@@ -185,7 +190,7 @@ const AddWarehouseToCustomer = () => {
                     </CardBody>
                 </Stack>
             </Card>
-        </div>
+        </div >
     );
 };
 

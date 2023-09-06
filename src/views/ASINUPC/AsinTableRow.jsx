@@ -1,11 +1,14 @@
 import { Button, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Provider';
 
 const AsinTableRow = ({ pd, id, activePage }) => {
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    console.log(user);
     if (dd) {
         const temp = dd[0];
         const temp2 = dd[1];

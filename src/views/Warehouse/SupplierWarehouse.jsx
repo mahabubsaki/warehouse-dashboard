@@ -22,7 +22,7 @@ const SupplierWarehouse = () => {
 
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
+            const newData = await fetchdata(`get-store?email=${user.email}`, axiosInstance);
             const newData2 = await fetchdata(`get-asin?email=bizfulfill@gmail.com&select=yes`, axiosInstance);
             setStores(newData.data.map(e => {
                 return { value: e['store-name'], label: e['store-name'] };
@@ -117,6 +117,12 @@ const SupplierWarehouse = () => {
             setStoreName(null);
         }
     };
+    const [autoDate, setAutoDate] = useState(new Date().toISOString().split('T')[0]);
+    useEffect(() => {
+        const [month, date, year] = new Date().toLocaleDateString().split('/');
+        setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
+    }, []);
+    console.log(autoDate);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add order to warehouse</h1>
@@ -131,7 +137,7 @@ const SupplierWarehouse = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input value={autoDate} disabled type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
 
                                 </div>
                                 <div>
@@ -160,15 +166,15 @@ const SupplierWarehouse = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="unit-price">Unit Price: </label>
-                                    <Input type="number" className='mt-3' id='unit-price' name='unit-price' placeholder='Enter Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='unit-price' name='unit-price' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="eda">EDA: </label>
-                                    <Input type="datetime-local" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
+                                    <Input type="date" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
                                 </div>
                             </div>
                             <div className='flex my-6'>
@@ -186,4 +192,4 @@ const SupplierWarehouse = () => {
     );
 };
 
-export default SupplierWarehouse;
+export default SupplierWarehouse;;

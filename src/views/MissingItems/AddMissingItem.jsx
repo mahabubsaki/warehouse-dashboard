@@ -123,7 +123,7 @@ const AddMissingItem = () => {
                             <div className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input disabled defaultValue={new Date().toISOString().slice(0, 10)} type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
                                 <div>
                                     <label htmlFor="store-name">Store Name: </label>
@@ -147,15 +147,15 @@ const AddMissingItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="expected-quantity">Expected Quantity: </label>
-                                    <Input type="number" className='mt-3' id='expected-quantity' name='expected-quantity' placeholder='Enter Expected Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='expected-quantity' name='expected-quantity' placeholder='Enter Expected Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="recieved-quantity">Recieved Quantity: </label>
-                                    <Input type="number" className='mt-3' id='recieved-quantity' name='recieved-quantity' placeholder='Enter Recieved Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='recieved-quantity' name='recieved-quantity' placeholder='Enter Recieved Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="missing-quantity">Missing Quantity: </label>
-                                    <Input type="number" className='mt-3' id='missing-quantity' name='missing-quantity' placeholder='Enter Missing Quantity' />
+                                    <Input type="number" step="0.00001" className='mt-3' id='missing-quantity' name='missing-quantity' placeholder='Enter Missing Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="supplier-racker">Supplier Tracker: </label>
@@ -163,7 +163,7 @@ const AddMissingItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="eda">EDA: </label>
-                                    <Input type="datetime-local" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
+                                    <Input type="date" className='mt-3' id='eda' name='eda' placeholder='Estimated Date Of Arrival' />
                                 </div>
                             </div>
                             <div className='flex my-6'>
@@ -177,4 +177,4 @@ const AddMissingItem = () => {
     );
 };
 
-export default AddMissingItem;
+export default AddMissingItem;;

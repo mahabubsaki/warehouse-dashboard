@@ -50,7 +50,11 @@ const AddStore = () => {
             e.target.reset();
         }
     };
-
+    const [autoDate, setAutoDate] = useState(new Date().toISOString().split('T')[0]);
+    useEffect(() => {
+        const [month, date, year] = new Date().toLocaleDateString().split('/');
+        setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
+    }, []);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add Store</h1>
@@ -64,7 +68,7 @@ const AddStore = () => {
                             <div onSubmit={handlePostStore} className='grid grid-cols-1 md:grid-cols-2 gap-6 xl:grid-cols-3'>
                                 <div>
                                     <label htmlFor="date">Date: </label>
-                                    <Input type="datetime-local" className='mt-3' id='date' name='date' placeholder='Enter Date' />
+                                    <Input disabled value={autoDate} type="date" className='mt-3' id='date' name='date' placeholder='Enter Date' />
                                 </div>
                                 <div>
                                     <label htmlFor="store-name">Store Name: </label>
