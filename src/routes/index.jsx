@@ -35,6 +35,10 @@ import WareHouseManagerRoute from "../hoc/WareHouseManagerRoute";
 import Search from "../components/Search";
 import ReadyToShipped from "../views/Home/ReadyToShipped";
 import OutOfStock from "../views/Home/OutOfStock";
+import EditStock from "../views/Home/EditStock";
+import ReturnedList from "../views/Home/ReturnedList";
+import EditReturnedList from "../views/Home/EditReturnedList";
+import Returned from "../views/Home/Returned";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -52,6 +56,7 @@ const router = createBrowserRouter([
         children: [
             { path: "/", element: <Home /> },
             { path: "/stocks", element: <Stock /> },
+            { path: "/stocks/:id", element: <EditStock /> },
             { path: "/total-shipped", element: <TotalShipped /> },
             { path: "/missing-items-solved", element: <MissingItemsSolved /> },
             { path: "/current-month-sell", element: <CurrentSell /> },
@@ -61,6 +66,9 @@ const router = createBrowserRouter([
             { path: "/add-store", element: <StoreManagerRoute><AddStore /></StoreManagerRoute> },
             { path: "/store-list", element: <StoreList /> },
             { path: "/store-list/:id", element: <EditStore /> },
+            { path: "/returned-list", element: <ReturnedList /> },
+            { path: "/returned-list/:id", element: <EditReturnedList /> },
+            { path: "/returned", element: <Returned /> },
             { path: "/supplier-warehouse", element: <StoreManagerRoute><SupplierWarehouse /></StoreManagerRoute> },
             { path: "/supplier-warehouse-list", element: <SupplierWarehouseList /> },
             { path: "/supplier-warehouse-list/:id", element: <EditSupplierWarehouse /> },
@@ -76,7 +84,7 @@ const router = createBrowserRouter([
             { path: "/add-warehouse-to-customer-list", element: <AddWarehouseToCustomerList /> },
             { path: "/add-warehouse-to-customer-list/:id", element: <EditCustomer /> },
             { path: "/add-price-avarage-tax", element: <StoreManagerRoute><AddPriceAvarageTax /></StoreManagerRoute> },
-            { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
+            // { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
             { path: "/active-stores", element: <ActiveStores /> },
             { path: "/inactive-stores", element: <InactiveStores /> },
             { path: "/search", element: <Search /> }

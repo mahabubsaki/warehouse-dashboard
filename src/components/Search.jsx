@@ -36,7 +36,7 @@ const Search = () => {
             data: []
         },
         {
-            name: "taxCollection",
+            name: "returnCollection",
             data: []
         },
         {
@@ -89,8 +89,8 @@ const Search = () => {
                 allData[0].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Store Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>
@@ -125,8 +125,8 @@ const Search = () => {
                 allData[1].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">ASIN/UPC Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>
@@ -165,8 +165,8 @@ const Search = () => {
                 allData[2].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Supplier to warehouse Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>
@@ -211,8 +211,8 @@ const Search = () => {
                 allData[3].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Customer to warehouse Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>
@@ -263,8 +263,8 @@ const Search = () => {
                 allData[4].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Missing Items Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>
@@ -319,8 +319,8 @@ const Search = () => {
                 allData[5].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Stocks Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Store Name</Th>
@@ -356,25 +356,18 @@ const Search = () => {
             }
             {
                 allData[6].data.length ? <>
-                    <h1 className="text-2xl font-semibold my-4 text-center">Avarage Price, Avarage Tax Data</h1>
+                    <h1 className="text-2xl font-semibold my-4 text-center">Total Returned Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
-                                    <Th>Date</Th>
-                                    <Th>ASIN</Th>
-                                    <Th>Walmart Link</Th>
-                                    <Th>Walmart Tracking</Th>
-                                    <Th>Quantity</Th>
-                                    <Th>Price</Th>
-                                    <Th>Total Tax</Th>
-                                    <Th>Order ID</Th>
+                                    <Th>Store Name</Th>
                                     <Th>Team Code</Th>
-                                    <Th>Quanity Recieved</Th>
-                                    <Th>EDA</Th>
-                                    <Th>Avg. Price</Th>
-                                    <Th>Avg. Tax / Avg. Quantity</Th>
+                                    <Th>Product Name</Th>
+                                    <Th>Returned Quantity</Th>
+                                    <Th>Order ID</Th>
+                                    <Th>Return Label</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -382,19 +375,12 @@ const Search = () => {
                                     allData[6].data.map((pd, index) =>
                                         <Tr>
                                             <Td>{index + 1}</Td>
-                                            <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
-                                            <Td>{pd['asin'] || 'Not Found'}</Td>
-                                            <Td>{pd['walmartLink'] || 'Not Found'}</Td>
-                                            <Td>{pd['walmartTracking'] || 'Not Found'}</Td>
-                                            <Td>{pd.quantity || 'Not Found'}</Td>
-                                            <Td>{pd.price || 'Not Found'}</Td>
-                                            <Td>{pd.totalTax || 'Not Found'}</Td>
+                                            <Td>{pd['storeName'] || 'Not Found'}</Td>
+                                            <Td>{pd['teamCode'] || 'Not Found'}</Td>
+                                            <Td>{pd['productName'] || 'Not Found'}</Td>
+                                            <Td>{pd.returned || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.teamCode || 'Not Found'}</Td>
-                                            <Td>{pd.quantityReceived || 'Not Found'}</Td>
-                                            <Td>{pd.eda ? format(new Date(pd.eda), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
-                                            {index == 0 ? <> <Td rowSpan={allData[6].data.length}>{(price / quantity).toFixed(3)}</Td>
-                                                <Td rowSpan={allData[6].data.length}>{(tax / quantity).toFixed(3)}</Td></> : null}
+                                            <Td>{pd.returnLabel || 'Not Found'}</Td>
                                         </Tr>
                                     )
                                 }
@@ -410,8 +396,8 @@ const Search = () => {
                 allData[7].data.length ? <>
                     <h1 className="text-2xl font-semibold my-4 text-center">Shipped Data</h1>
                     <TableContainer>
-                        <Table variant='simple'>
-                            <Thead>
+                        <Table size={'lg'} variant='simple'>
+                            <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                                 <Tr>
                                     <Th>ID</Th>
                                     <Th>Date</Th>

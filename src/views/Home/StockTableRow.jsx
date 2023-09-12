@@ -1,9 +1,11 @@
-import { Td, Tr } from '@chakra-ui/react';
+import { Button, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const StockTableRow = ({ pd, activePage, id, date }) => {
     const dd = date ? format(new Date(pd.date), 'P').split('/') : null;
+    const navigate = useNavigate();
 
     if (dd) {
         const temp = dd[0];
@@ -18,9 +20,14 @@ const StockTableRow = ({ pd, activePage, id, date }) => {
             <Td>{pd['storeName'] || 'Not Found'}</Td>
             <Td>{pd['teamCode'] || 'Not Found'}</Td>
             <Td>{pd['productName'] || 'Not Found'}</Td>
-            <Td>{pd.totalQuanity || 'Not Found'}</Td>
+            <Td>{pd.totalRecieved || 'Not Found'}</Td>
             <Td>{pd.sold || 'Not Found'}</Td>
             <Td>{pd.stock || 'Not Found'}</Td>
+            <Td>
+                <Button onClick={() => navigate(`/stocks/${pd._id}`)}>
+                    Edit Stock
+                </Button>
+            </Td>
         </Tr>
     );
 };

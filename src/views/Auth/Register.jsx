@@ -59,6 +59,7 @@ const Register = () => {
                         <Select required id='role' name='role' placeholder='Select Role'>
                             <option value='storeManager'>Store Manager</option>
                             <option value='warehouseManager'>Warehouse Manager</option>
+                            <option value='warehouseAdmin'>Warehouse Admin</option>
                         </Select>
                     </div>
                     <div>

@@ -68,8 +68,8 @@ const Stock = () => {
                     </div>
                 </div>
                 <TableContainer>
-                    <Table variant='simple'>
-                        <Thead>
+                    <Table size={'lg'} variant='simple'>
+                        <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                             <Tr>
                                 <Th>ID</Th>
                                 <Th>Store Name</Th>
@@ -78,6 +78,7 @@ const Stock = () => {
                                 <Th>Total Recieved</Th>
                                 <Th>Sold</Th>
                                 <Th>Stock</Th>
+                                <Th>Action</Th>
 
                             </Tr>
                         </Thead>

@@ -30,16 +30,26 @@ const EditSupplierWarehouse = () => {
         const supplierTracker = event?.target?.tracker?.value;
         const notes = event?.target?.notes?.value;
         const recieved = event?.target?.recieved?.value;
+        if (parseInt(recieved) > quantity) {
+            return toast.error("You can't recive more than quantity");
+        }
 
         const formData = (user.role == 'warehouseManager') ? {
             notes,
             recievedQuantity: recieved,
             teamCode: teamCode,
             id: myId
-        } : {
+        } : (user.role == 'storeManager') ? {
             courier: courier.toLowerCase(),
             supplierTracker,
             id: myId
+        } : {
+            id: myId,
+            notes,
+            recievedQuantity: recieved,
+            teamCode: teamCode,
+            courier: courier.toLowerCase(),
+            supplierTracker,
         };
         try {
             const { data } = await axiosInstance.put('update-supplier', formData);

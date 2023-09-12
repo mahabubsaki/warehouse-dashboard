@@ -91,7 +91,7 @@ const EditCustomer = () => {
             </div>
             <div className='flex-1'>
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
-                {(user.role == 'admin' || user.role == 'storeManager') ? <form onSubmit={handleUpdate}>
+                {(user.role == 'admin' || user.role == 'storeManager' || user.role == 'warehouseAdmin') ? <form onSubmit={handleUpdate}>
                     <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
                             <label htmlFor="tracker">Supplier Tracker: </label>

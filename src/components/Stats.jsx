@@ -12,6 +12,8 @@ import useAxios from '../hooks/useAxios';
 import fetchdata from '../utilities/fetchData';
 import { FcShipped } from 'react-icons/fc';
 import { BsGraphDownArrow } from 'react-icons/bs';
+import { GiReturnArrow } from 'react-icons/gi';
+import { MdPlaylistAddCheckCircle } from 'react-icons/md';
 
 const Stats = () => {
     const navigate = useNavigate();
@@ -27,6 +29,8 @@ const Stats = () => {
     const [missing, setMissing] = useState(0);
     const [ready, setReady] = useState(0);
     const [oos, setOos] = useState(0);
+    const [returned, setReturned] = useState(0);
+    const [returnedList, setReturnedList] = useState(0);
     useEffect(() => {
         async function fs() {
             const newData = await fetchdata(`get-store?status=active&email=bizfulfill@gmail.com`, axiosInstance);
@@ -40,6 +44,8 @@ const Stats = () => {
 
             const newData9 = await fetchdata('get-customer?status=Ready&email=bizfulfill@gmail.com', axiosInstance);
             const newData10 = await fetchdata('get-customer?status=OOS&email=bizfulfill@gmail.com', axiosInstance);
+            const newData11 = await fetchdata('get-returned-list?email=bizfulfill@gmail.com&status=Yes', axiosInstance);
+            const newData12 = await fetchdata('get-returned-list?email=bizfulfill@gmail.com&status=No', axiosInstance);
             setCurrent(newData7.totalProducts);
             setLast(newData6.totalProducts);
             setActive(newData.totalProducts);
@@ -50,6 +56,8 @@ const Stats = () => {
             setMissing(newData8.totalProducts);
             setReady(newData9.totalProducts);
             setOos(newData10.totalProducts);
+            setReturnedList(newData11.totalProducts);
+            setReturned(newData12.totalProducts);
         }
         fs();
     }, []);
@@ -174,6 +182,30 @@ const Stats = () => {
                 </StatGroup>
                 <div>
                     <BsGraphDownArrow className='text-5xl' />
+                </div>
+            </div>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/returned")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>Returned</StatLabel>
+                        <StatNumber>{returned}</StatNumber>
+
+                    </Stat>
+                </StatGroup>
+                <div>
+                    <GiReturnArrow className='text-5xl' />
+                </div>
+            </div>
+            <div style={{ background: `linear-gradient(45deg, ${getRandomPurpleShade()}, ${getRandomPurpleShade()})` }} onClick={() => navigate("/returned-list")} className='bg-white shadow items-center justify-between flex px-6 py-8 rounded-md cursor-pointer'>
+                <StatGroup>
+                    <Stat>
+                        <StatLabel>Returned List</StatLabel>
+                        <StatNumber>{returnedList}</StatNumber>
+
+                    </Stat>
+                </StatGroup>
+                <div>
+                    <MdPlaylistAddCheckCircle className='text-5xl' />
                 </div>
             </div>
         </div>

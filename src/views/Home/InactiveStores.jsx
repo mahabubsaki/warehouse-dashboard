@@ -77,8 +77,8 @@ const InactiveStores = () => {
                     </div>
                 </div>
                 <TableContainer>
-                    <Table variant='simple'>
-                        <Thead>
+                    <Table size={'lg'} variant='simple'>
+                        <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                             <Tr>
                                 <Th>ID</Th>
                                 <Th>Date</Th>

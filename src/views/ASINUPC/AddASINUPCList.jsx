@@ -76,8 +76,8 @@ const AddASINUPCList = () => {
 
                 <TableContainer>
                     <Table size={'lg'} variant='simple' >
-                        <Thead>
-                            <Tr>
+                        <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
+                            <Tr >
                                 <Th>ID</Th>
                                 <Th>Date</Th>
                                 <Th>ASIN/UPC Code</Th>

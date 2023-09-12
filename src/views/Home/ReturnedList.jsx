@@ -1,27 +1,41 @@
-import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import MissingTableRow from '../MissingItems/MissingTableRow';
-import Pagination from 'rsuite/esm/Pagination/Pagination';
-import { useFetch } from '../../hooks/useFetch';
-import useAxios from '../../hooks/useAxios';
-import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
+import useAxios from '../../hooks/useAxios';
+import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { FiSearch } from 'react-icons/fi';
+import { Pagination } from 'rsuite';
+import RetrunTableRow from './RetrunTableRow';
+import { useFetch } from '../../hooks/useFetch';
+import fetchdata from '../../utilities/fetchData';
+import { toast } from 'react-hot-toast';
 
-const MissingItemsSolved = () => {
+const ReturnedList = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-missing?page=1&status=Solved&email=${user?.email}`);
+    const data = useFetch(`get-returned-list?page=1&email=bizfulfill@gmail.comstatus=Yes`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
-    const inputRef = useRef();
     const [loading, setLoading] = useState(true);
-
+    const [refetch, setRefetch] = useState(false);
+    const inputRef = useRef();
+    const handleReturnList = async (uid) => {
+        try {
+            const data = await axiosInstance.post('add-returned', { id: uid });
+            setRefetch((pre) => !pre);
+            toast.success("Moved to Returned successfully", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err.response.data.message || err.message, {
+                id: 'clipboard',
+            });
+        }
+    };
     useEffect(() => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-missing?page=${activePage}&status=Solved&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(`get-returned-list?page=${activePage}&email=bizfulfill@gmail.com&status=Yes`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -31,17 +45,17 @@ const MissingItemsSolved = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-missing?page=1&status=Solved&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(`get-returned-list?page=1&email=${user?.email}&status=Yes`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-missing?page=1&status=Solved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(`get-returned-list?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Yes`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
@@ -52,8 +66,8 @@ const MissingItemsSolved = () => {
         <div>
             {loading ? <div className='min-h-[500px] flex justify-center items-center'>
                 <Spinner />
-            </div> : <>    <div>
-                <h1 className='text-3xl text-center my-8'>Total Missing Items Solved : {currentData.totalProducts || 0}</h1>
+            </div> : <><div>
+                <h1 className='text-3xl text-center my-8'>Total Returned List : {currentData.totalProducts || 0}</h1>
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
@@ -73,24 +87,18 @@ const MissingItemsSolved = () => {
                         <Thead fontStyle={'italic'} backgroundColor={'#B5FE83'}>
                             <Tr>
                                 <Th>ID</Th>
-                                <Th>Date</Th>
                                 <Th>Store Name</Th>
-                                <Th>Code</Th>
-                                <Th>Code Type</Th>
-                                <Th>Order ID</Th>
-                                <Th>Product Name</Th>
                                 <Th>Team Code</Th>
-                                <Th>Recieved Quantity</Th>
-                                <Th>Quantity</Th>
-                                <Th>Missing Quantity</Th>
-                                <Th>Courier</Th>
-                                <Th>Tracker</Th>
-                                <Th>Shipping Label</Th>
+                                <Th>Product Name</Th>
+                                <Th>Returned Quantity</Th>
+                                <Th>Order ID</Th>
+                                <Th>Return Label</Th>
+                                <Th>Action</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow home={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <RetrunTableRow handleReturnList={handleReturnList} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 
@@ -102,8 +110,8 @@ const MissingItemsSolved = () => {
                         prev
                         last
                         next
-                        first
                         maxButtons={10}
+                        first
                         size="lg"
                         total={currentData.totalProducts || 0}
                         limit={10}
@@ -115,4 +123,4 @@ const MissingItemsSolved = () => {
     );
 };
 
-export default MissingItemsSolved;
+export default ReturnedList;

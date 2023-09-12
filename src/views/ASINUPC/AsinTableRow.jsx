@@ -1,4 +1,4 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,7 @@ const AsinTableRow = ({ pd, id, activePage }) => {
             <Td>${pd['minimumPrice'] || 'Not Found'}</Td>
             <Td>{pd.storeType || 'Not Found'}</Td>
             <Td>{pd.storeManagerName || 'Not Found'}</Td>
-            <Td>{pd.productImage || 'Not Found'}</Td>
+            <Td>{pd.productImage ? <Link href={pd.productImage} isExternal color={'blue.500'} textDecor={'underline'}>Link</Link> : 'Not Found'}</Td>
             <Button onClick={() => navigate(`/add-asin-upc-list/${pd._id}`)}>Edit</Button>
         </Tr>
     );
