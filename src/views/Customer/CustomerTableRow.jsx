@@ -34,7 +34,7 @@ const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
 
-            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : (user.role == 'admin' || user.role == 'warehouseManager') ? <Button onClick={() => handleShipped(pd._id)}>Shipped</Button> : null}
+            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : (user.role == 'admin' || user.role == 'warehouseManager' || user.role == 'warehouseAdmin') ? <Button onClick={() => handleShipped(pd._id)}>Shipped</Button> : null}
         </Tr>
     );
 };

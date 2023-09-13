@@ -7,35 +7,32 @@ import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const ActiveStores = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-store?page=1&email=${user?.email}`);
+    const data = useFetch(user.role == 'admin' ? `get-store?page=1&email=${user.email}&status=active` : `get-store?page=1&warehouse=${user?.warehouse}&status=active`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const inputRef = useRef();
-    // useEffect(() => {
-    //     async function fs() {
-    //         const newData = await fetchdata(`get-store?page=${activePage}&status=active`, axiosInstance);
-    //         setCurrentData(newData);
-    //     }
-    //     fs();
-    // }, [activePage]);
+
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setLoading(true);
         try {
+
             async function fs() {
-                const newData = await fetchdata(`get-store?page=${activePage}&status=active&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-store?page=${activePage}&status=active&email=${user.email}` : `get-store?page=${activePage}&status=active&warehouse=${user?.warehouse}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
-            }
+            };
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            console.log(err);
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }

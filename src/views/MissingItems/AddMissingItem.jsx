@@ -61,7 +61,8 @@ const AddMissingItem = () => {
             eda: form.eda.value,
             status: 'Unsolved',
             addedDate: new Date(),
-            email: user?.email
+            email: user?.email,
+            warehouse: user.warehouse
         };
 
         console.log(formData);
@@ -82,7 +83,7 @@ const AddMissingItem = () => {
 
 
         } catch (error) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
 

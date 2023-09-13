@@ -21,6 +21,7 @@ const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const { user, setUser, setSearch } = useContext(AuthContext);
+    console.log(user);
     const navigate = useNavigate();
     const inputRef = useRef();
     const handleOnclick = () => {
@@ -38,7 +39,7 @@ const Navbar = () => {
                             <AiOutlineMenu className='text-xl' />
                         </Button>
                     </div>
-                    {user.role == 'admin' ? <div className='relative md:w-[370px] xl:w-[600px] sm:flex items-center hidden'>
+                    {(user.role == 'admin' || user.role == 'warehouseAdmin') ? <div className='relative md:w-[370px] xl:w-[600px] sm:flex items-center hidden'>
                         <input ref={inputRef} placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
                         <button className='absolute left-[36px] top-[19px] '>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />
@@ -55,7 +56,7 @@ const Navbar = () => {
                         </MenuButton>
                         <MenuList backgroundColor={'#4d4f5c'}>
                             <div className='p-[30px] pb-[20px] text-right navbar_profile-dropdown text-sm'>
-                                <p className='text-[#828bb2] leading-6'>Welcome User!</p>
+                                <p className='text-[#828bb2] leading-6'>Welcome {user.role.toUpperCase()}!</p>
                                 {user ? <p className='text-white mb-2 mt-1'>{user.name}</p> : null}
                                 {user ? <p className='text-white mb-2 mt-1'>{user.email}</p> : null}
                                 <div className='mt-5 border-t pt-2.5 text-white border-t-[#79838b]'>

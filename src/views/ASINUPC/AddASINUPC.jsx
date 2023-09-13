@@ -22,7 +22,8 @@ const AddASINUPC = () => {
             productImage: e.target['product-image'].value,
             minimumPrice: e.target['minium-price'].value,
             storeType: e.target['store-type'].value,
-            email: user?.email
+            email: user?.email,
+            warehouse: user.warehouse
         };
         console.log(formData);
         try {
@@ -40,7 +41,7 @@ const AddASINUPC = () => {
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message, {
+            toast.error(error?.response?.data?.message || error.message, {
                 id: 'clipboard',
             });
 

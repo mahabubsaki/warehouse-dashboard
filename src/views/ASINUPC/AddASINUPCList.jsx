@@ -31,7 +31,7 @@ const AddASINUPCList = () => {
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }

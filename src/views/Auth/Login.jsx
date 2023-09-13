@@ -19,11 +19,12 @@ const Login = () => {
         const password = e.target.password.value;
         try {
             const { data: response } = await axiosInstance.post('login', { email, password });
-            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id });
+            console.log(response);
+            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse });
             localStorage.setItem('token', response.token);
         } catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }

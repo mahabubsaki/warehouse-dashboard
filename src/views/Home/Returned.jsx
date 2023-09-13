@@ -20,13 +20,13 @@ const Returned = () => {
     const inputRef = useRef();
     const handleReturnList = async (uid) => {
         try {
-            const data = await axiosInstance.post('add-returned', { id: uid });
+            const data = await axiosInstance.post('add-returned', { id: uid, warehouse: user.warehouse });
             setRefetch((pre) => !pre);
             toast.success("Moved to Returned successfully", {
                 id: 'clipboard',
             });
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }
@@ -41,7 +41,7 @@ const Returned = () => {
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }

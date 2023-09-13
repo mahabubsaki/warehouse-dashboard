@@ -19,7 +19,7 @@ const EditStock = () => {
         }
         catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
 

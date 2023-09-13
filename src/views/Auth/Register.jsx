@@ -1,15 +1,18 @@
-import { Select } from '@chakra-ui/react';
-import React, { useContext, useEffect } from 'react';
+import Select from 'react-select';
+import { Select as CSelect } from '@chakra-ui/react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/Provider';
 import { toast } from 'react-hot-toast';
 import useAxios from '../../hooks/useAxios';
+import fetchdata from '../../utilities/fetchData';
 
 const Register = () => {
     const { user, setUser } = useContext(AuthContext);
     const axiosInstance = useAxios();
     const navigate = useNavigate();
-
+    const [warehouses, setWarehouses] = useState([]);
+    console.log(warehouses);
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -21,15 +24,17 @@ const Register = () => {
         const email = formData.get('email');
         const password = formData.get('password');
         const confirmPassword = formData.get('confirm-password');
+        const warehouse = formData.get('warehouse');
 
-        const data = { name, role, location, email, password, confirmPassword };
+        const data = { name, role, location, email, password, confirmPassword, warehouse };
         try {
             const { data: response } = await axiosInstance.post('signup', data);
-            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id });
+            console.log(response);
+            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse });
             localStorage.setItem('token', response.token);
         } catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }
@@ -40,6 +45,18 @@ const Register = () => {
             navigate("/");
         }
     }, [user]);
+
+    useEffect(() => {
+        async function fs() {
+            const newData = await fetchdata(`get-warehouse?&select=yes`, axiosInstance);
+
+            setWarehouses(newData.data.map(e => {
+                return { value: e._id, label: e.name };
+            }));
+
+        }
+        fs();
+    }, []);
     return (
         <div className="flex flex-col w-[90%] sm:w-[500px]  p-6 rounded-md sm:p-10 shadow-2xl ">
             <div className="mb-8 text-center">
@@ -56,15 +73,15 @@ const Register = () => {
                         <div className="flex justify-between mb-2">
                             <label for="role" className="text-sm">Role</label>
                         </div>
-                        <Select required id='role' name='role' placeholder='Select Role'>
+                        <CSelect required id='role' name='role' placeholder='Select Role'>
                             <option value='storeManager'>Store Manager</option>
                             <option value='warehouseManager'>Warehouse Manager</option>
                             <option value='warehouseAdmin'>Warehouse Admin</option>
-                        </Select>
+                        </CSelect>
                     </div>
                     <div>
-                        <label for="loation" className="block mb-2 text-sm">Location</label>
-                        <input required type="text" name="location" id="text" placeholder="Enter Location" className="w-full px-3 py-2 border rounded-md " />
+                        <label htmlFor="warehouse">Warehouse Name: </label>
+                        <Select className='mt-3' placeholder='Enter Warehouse Name' id='warehouse' name='warehouse' options={warehouses} />
                     </div>
                     <div>
                         <label for="email" className="block mb-2 text-sm">Email address</label>

@@ -65,7 +65,8 @@ const AddWarehouseToCustomer = () => {
             slip: null,
             notes: null,
             email: user?.email,
-            status: 'None'
+            status: 'None',
+            warehouse: user.warehouse
         };
         console.log(formData);
 
@@ -85,7 +86,7 @@ const AddWarehouseToCustomer = () => {
 
 
         } catch (error) {
-            toast.error(error.response.data.message || error.message, {
+            toast.error(error?.response?.data?.message || error.message, {
                 id: 'clipboard',
             });
 

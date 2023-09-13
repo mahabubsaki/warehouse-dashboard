@@ -11,23 +11,23 @@ import { FiSearch } from 'react-icons/fi';
 const StoreList = () => {
     const { user } = useContext(AuthContext);
     const inputRef = useRef();
-    const data = useFetch(`get-store?page=1&email=${user?.email}`);
+    const data = useFetch(user.role == 'admin' ? `get-store?page=1&email=${user.email}` : `get-store?page=1&warehouse=${user?.warehouse}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
 
     const [loading, setLoading] = useState(true);
-
+    console.log(user.warehouse);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-store?page=1&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-store?page=1&email=${user.email}` : `get-store?page=1&warehouse=${user?.warehouse}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-store?page=1&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-store?page=1&email=${user.email}&search=${inputRef.current.value}` : `get-store?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
@@ -39,13 +39,13 @@ const StoreList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-store?page=${activePage}&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-store?page=${activePage}&email=${user.email}` : `get-store?page=${activePage}&warehouse=${user?.warehouse}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }

@@ -22,7 +22,8 @@ const AddStore = () => {
             status: 'empty',
             notes: 'empty',
             email: user?.email,
-            addedDate: new Date()
+            addedDate: new Date(),
+            warehouse: user.warehouse
         };
         try {
             const response = await axiosInstance.post('add-store', formData);
@@ -40,7 +41,7 @@ const AddStore = () => {
 
         } catch (err) {
             console.log(err);
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
 

@@ -29,7 +29,7 @@ const AddedShippedItemList = () => {
             }
             fs();
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }
@@ -43,7 +43,7 @@ const AddedShippedItemList = () => {
                 setRefetch(pre => !pre);
             }
         } catch (err) {
-            toast.error(err.response.data.message || err.message, {
+            toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
             setLoading(false);

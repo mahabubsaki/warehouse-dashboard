@@ -29,7 +29,8 @@ const AddPriceAvarageTax = () => {
             eda: form.eda.value,
             addedDate: new Date(),
             email: user?.email,
-            admin: user?.role == 'admin'
+            admin: user?.role == 'admin',
+            warehouse: user.warehouse
         };
         console.log(formData);
         try {

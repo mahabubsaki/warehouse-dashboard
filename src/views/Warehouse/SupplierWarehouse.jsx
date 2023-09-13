@@ -70,7 +70,8 @@ const SupplierWarehouse = () => {
             email: user?.email,
             courier: null,
             supplierTracker: null,
-            addedDate: new Date()
+            addedDate: new Date(),
+            warehouse: user.warehouse
         };
 
         try {

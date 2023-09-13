@@ -7,7 +7,7 @@ import { SlMagnifierRemove } from 'react-icons/sl';
 import { BsCurrencyDollar, BsQrCode } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { AuthContext } from '../context/Provider';
-
+import { RiAddCircleFill } from 'react-icons/ri';
 
 const SideBar = () => {
     const list = [
@@ -23,6 +23,7 @@ const SideBar = () => {
         { name: 'Customer', role: "storeManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Add warehouse to customer", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-warehouse-to-customer" }, { name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
 
         { name: 'Customer', role: "warehouseManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
+        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
         // { name: 'Ready to shipped', role: "warehouseManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Add shipped item", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-shipped-item" }, { name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
         // { name: 'Ready to shipped', role: "storeManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
@@ -51,7 +52,7 @@ const SideBar = () => {
 
 
         // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
-
+        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
     ] : [...list].filter(item => item.role == user.role);
 

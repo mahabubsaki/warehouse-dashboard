@@ -10,6 +10,7 @@ import { SlMagnifierRemove } from 'react-icons/sl';
 import { BsCurrencyDollar, BsQrCode } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { AuthContext } from '../context/Provider';
+import { RiAddCircleFill } from 'react-icons/ri';
 
 const NavDrawer = ({ isOpen, onClose, btnRef }) => {
     const list = [
@@ -30,9 +31,10 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
         // { name: 'Ready to shipped', role: "storeManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
 
 
-        { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
+        // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
 
         // { name: 'Price Avarage TAX', role: "warehouseManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] }
+        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
     ];
     const { user } = useContext(AuthContext);
     const otherRoutes = (user.role == 'admin' || user.role == 'warehouseAdmin') ? [
@@ -53,7 +55,7 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
 
 
         // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
-
+        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
     ] : [...list].filter(item => item.role == user.role);
 

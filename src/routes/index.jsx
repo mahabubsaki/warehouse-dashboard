@@ -39,6 +39,8 @@ import EditStock from "../views/Home/EditStock";
 import ReturnedList from "../views/Home/ReturnedList";
 import EditReturnedList from "../views/Home/EditReturnedList";
 import Returned from "../views/Home/Returned";
+import SuperAdminRoute from "../hoc/SuperAdminRoute";
+import AddWarehouse from "../views/AddWarehouse/AddWarehouse";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -69,6 +71,12 @@ const router = createBrowserRouter([
             { path: "/returned-list", element: <ReturnedList /> },
             { path: "/returned-list/:id", element: <EditReturnedList /> },
             { path: "/returned", element: <Returned /> },
+            {
+                path: "/add-warehouse", element:
+                    <SuperAdminRoute>
+                        <AddWarehouse />
+                    </SuperAdminRoute>
+            },
             { path: "/supplier-warehouse", element: <StoreManagerRoute><SupplierWarehouse /></StoreManagerRoute> },
             { path: "/supplier-warehouse-list", element: <SupplierWarehouseList /> },
             { path: "/supplier-warehouse-list/:id", element: <EditSupplierWarehouse /> },

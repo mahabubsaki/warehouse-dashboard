@@ -81,7 +81,8 @@ const AddShippedItem = () => {
             tracker: form.tracker.value,
             addedDate: new Date(),
             shipped: 'No',
-            email: user?.email
+            email: user?.email,
+            warehouse: user.warehouse
         };
         try {
             const response = await axiosInstance.post('add-shipped', formData);
