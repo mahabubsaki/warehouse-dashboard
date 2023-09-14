@@ -100,7 +100,7 @@ const ReadyToShipped = () => {
                                 <Th>Shipping Label</Th>
                                 <Th>Shipping Slip</Th>
                                 <Th>Notes</Th>
-                                {user.role == 'admin' ? <Th>Action</Th> : null}
+                                {(user.role == 'admin' || user.role == 'warehouseAdmin' || user.role == 'warehouseManager') ? <Th>Action</Th> : null}
                             </Tr>
                         </Thead>
                         <Tbody>

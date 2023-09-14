@@ -7,8 +7,8 @@ import useAxios from '../../hooks/useAxios';
 const RetrunTableRow = ({ pd, activePage, id, date, handleReturnList, show }) => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-    const axiosInstance = useAxios();
 
+    console.log(show);
     return (
         <Tr>
             <Td>{((activePage * 10) + id) - 10}</Td>
@@ -19,10 +19,10 @@ const RetrunTableRow = ({ pd, activePage, id, date, handleReturnList, show }) =>
             <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.returnLabel || 'Not Found'}</Td>
             {!show ? <Td className='flex flex-col gap-2'>
-                {(user.role === 'storeManager' || user.role === 'admin') ? <Button onClick={() => navigate(`/returned-list/${pd._id}`)}>
+                {(user.role === 'storeManager' || user.role === 'admin' || user.role == 'warehouseAdmin') ? <Button onClick={() => navigate(`/returned-list/${pd._id}`)}>
                     Edit Stock
                 </Button> : null}
-                {(user.role === 'warehouseManager' || user.role === 'admin') ? <Button onClick={() => handleReturnList(pd._id)}>
+                {(user.role === 'warehouseManager' || user.role === 'admin' || user.role == 'warehouseAdmin') ? <Button onClick={() => handleReturnList(pd._id)}>
                     Returned
                 </Button> : null}
 
