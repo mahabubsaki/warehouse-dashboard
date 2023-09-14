@@ -10,7 +10,7 @@ import fetchdata from '../../utilities/fetchData';
 
 const OutOfStock = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-customer?page=1&email=${user?.email}&status=OOS`);
+    const data = useFetch(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=OOS` : `get-customer?page=1&warehouse=${user?.warehouse}&status=OOS`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -20,7 +20,7 @@ const OutOfStock = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}&status=OOS`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=OOS` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=OOS`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -35,13 +35,13 @@ const OutOfStock = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&status=OOS`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=OOS` : `get-customer?page=1&warehouse=${user?.warehouse}&status=OOS`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=OOS`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=OOS` : `get-customer?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=OOS`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);

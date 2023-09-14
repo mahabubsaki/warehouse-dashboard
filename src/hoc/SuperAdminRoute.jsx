@@ -5,7 +5,7 @@ import { AuthContext } from '../context/Provider';
 
 const SuperAdminRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
-    if (user.role == 'warehouseManager' || user.role == 'admin' || user.role == 'warehouseAdmin') {
+    if (user.role == 'admin') {
         return children;
     }
     return <Navigate to={'/'} />;

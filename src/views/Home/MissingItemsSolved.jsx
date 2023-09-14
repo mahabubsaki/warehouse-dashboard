@@ -21,7 +21,7 @@ const MissingItemsSolved = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-missing?page=${activePage}&status=Solved&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=${activePage}&status=Solved&email=${user?.email}` : `get-missing?page=${activePage}&status=Solved&warehouse=${user?.warehouse}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -35,13 +35,13 @@ const MissingItemsSolved = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-missing?page=1&status=Solved&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&status=Solved&email=${user?.email}` : `get-missing?page=1&status=Solved&warehouse=${user?.warehouse}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-missing?page=1&status=Solved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&status=Solved&email=${user?.email}&search=${inputRef.current.value}` : `get-missing?page=1&status=Solved&warehouse=${warehouse?.email}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);

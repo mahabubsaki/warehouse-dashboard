@@ -9,7 +9,7 @@ import { Pagination } from 'rsuite';
 import fetchdata from '../../utilities/fetchData';
 const ReadyToShipped = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-customer?page=1&email=${user?.email}&status=Ready`);
+    const data = useFetch(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=Ready` : `get-customer?page=1&warehouse=${user?.warehouse}&status=Ready`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -33,7 +33,7 @@ const ReadyToShipped = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-customer?page=${activePage}&email=${user?.email}&status=Ready`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=Ready` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=Ready`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -48,13 +48,13 @@ const ReadyToShipped = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&status=Ready`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=Ready` : `get-customer?page=1&warehouse=${user?.warehouse}&status=Ready`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Ready`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Ready` : `get-customer?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=Ready`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);

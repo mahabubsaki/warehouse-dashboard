@@ -10,7 +10,7 @@ import { FiSearch } from 'react-icons/fi';
 
 const AddMissingItemList = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-missing?page=1&status=Unsolved&email=${user?.email}`);
+    const data = useFetch(user.role == 'admin' ? `get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}` : `get-missing?page=1&show=Yes&status=Unsolved&warehouse=${user?.warehouse}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -22,7 +22,7 @@ const AddMissingItemList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-missing?page=${activePage}&status=Unsolved&email=${user?.email}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=${activePage}&status=Unsolved&show=Yes&email=${user?.email}` : `get-missing?page=${activePage}&status=Unsolved&show=Yes&warehouse=${user?.warehouse}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -36,13 +36,13 @@ const AddMissingItemList = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}` : `get-missing?page=1&show=Yes&status=Unsolved&warehouse=${user?.warehouse}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&show=Yes&status=Unsolved&email=${user?.email}&search=${inputRef.current.value}` : `get-missing?page=1&show=Yes&status=Unsolved&warehouse=${user?.warehouse}&search=${inputRef.current.value}`, axiosInstance);
             setCurrentData(newData);
             setActivePage(1);
             setLoading(false);

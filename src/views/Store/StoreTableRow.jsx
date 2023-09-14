@@ -23,7 +23,7 @@ const StoreTableRow = ({ pd, id, activePage }) => {
             <Td>{pd['store-type'] || 'Not Found'}</Td>
             <Td>{pd.status || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
-            {user.role == 'admin' ? <Button onClick={() => navigate(`/store-list/${pd._id}`)}>Edit</Button> : null}
+            {(user.role == 'admin' || user.role == 'warehouseAdmin') ? <Button onClick={() => navigate(`/store-list/${pd._id}`)}>Edit</Button> : null}
         </Tr>
     );
 };

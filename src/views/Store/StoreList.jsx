@@ -79,7 +79,7 @@ const StoreList = () => {
                                 <Th>Store Type</Th>
                                 <Th>Store Status</Th>
                                 <Th>Notes</Th>
-                                {user.role == 'admin' ? <Th>Action</Th> : null}
+                                {(user.role == 'admin' || user.role == 'warehouseAdmin') ? <Th>Action</Th> : null}
                             </Tr>
                         </Thead>
                         <Tbody>

@@ -1,5 +1,5 @@
 import { Stat, StatGroup, StatLabel, StatNumber, useDisclosure } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AiOutlineFileDone } from 'react-icons/ai';
 import { FaListAlt, FaStoreAlt, FaStoreAltSlash, FaThList } from 'react-icons/fa';
 import { TbShoppingCartDiscount } from 'react-icons/tb';
@@ -14,10 +14,12 @@ import { FcShipped } from 'react-icons/fc';
 import { BsGraphDownArrow } from 'react-icons/bs';
 import { GiReturnArrow } from 'react-icons/gi';
 import { MdPlaylistAddCheckCircle } from 'react-icons/md';
+import { AuthContext } from '../context/Provider';
 
 const Stats = () => {
     const navigate = useNavigate();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { user } = useContext(AuthContext);
     const axiosInstance = useAxios();
     const [active, setActive] = useState(0);
     const [inactive, setInactive] = useState(0);
@@ -33,19 +35,19 @@ const Stats = () => {
     const [returnedList, setReturnedList] = useState(0);
     useEffect(() => {
         async function fs() {
-            const newData = await fetchdata(`get-store?status=active&email=bizfulfill@gmail.com`, axiosInstance);
-            const newData2 = await fetchdata(`get-store?status=inactive&email=bizfulfill@gmail.com`, axiosInstance);
-            const newData3 = await fetchdata('get-missing?status=Solved&email=bizfulfill@gmail.com', axiosInstance);
-            const newData4 = await fetchdata('get-stocks?email=bizfulfill@gmail.com', axiosInstance);
-            const newData5 = await fetchdata('get-customer?status=Shipped&email=bizfulfill@gmail.com', axiosInstance);
-            const newData6 = await fetchdata('get-month-sell?month=last&email=bizfulfill@gmail.com&status=Shipped', axiosInstance);
-            const newData7 = await fetchdata('get-month-sell?month=current&email=bizfulfill@gmail.com&status=Shipped', axiosInstance);
-            const newData8 = await fetchdata('get-missing?status=Unsolved&email=bizfulfill@gmail.com', axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-store?status=active&email=${user.email}` : `get-store?status=active&warehouse=${user.warehouse}`, axiosInstance);
+            const newData2 = await fetchdata(user.role == 'admin' ? `get-store?status=inactive&email=${user.email}` : `get-store?status=inactive&warehouse=${user.warehouse}`, axiosInstance);
+            const newData3 = await fetchdata(user.role == 'admin' ? `get-missing?status=Solved&email=${user.email}` : `get-missing?status=Solved&warehouse=${user.warehouse}`, axiosInstance);
+            const newData4 = await fetchdata(user.role == 'admin' ? `get-stocks?email=${user.email}` : `get-stocks?warehouse=${user.warehouse}`, axiosInstance);
+            const newData5 = await fetchdata(user.role == 'admin' ? `get-customer?status=Shipped&email=${user.email}` : `get-customer?status=Shipped&warehouse=${user.warehouse}`, axiosInstance);
+            const newData6 = await fetchdata(user.role == 'admin' ? `get-month-sell?month=last&email=${user.email}&status=Shipped` : `get-month-sell?month=last&warehouse=${user.warehouse}&status=Shipped`, axiosInstance);
+            const newData7 = await fetchdata(user.role == 'admin' ? `get-month-sell?month=current&email=${user.email}&status=Shipped` : `get-month-sell?month=current&warehouse=${user.warehouse}&status=Shipped`, axiosInstance);
+            const newData8 = await fetchdata(user.role == 'admin' ? `get-missing?status=Unsolved&email=${user.email}` : `get-missing?status=Unsolved&warehouse=${user.warehouse}`, axiosInstance);
 
-            const newData9 = await fetchdata('get-customer?status=Ready&email=bizfulfill@gmail.com', axiosInstance);
-            const newData10 = await fetchdata('get-customer?status=OOS&email=bizfulfill@gmail.com', axiosInstance);
-            const newData11 = await fetchdata('get-returned-list?email=bizfulfill@gmail.com&status=Yes', axiosInstance);
-            const newData12 = await fetchdata('get-returned-list?email=bizfulfill@gmail.com&status=No', axiosInstance);
+            const newData9 = await fetchdata(user.role == 'admin' ? `get-customer?status=Ready&email=${user.email}` : `get-customer?status=Ready&warehouse=${user.warehouse}`, axiosInstance);
+            const newData10 = await fetchdata(user.role == 'admin' ? `get-customer?status=OOS&email=${user.email}` : `get-customer?status=OOS&warehouse=${user.warehouse}`, axiosInstance);
+            const newData11 = await fetchdata(user.role == 'admin' ? `get-returned-list?email=${user.email}&status=Yes` : `get-returned-list?warehouse=${user.warehouse}&status=Yes`, axiosInstance);
+            const newData12 = await fetchdata(user.role == 'admin' ? `get-returned-list?email=${user.email}&status=No` : `get-returned-list?warehouse=${user.warehouse}&status=No`, axiosInstance);
             setCurrent(newData7.totalProducts);
             setLast(newData6.totalProducts);
             setActive(newData.totalProducts);

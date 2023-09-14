@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 
 const Returned = () => {
     const { user } = useContext(AuthContext);
-    const data = useFetch(`get-returned-list?page=1&email=bizfulfill@gmail.com&status=No`);
+    const data = useFetch(user.role == 'admin' ? `get-returned-list?page=1&email=${user.email}&status=No` : `get-returned-list?page=1&warehouse=${user.warehouse}&status=No`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
@@ -35,7 +35,7 @@ const Returned = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(`get-returned-list?page=${activePage}&email=bizfulfill@gmail.com&status=No`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=${activePage}&email=${user.email}&status=No` : `get-returned-list?page=${activePage}&warehouse=${user.warehouse}&status=No`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -49,13 +49,13 @@ const Returned = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-returned-list?page=1&email=${user?.email}&status=No`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=1&email=${user?.email}&status=No` : `get-returned-list?page=1&warehouse=${user?.warehouse}&status=No`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-returned-list?page=1&email=${user?.email}&search=${inputRef.current.value}&status=No`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=1&email=${user?.email}&search=${inputRef.current.value}&status=No` : `get-returned-list?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=No`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
