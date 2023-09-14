@@ -28,7 +28,7 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
 
             <Td>{pd['codeType'] || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
-            <Td>{pd.productName || 'Not Found'}</Td>
+            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.recivedQuantity || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>

@@ -12,7 +12,7 @@ const Register = () => {
     const axiosInstance = useAxios();
     const navigate = useNavigate();
     const [warehouses, setWarehouses] = useState([]);
-    console.log(warehouses);
+
     const handleRegister = async (e) => {
         e.preventDefault();
 
@@ -29,8 +29,8 @@ const Register = () => {
         const data = { name, role, location, email, password, confirmPassword, warehouse };
         try {
             const { data: response } = await axiosInstance.post('signup', data);
-            console.log(response);
-            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse });
+
+            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses });
             localStorage.setItem('token', response.token);
         } catch (err) {
             console.log(err);

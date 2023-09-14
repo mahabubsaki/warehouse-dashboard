@@ -25,7 +25,7 @@ const SupplierTableRow = ({ pd, activePage, id }) => {
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd['asin'] || 'Not Found'}</Td>
             <Td>{pd['codeType'] || 'Not Found'}</Td>
-            <Td>{pd['productName'] || 'Not Found'}</Td>
+            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
             <Td>{pd.supplierOrderId || 'Not Found'}</Td>
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>

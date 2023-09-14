@@ -20,7 +20,7 @@ const AsinTableRow = ({ pd, id, activePage }) => {
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd['asinUpcCode'] || 'Not Found'}</Td>
-            <Td>{pd['productName'] || 'Not Found'}</Td>
+            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
             <Td>${pd['minimumPrice'] || 'Not Found'}</Td>
             <Td>{pd.storeType || 'Not Found'}</Td>
             <Td>{pd.storeManagerName || 'Not Found'}</Td>

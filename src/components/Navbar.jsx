@@ -21,7 +21,7 @@ const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const { user, setUser, setSearch } = useContext(AuthContext);
-    console.log(user);
+
     const navigate = useNavigate();
     const inputRef = useRef();
     const handleOnclick = () => {
@@ -30,9 +30,12 @@ const Navbar = () => {
             navigate(`/search?keyword=${inputRef.current.value}`);
         }
     };
+    console.log(user);
     return (
         <>
+            <h1 className='text-center font-semibold text-2xl'>{user.warehouseName}</h1>
             <header className='nav-header p-[15px] sm:p-[30px] rounded-lg items-center border flex justify-between'>
+
                 <div className='flex items-center gap-4'>
                     <div className='block lg:hidden'>
                         <Button ref={btnRef} onClick={onOpen}>

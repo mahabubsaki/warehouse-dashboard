@@ -20,8 +20,8 @@ const Provider = ({ children }) => {
                     throw new Error("Token is empty");
                 }
                 const { data: response } = await axiosInstance.post('token-login', { reqtoken: token });
-                console.log(response);
-                setUser({ name: response.name, email: response.email, role: response.role, location: response.location, warehouse: response.warehouse });
+
+                setUser({ name: response.name, email: response.email, role: response.role, location: response.location, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses });
                 localStorage.setItem('token', response.token);
 
                 setMainLoading(false);

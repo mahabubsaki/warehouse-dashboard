@@ -27,7 +27,6 @@ const StockSearchModal = ({ isOpen, onClose }) => {
 
     const [state, setState] = useState([]);
 
-    console.log(state);
 
     return (
 

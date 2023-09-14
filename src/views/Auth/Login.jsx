@@ -20,7 +20,7 @@ const Login = () => {
         try {
             const { data: response } = await axiosInstance.post('login', { email, password });
             console.log(response);
-            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse });
+            setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses });
             localStorage.setItem('token', response.token);
         } catch (err) {
             console.log(err);

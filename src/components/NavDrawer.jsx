@@ -11,6 +11,8 @@ import { BsCurrencyDollar, BsQrCode } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { AuthContext } from '../context/Provider';
 import { RiAddCircleFill } from 'react-icons/ri';
+import { MdManageAccounts } from 'react-icons/md';
+import logo from '../assets/logo.png';
 
 const NavDrawer = ({ isOpen, onClose, btnRef }) => {
     const list = [
@@ -26,6 +28,8 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
         { name: 'Customer', role: "storeManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Add warehouse to customer", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-warehouse-to-customer" }, { name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
 
         { name: 'Customer', role: "warehouseManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
+
+
 
         // { name: 'Ready to shipped', role: "warehouseManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Add shipped item", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-shipped-item" }, { name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
         // { name: 'Ready to shipped', role: "storeManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
@@ -55,15 +59,20 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
 
 
         // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
-        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
     ] : [...list].filter(item => item.role == user.role);
 
 
-    const navmenus = [
+    let navmenus = [
         { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
         ...otherRoutes
     ];
+    if (user.role == 'admin') {
+        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },];
+    } else {
+        navmenus = [...navmenus, { name: 'Managed Warehouse', icon: <MdManageAccounts className='inline' />, navigate: "/manage-warehouse" },];
+    }
+    console.log(navmenus);
     const isSmallDevice = useMediaQuery("only screen and (max-width : 1023px)");
 
 
@@ -87,7 +96,9 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
                 <DrawerBody>
 
                     <div className='p-[20px] bg-white'>
-                        <h1 className='text-2xl text-center text-[#805ad5]'>Subwarehouse</h1>
+                        <h1 className='text-2xl text-center  flex justify-center'>
+                            <img src={logo} alt="" className='h-[150px] w-[200px]' />
+                        </h1>
                     </div>
                     <div className='sidenav_main-container'>
                         <ul className='my-[30px] sidenav_collapse-container'>

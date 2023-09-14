@@ -19,7 +19,8 @@ const StockTableRow = ({ pd, activePage, id, date }) => {
             {dd ? <Td>{pd.date ? dd.reverse().join('-') : 'Not Found'}</Td> : null}
             <Td>{pd['storeName'] || 'Not Found'}</Td>
             <Td>{pd['teamCode'] || 'Not Found'}</Td>
-            <Td>{pd['productName'] || 'Not Found'}</Td>
+            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
+
             <Td>{pd.totalRecieved || 'Not Found'}</Td>
             <Td>{pd.sold || 'Not Found'}</Td>
             <Td>{pd.stock || 'Not Found'}</Td>

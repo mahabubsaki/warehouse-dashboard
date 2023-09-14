@@ -14,7 +14,7 @@ const RetrunTableRow = ({ pd, activePage, id, date, handleReturnList, show }) =>
             <Td>{((activePage * 10) + id) - 10}</Td>
             <Td>{pd['storeName'] || 'Not Found'}</Td>
             <Td>{pd['teamCode'] || 'Not Found'}</Td>
-            <Td>{pd['productName'] || 'Not Found'}</Td>
+            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
             <Td>{pd.returned || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.returnLabel || 'Not Found'}</Td>

@@ -8,6 +8,8 @@ import { BsCurrencyDollar, BsQrCode } from 'react-icons/bs';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { AuthContext } from '../context/Provider';
 import { RiAddCircleFill } from 'react-icons/ri';
+import { MdManageAccounts } from 'react-icons/md';
+import logo from '../assets/logo.png';
 
 const SideBar = () => {
     const list = [
@@ -23,17 +25,10 @@ const SideBar = () => {
         { name: 'Customer', role: "storeManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Add warehouse to customer", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-warehouse-to-customer" }, { name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
 
         { name: 'Customer', role: "warehouseManager", icon: <FaUserAlt className='inline' />, subitems: [{ name: "Warehouse to customer list", icon: <FaClipboardList />, navigate: "/add-warehouse-to-customer-list" },] },
-        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
-        // { name: 'Ready to shipped', role: "warehouseManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Add shipped item", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-shipped-item" }, { name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
-        // { name: 'Ready to shipped', role: "storeManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
-
-
-        // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
-
-        // { name: 'Price Avarage TAX', role: "warehouseManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] }
     ];
     const { user } = useContext(AuthContext);
+
     const otherRoutes = (user.role == 'admin' || user.role == 'warehouseAdmin') ? [
         { name: 'Store', role: "storeManager", icon: <BiStoreAlt className='inline' />, subitems: [{ name: "Add Store", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-store" }, { name: "Store List", icon: <FaClipboardList />, navigate: "/store-list" },] },
 
@@ -48,23 +43,26 @@ const SideBar = () => {
 
 
 
-        // { name: 'Ready to shipped', role: "warehouseManager", icon: <FaShippingFast className='inline' />, subitems: [{ name: "Add shipped item", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-shipped-item" }, { name: "Added shipped item list", icon: <FaClipboardList />, navigate: "/added-shipped-item-list" },] },
 
-
-        // { name: 'Price Avarage TAX', role: "storeManager", icon: <BsCurrencyDollar className='inline' />, subitems: [{ name: "Add price avarage tax", icon: <IoMdAddCircleOutline className="text-xl" />, navigate: "/add-price-avarage-tax" }, { name: "Price avarage tax list", icon: <FaClipboardList />, navigate: "/price-avarage-tax-list" },] },
-        { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },
 
     ] : [...list].filter(item => item.role == user.role);
 
 
-    const navmenus = [
+    let navmenus = [
         { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
         ...otherRoutes
     ];
+    if (user.role == 'admin') {
+        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },];
+    } else {
+        navmenus = [...navmenus, { name: 'Managed Warehouse', icon: <MdManageAccounts className='inline' />, navigate: "/manage-warehouse" },];
+    }
     return (
         <nav className='fixed sidebar duration-500 -left-[315px] lg:left-0 top-0  w-[315px] z-50  h-screen overflow-y-auto p-[30px]'>
-            <div className='p-[20px] bg-white'>
-                <h1 className='text-2xl text-center text-[#805ad5]'>Subwarehouse</h1>
+            <div>
+                <h1 className='text-2xl text-center  flex justify-center'>
+                    <img src={logo} alt="" className='h-[150px] w-[200px]' />
+                </h1>
             </div>
             <div className='sidenav_main-container'>
                 <ul className='my-[30px] capitalize sidenav_collapse-container'>

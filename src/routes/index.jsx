@@ -41,6 +41,7 @@ import EditReturnedList from "../views/Home/EditReturnedList";
 import Returned from "../views/Home/Returned";
 import SuperAdminRoute from "../hoc/SuperAdminRoute";
 import AddWarehouse from "../views/AddWarehouse/AddWarehouse";
+import ManagedWarehouse from "../components/ManagedWarehouse";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -95,7 +96,8 @@ const router = createBrowserRouter([
             // { path: "/price-avarage-tax-list", element: <PriceAvrageTaxList /> },
             { path: "/active-stores", element: <ActiveStores /> },
             { path: "/inactive-stores", element: <InactiveStores /> },
-            { path: "/search", element: <Search /> }
+            { path: "/search", element: <Search /> },
+            { path: "/manage-warehouse", element: <ManagedWarehouse /> }
         ],
 
     },
