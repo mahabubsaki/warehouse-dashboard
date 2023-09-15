@@ -123,7 +123,7 @@ const Register = () => {
             }
             setLoading(true);
             const data = { name, role, location, email, password, confirmPassword, warehouse, img };
-            const { data: response } = await axiosInstance.post('send-otp', { email: email, type: 'register' });
+            const { data: response } = await axiosInstance.post('send-otp', { email: email, type: 'register', warehouse: warehouse });
             setLoading(false);
             setOtp(response.otp);
             setTemp(data);
