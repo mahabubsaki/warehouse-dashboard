@@ -108,7 +108,13 @@ const Register = () => {
                     id: 'clipboard',
                 });
             }
+
             const confirmPassword = formData.get('confirm-password');
+            if (password != confirmPassword) {
+                return toast.error("Confirm Password didn't match", {
+                    id: 'clipboard',
+                });
+            }
             const warehouse = formData.get('warehouse');
             if (ADMIN_EMAIL == email) {
                 return toast.error("Account already exist with given email", {
