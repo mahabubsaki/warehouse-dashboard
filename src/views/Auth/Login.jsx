@@ -24,7 +24,7 @@ const Login = () => {
         try {
             setLoading(true);
             const { data: response } = await axiosInstance.post('login', data);
-            setLoading(false);
+
             setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses, profile: response.profile });
             localStorage.setItem('token', response.token);
         } catch (err) {
@@ -33,7 +33,9 @@ const Login = () => {
                 id: 'clipboard',
             });
         }
-        setLoading(false);
+        finally {
+            setLoading(false);
+        }
     };
 
     const handleOtp = async (e) => {
@@ -63,7 +65,7 @@ const Login = () => {
         try {
             setLoading(true);
             const { data: response } = await axiosInstance.post('send-otp', { email: email, password: password, type: 'login' });
-            setLoading(false);
+
             setOtp(response.otp);
             setTemp({ email, password });
         } catch (err) {
@@ -71,6 +73,8 @@ const Login = () => {
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
+        } finally {
+            setLoading(false);
         }
 
     };
