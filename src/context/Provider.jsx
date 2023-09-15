@@ -21,7 +21,7 @@ const Provider = ({ children }) => {
                 }
                 const { data: response } = await axiosInstance.post('token-login', { reqtoken: token });
 
-                setUser({ name: response.name, email: response.email, role: response.role, location: response.location, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses });
+                setUser({ name: response.name, email: response.email, role: response.role, location: response.location, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses, profile: response.profile });
                 localStorage.setItem('token', response.token);
 
                 setMainLoading(false);

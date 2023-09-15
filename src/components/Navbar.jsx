@@ -54,7 +54,7 @@ const Navbar = () => {
                     <Menu>
                         <MenuButton>
                             <div className='overflow-hidden rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
-                                <img src="https://demo.dashboardpack.com/finance-html/img/client_img.png" alt="" />
+                                <img src={user.profile} alt="" />
                             </div>
                         </MenuButton>
                         <MenuList backgroundColor={'#4d4f5c'}>
