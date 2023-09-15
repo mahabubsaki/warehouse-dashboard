@@ -51,6 +51,7 @@ const Login = () => {
 
         const email = e.target.email.value;
         const password = e.target.password.value;
+        console.log({ email, password, env_email: ADMIN_EMAIL, env_pass: ADMIN_PASS });
         if (ADMIN_EMAIL == email && ADMIN_PASS == password) {
             return login({ email, password });
         }
