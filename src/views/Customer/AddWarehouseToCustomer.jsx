@@ -169,7 +169,7 @@ const AddWarehouseToCustomer = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="shipping-label">Shipping Label: </label>
-                                    <Input type="text" className='mt-3' id='shipping-label' name='shipping-label' placeholder='Enter Shipping Label' />
+                                    <Input type="url" className='mt-3' id='shipping-label' name='shipping-label' placeholder='Enter Shipping Label' />
                                 </div>
                                 <div>
                                     <label htmlFor="invoice">Invoice: </label>
@@ -177,7 +177,7 @@ const AddWarehouseToCustomer = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="tracker">Tracker: </label>
-                                    <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
+                                    <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
                                 </div>
                             </div>
                             <div className='flex my-6'>

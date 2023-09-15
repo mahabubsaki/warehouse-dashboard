@@ -10,6 +10,7 @@ import { AuthContext } from '../context/Provider';
 import { RiAddCircleFill } from 'react-icons/ri';
 import { MdManageAccounts } from 'react-icons/md';
 import logo from '../assets/logo.png';
+import { VscTasklist } from 'react-icons/vsc';
 
 const SideBar = () => {
     const list = [
@@ -53,7 +54,7 @@ const SideBar = () => {
         ...otherRoutes
     ];
     if (user.role == 'admin') {
-        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },];
+        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' }, { name: 'All Warehouses', icon: <VscTasklist className='inline text-xl' />, navigate: "/all-warehouse", role: 'admin' }];
     } else {
         navmenus = [...navmenus, { name: 'Managed Warehouse', icon: <MdManageAccounts className='inline' />, navigate: "/manage-warehouse" },];
     }

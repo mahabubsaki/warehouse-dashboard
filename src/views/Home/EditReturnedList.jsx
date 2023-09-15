@@ -29,7 +29,7 @@ const EditReturnedList = () => {
         <div>
             <form onSubmit={handleReturn} className='flex flex-col items-center justify-center gap-4'>
                 <Input type="text" className='mt-3 max-w-lg mx-auto px-5' id='orderId' name='orderId' placeholder='Enter Order ID' />
-                <Input type="text" className='mt-3 max-w-lg mx-auto px-5' id='returnLabel' name='returnLabel' placeholder='Enter Return Label' />
+                <Input type="url" className='mt-3 max-w-lg mx-auto px-5' id='returnLabel' name='returnLabel' placeholder='Enter Return Label' />
                 <Button type='submit' className='flex gap-3' colorScheme={`purple`}>
                     Update
                 </Button>

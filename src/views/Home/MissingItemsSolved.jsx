@@ -85,7 +85,7 @@ const MissingItemsSolved = () => {
                                 <Th>Missing Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
-                                <Th>Shipping Label</Th>
+                                <Th>Notes</Th>
                             </Tr>
                         </Thead>
                         <Tbody>

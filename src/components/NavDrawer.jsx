@@ -13,6 +13,7 @@ import { AuthContext } from '../context/Provider';
 import { RiAddCircleFill } from 'react-icons/ri';
 import { MdManageAccounts } from 'react-icons/md';
 import logo from '../assets/logo.png';
+import { VscTasklist } from 'react-icons/vsc';
 
 const NavDrawer = ({ isOpen, onClose, btnRef }) => {
     const list = [
@@ -68,7 +69,7 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
         ...otherRoutes
     ];
     if (user.role == 'admin') {
-        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline' />, navigate: "/add-warehouse", role: 'admin' },];
+        navmenus = [...navmenus, { name: 'Add Warehouse', icon: <RiAddCircleFill className='inline text-xl' />, navigate: "/add-warehouse", role: 'admin' }, { name: 'All Warehouses', icon: <VscTasklist className='inline text-xl' />, navigate: "/all-warehouse", role: 'admin' }];
     } else {
         navmenus = [...navmenus, { name: 'Managed Warehouse', icon: <MdManageAccounts className='inline' />, navigate: "/manage-warehouse" },];
     }

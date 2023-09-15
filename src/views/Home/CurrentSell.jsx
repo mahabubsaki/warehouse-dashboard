@@ -87,12 +87,12 @@ const CurrentSell = () => {
                                 <Th>Tracker</Th>
                                 <Th>Order ID</Th>
                                 <Th>Shipping Label</Th>
-                                <Th>Action</Th>
+
                             </Tr>
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <ShippingTableRow shipped={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <ShippingTableRow month={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

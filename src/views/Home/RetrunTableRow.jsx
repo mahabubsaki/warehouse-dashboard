@@ -1,4 +1,4 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { AuthContext } from '../../context/Provider';
 import { useNavigate } from 'react-router-dom';
@@ -17,7 +17,7 @@ const RetrunTableRow = ({ pd, activePage, id, date, handleReturnList, show }) =>
             <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
             <Td>{pd.returned || 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
-            <Td>{pd.returnLabel || 'Not Found'}</Td>
+            <Td>{pd.returnLabel ? <Link href={pd.returnLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.returnLabel}</Link> : 'Not Found'}</Td>
             {!show ? <Td className='flex flex-col gap-2'>
                 {(user.role === 'storeManager' || user.role === 'admin' || user.role == 'warehouseAdmin') ? <Button onClick={() => navigate(`/returned-list/${pd._id}`)}>
                     Edit Stock

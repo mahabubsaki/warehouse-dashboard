@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
-import { Button, Input, Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import { Button, Input, Link, Radio, RadioGroup, Stack } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../context/Provider';
@@ -85,8 +85,8 @@ const EditCustomer = () => {
                 <p>Courier : {courier || 'Not found'}</p>
                 <p>Team Code : {teamCode || 'Not found'}</p>
                 <p>Product Name : {productName || 'Not found'}</p>
-                <p>Supplier Tracker : {tracker || 'Not found'}</p>
-                <p>Supplier Label : {shippingLabel || 'Not found'}</p>
+                <p>Tracker : {tracker ? <Link href={tracker} isExternal color={'blue.500'} textDecor={'underline'}>{tracker}</Link> : 'Not Found'}</p>
+                <p>Supplier Label  : {shippingLabel ? <Link href={shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{shippingLabel}</Link> : 'Not Found'}</p>
                 <p>Invoice : {invoice || 'Not found'}</p>
             </div>
             <div className='flex-1'>
@@ -95,7 +95,7 @@ const EditCustomer = () => {
                     <div className='flex gap-4 my-4'>
                         <div className='flex-1'>
                             <label htmlFor="tracker">Supplier Tracker: </label>
-                            <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                            <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
                         </div>
                         <div className='flex-1'>
                             <label htmlFor="label">Shipping Label: </label>
@@ -116,7 +116,7 @@ const EditCustomer = () => {
                     <div className='my-4'>
                         <div className='flex items-center gap-3 mt-3'>
                             <label htmlFor="courier">Courier: </label>
-                            <RadioGroup name='courier' defaultValue='USPS' >
+                            <RadioGroup name='courier'  >
                                 <Stack spacing={5} direction='row'>
                                     <Radio colorScheme='blue' value='USPS'>
                                         USPS

@@ -166,7 +166,7 @@ const AddShippedItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="tracker">Tracker: </label>
-                                    <Input readOnly value={existing ? existing.tracker : ''} type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
+                                    <Input readOnly value={existing ? existing.tracker : ''} type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
                                 </div>
                                 <div>
                                     <label htmlFor="order-id">Order ID: </label>

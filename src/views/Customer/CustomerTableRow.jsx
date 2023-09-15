@@ -1,4 +1,4 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -29,8 +29,8 @@ const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
-            <Td>{pd.tracker || 'Not Found'}</Td>
-            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
+            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
 

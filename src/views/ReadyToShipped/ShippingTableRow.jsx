@@ -1,9 +1,9 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped }) => {
+const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped, month }) => {
 
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
@@ -25,10 +25,11 @@ const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped }) => {
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
-            <Td>{pd.tracker || 'Not Found'}</Td>
+            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
             <Td>{pd.orderId || 'Not Found'}</Td>
-            <Td>{pd.shippingLabel || 'Not Found'}</Td>
-            {shipped ? <Button onClick={() => navigate('/total-shipped')}>Edit</Button> : <Button onClick={() => handleShip(pd)}>Shipped</Button>}
+            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}
+            </Td>
+            {month ? null : shipped ? <Button onClick={() => navigate('/total-shipped')}>Edit</Button> : <Button onClick={() => handleShip(pd)}>Shipped</Button>}
         </Tr>
     );
 };

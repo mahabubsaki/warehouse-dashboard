@@ -160,7 +160,7 @@ const AddMissingItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="supplier-racker">Supplier Tracker: </label>
-                                    <Input type="text" className='mt-3' id='supplier-tracker' name='supplier-tracker' placeholder='Enter Supplier Tracker' />
+                                    <Input type="url" className='mt-3' id='supplier-tracker' name='supplier-tracker' placeholder='Enter Supplier Tracker' />
                                 </div>
                                 <div>
                                     <label htmlFor="eda">EDA: </label>

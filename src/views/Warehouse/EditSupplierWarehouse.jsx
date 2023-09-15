@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { Button, CircularProgress, Input } from '@chakra-ui/react';
 import { format } from 'date-fns';
@@ -62,6 +62,7 @@ const EditSupplierWarehouse = () => {
             }
             event.target.reset();
         } catch (err) {
+            console.log(err);
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
@@ -94,7 +95,7 @@ const EditSupplierWarehouse = () => {
                 <p>Team Code : {teamCode || 'Not found'}</p>
                 <p>Product Name : {productName || 'Not found'}</p>
                 <p>EDA : {eda ? edd.reverse().join('-') : 'Not Found'}</p>
-                <p>Supplier Tracker : {supplierTracker || 'Not found'}</p>
+                <p>Supplier Tracker : {supplierTracker ? <Link href={supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{supplierTracker}</Link> : 'Not Found'}</p>
             </div>
             <div className='flex-1'>
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
@@ -108,7 +109,7 @@ const EditSupplierWarehouse = () => {
                             </div>
                             <div className='flex-1'>
                                 <label htmlFor="tracker">Supplier Tracker: </label>
-                                <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                                <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
                             </div>
                         </div> : user.role == 'warehouseManager' ? <div className='flex gap-4 my-4'>
                             <div className='flex-1'>
@@ -130,7 +131,7 @@ const EditSupplierWarehouse = () => {
                                 </div>
                                 <div className='flex-1'>
                                     <label htmlFor="tracker">Supplier Tracker: </label>
-                                    <Input type="text" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                                    <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
                                 </div>
                             </div>
                             <div className='flex gap-4 my-4'>

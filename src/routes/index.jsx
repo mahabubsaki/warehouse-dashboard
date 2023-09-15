@@ -42,6 +42,7 @@ import Returned from "../views/Home/Returned";
 import SuperAdminRoute from "../hoc/SuperAdminRoute";
 import AddWarehouse from "../views/AddWarehouse/AddWarehouse";
 import ManagedWarehouse from "../components/ManagedWarehouse";
+import AllWarehouse from "../styles/AllWarehouse/AllWarehouse";
 
 // const navmenus = [
 //     { name: 'Dashboard', icon: <AiOutlineAppstore className='inline' />, navigate: "/" },
@@ -76,6 +77,12 @@ const router = createBrowserRouter([
                 path: "/add-warehouse", element:
                     <SuperAdminRoute>
                         <AddWarehouse />
+                    </SuperAdminRoute>
+            },
+            {
+                path: "/all-warehouse", element:
+                    <SuperAdminRoute>
+                        <AllWarehouse />
                     </SuperAdminRoute>
             },
             { path: "/supplier-warehouse", element: <StoreManagerRoute><SupplierWarehouse /></StoreManagerRoute> },

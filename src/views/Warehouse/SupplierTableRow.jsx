@@ -1,4 +1,4 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -30,7 +30,7 @@ const SupplierTableRow = ({ pd, activePage, id }) => {
             <Td>{pd.teamCode || 'Not Found'}</Td>
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
-            <Td>{pd.supplierTracker || 'Not Found'}</Td>
+            <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
             <Td>{pd.eda ? eda.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
             <Button onClick={() => navigate(`/supplier-warehouse-list/${pd._id}`)}>Edit</Button>

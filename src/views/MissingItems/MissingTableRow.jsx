@@ -1,4 +1,4 @@
-import { Button, Td, Tr } from '@chakra-ui/react';
+import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.missingQuantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
-            <Td>{pd.tracker || 'Not Found'}</Td>
+            <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
             {!home ? <Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button> : null}
         </Tr>

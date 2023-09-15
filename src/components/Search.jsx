@@ -225,7 +225,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.supplierTracker || 'Not Found'}</Td>
+                                            <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.eda ? format(new Date(pd.eda), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         </Tr>
                                     )
@@ -275,8 +275,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -369,7 +368,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.shippingLabel || 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
@@ -424,7 +423,7 @@ const Search = () => {
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.missingQuantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
                                     )
@@ -476,7 +475,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.shippingLabel || 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
@@ -530,7 +529,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.shippingLabel || 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
@@ -657,7 +656,7 @@ const Search = () => {
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.missingQuantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
                                     )
@@ -709,7 +708,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.shippingLabel || 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
@@ -763,7 +762,7 @@ const Search = () => {
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
-                                            <Td>{pd.tracker || 'Not Found'}</Td>
+                                            <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.shippingLabel || 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>

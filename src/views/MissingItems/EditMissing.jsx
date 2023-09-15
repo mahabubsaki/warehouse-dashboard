@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
-import { Button, Input } from '@chakra-ui/react';
+import { Button, Input, Link } from '@chakra-ui/react';
 import { format } from 'date-fns';
 import Select from 'react-select';
 import { toast } from 'react-hot-toast';
@@ -86,7 +86,7 @@ const EditMissing = () => {
                 <p>Team Code : {teamCode || 'Not found'}</p>
                 <p>Product Name : {productName || 'Not found'}</p>
                 <p>EDA : {eda ? edd.reverse().join('-') : 'Not Found'}</p>
-                <p>Supplier Tracker : {supplierTracker || 'Not found'}</p>
+                <p>Tracker : {supplierTracker ? <Link href={supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{supplierTracker}</Link> : 'Not Found'}</p>
                 <p>Status : {status || 'None'}</p>
             </div>
             <div className='flex-1'>
