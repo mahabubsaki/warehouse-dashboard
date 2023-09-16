@@ -36,6 +36,7 @@ const StoreList = () => {
         }
 
     };
+    //sdaasd
     useEffect(() => {
         if (!user) return;
         setLoading(true);
