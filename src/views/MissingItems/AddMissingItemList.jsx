@@ -7,6 +7,7 @@ import { Pagination } from 'rsuite';
 import MissingTableRow from './MissingTableRow';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const AddMissingItemList = () => {
     const { user } = useContext(AuthContext);
@@ -14,10 +15,11 @@ const AddMissingItemList = () => {
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
+    const [refetch, setRefetch] = useState(true);
 
     const inputRef = useRef();
     const [loading, setLoading] = useState(true);
-    console.log(currentData);
+
     useEffect(() => {
         setLoading(true);
         try {
@@ -32,7 +34,7 @@ const AddMissingItemList = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -48,6 +50,19 @@ const AddMissingItemList = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteMissing = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-missing/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -90,7 +105,7 @@ const AddMissingItemList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <MissingTableRow handleDeleteMissing={handleDeleteMissing} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

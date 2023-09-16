@@ -19,6 +19,7 @@ const ActiveStores = () => {
 
 
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -31,12 +32,12 @@ const ActiveStores = () => {
             };
             fs();
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
 
     const handleOnClick = async () => {
         setLoading(true);
@@ -53,6 +54,19 @@ const ActiveStores = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteStore = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-store/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -90,7 +104,7 @@ const ActiveStores = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StoreTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StoreTableRow handleDeleteStore={handleDeleteStore} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

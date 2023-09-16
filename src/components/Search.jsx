@@ -98,9 +98,9 @@ const Search = () => {
         }
         async function fs() {
             try {
-                console.log('s');
+
                 const { data } = await axiosInstance.get(user.role == 'admin' ? `super-search?search=${search}&email=${user.email}` : `super-search?search=${search}&warehouse=${user.warehouse}`);
-                console.log(data);
+
                 setAllDate(data);
             }
             catch (err) {
@@ -175,7 +175,7 @@ const Search = () => {
                                         <Td>{index + 1}</Td>
                                         <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         <Td>{pd['asinUpcCode'] || 'Not Found'}</Td>
-                                        <Td>{pd['productName'] || 'Not Found'}</Td>
+                                        <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                         <Td>${pd['minimumPrice'] || 'Not Found'}</Td>
                                         <Td>{pd.storeType || 'Not Found'}</Td>
                                         <Td>{pd.storeManagerName || 'Not Found'}</Td>
@@ -220,7 +220,7 @@ const Search = () => {
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['asin'] || 'Not Found'}</Td>
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
-                                            <Td>{pd['productName'] || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.supplierOrderId || 'Not Found'}</Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
@@ -267,15 +267,17 @@ const Search = () => {
                                         <Tr>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
-                                            <Td>{pd['asin'] || 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
+                                            <Td>{pd['asin'] || 'Not Found'}</Td>
+
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -313,7 +315,8 @@ const Search = () => {
                                             <Td>{index + 1}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>
-                                            <Td>{pd['productName'] || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
+
                                             <Td>{pd.totalQuanity || 'Not Found'}</Td>
 
                                             <Td>{pd.sold || 'Not Found'}</Td>
@@ -364,12 +367,12 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -417,7 +420,7 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.recivedQuantity || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
@@ -471,12 +474,12 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -525,12 +528,12 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -650,7 +653,7 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.recivedQuantity || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
@@ -704,12 +707,12 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -758,12 +761,12 @@ const Search = () => {
 
                                             <Td>{pd['codeType'] || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.productName || 'Not Found'}</Td>
+                                            <Td> <textarea name="" value={pd.productName || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
                                             <Td>{pd.teamCode || 'Not Found'}</Td>
                                             <Td>{pd.quantity || 'Not Found'}</Td>
                                             <Td>{pd.courier || 'Not Found'}</Td>
                                             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
-                                            <Td>{pd.shippingLabel || 'Not Found'}</Td>
+                                            <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
                                             <Td>{pd.slip || 'Not Found'}</Td>
                                             <Td>{pd.notes || 'Not Found'}</Td>
                                         </Tr>
@@ -803,7 +806,7 @@ const Search = () => {
                                             <Td>{pd['productName'] || 'Not Found'}</Td>
                                             <Td>{pd.returned || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.returnLabel || 'Not Found'}</Td>
+                                            <Td>{pd.returnLabel ? <Link href={pd.returnLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.returnLabel}</Link> : 'Not Found'}</Td>
                                         </Tr>
                                     )
                                 }
@@ -841,7 +844,7 @@ const Search = () => {
                                             <Td>{pd['productName'] || 'Not Found'}</Td>
                                             <Td>{pd.returned || 'Not Found'}</Td>
                                             <Td>{pd.orderId || 'Not Found'}</Td>
-                                            <Td>{pd.returnLabel || 'Not Found'}</Td>
+                                            <Td>{pd.returnLabel ? <Link href={pd.returnLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.returnLabel}</Link> : 'Not Found'}</Td>
                                         </Tr>
                                     )
                                 }

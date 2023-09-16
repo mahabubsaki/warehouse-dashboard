@@ -19,7 +19,7 @@ const AddWarehouse = () => {
         };
         try {
             const response = await axiosInstance.post('add-warehouse', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("Warehouse added successfully", {
                     id: 'clipboard',
@@ -32,7 +32,7 @@ const AddWarehouse = () => {
 
 
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });

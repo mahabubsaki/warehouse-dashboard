@@ -38,9 +38,9 @@ const StockSearchModal = ({ isOpen, onClose }) => {
                     <div className='w-[90%] mx-auto py-5'>
                         <Input onChange={(e) => {
                             const value = e.target.value;
-                            console.log(value);
+
                             const filter = productNames.filter(pd => pd.toLowerCase().includes(value.toLowerCase()));
-                            console.log(filter);
+
                             setState(filter);
                         }} placeholder='Search Here...' />
                     </div>

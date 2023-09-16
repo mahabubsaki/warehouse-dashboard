@@ -7,6 +7,7 @@ import PriceAverageTableRow from './PriceAverageTableRow';
 import { Pagination } from 'rsuite';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 export const PriceAvrageTaxList = () => {
     const { user } = useContext(AuthContext);

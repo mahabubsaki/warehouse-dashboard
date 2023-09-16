@@ -76,7 +76,7 @@ const SupplierWarehouse = () => {
 
         try {
             const response = await axiosInstance.post('add-supplier', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.supplierAdd.acknowledged) {
                 toast.success("Supplier data added successfully to warehouse", {
                     id: 'clipboard',
@@ -89,7 +89,7 @@ const SupplierWarehouse = () => {
 
 
         } catch (error) {
-            console.log(error);
+
             toast.error(error?.response?.data?.message || error?.message, {
                 id: 'clipboard',
             });
@@ -123,7 +123,6 @@ const SupplierWarehouse = () => {
         const [month, date, year] = new Date().toLocaleDateString().split('/');
         setAutoDate(`${year}-${month < 10 ? `0${month}` : month}-${date < 10 ? `0${date}` : date}`);
     }, []);
-    console.log(autoDate);
     return (
         <div>
             <h1 className='text-center my-5 text-3xl font-semibold'>Add order to warehouse</h1>

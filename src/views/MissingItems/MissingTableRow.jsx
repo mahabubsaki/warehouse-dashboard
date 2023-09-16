@@ -1,9 +1,12 @@
 import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Provider';
+import { TbTrashOff } from 'react-icons/tb';
 
-const MissingTableRow = ({ pd, activePage, id, home }) => {
+const MissingTableRow = ({ pd, activePage, id, home, handleDeleteMissing }) => {
+    const { user } = useContext(AuthContext);
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const eda = pd.eda ? format(new Date(pd.eda), 'P').split('/') : null;
     const navigate = useNavigate();
@@ -36,7 +39,8 @@ const MissingTableRow = ({ pd, activePage, id, home }) => {
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
-            {!home ? <Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button> : null}
+            {!home ? <Td><Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button></Td> : null}
+            {user.role == 'admin' ? <Td><TbTrashOff className='text-3xl text-red-400 cursor-pointer hover:text-red-800 duration-100' onClick={() => handleDeleteMissing(pd._id)} /></Td> : null}
         </Tr>
     );
 };

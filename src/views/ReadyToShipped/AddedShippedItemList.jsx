@@ -7,6 +7,7 @@ import { useFetch } from '../../hooks/useFetch';
 import ShippingTableRow from './ShippingTableRow';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const AddedShippedItemList = () => {
     const { user } = useContext(AuthContext);
@@ -68,7 +69,7 @@ const AddedShippedItemList = () => {
     return (
         <div>
             {!loading ? <> <div>
-                <h1 className='text-3xl text-center my-8'>Total Ready To Shipped : {currentData.totalProducts || 0}</h1>
+                <h1 className='text-3xl text-center my-8'>Totals Ready To Shipped : {currentData.totalProducts || 0}</h1>
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

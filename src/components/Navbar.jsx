@@ -30,7 +30,7 @@ const Navbar = () => {
             navigate(`/search?keyword=${inputRef.current.value}`);
         }
     };
-    console.log(user);
+
     return (
         <>
             <h1 className='text-center font-semibold text-2xl'>{user.warehouseName}</h1>

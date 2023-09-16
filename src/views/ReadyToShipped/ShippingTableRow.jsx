@@ -1,10 +1,12 @@
 import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Provider';
+import { TbTrashOff } from 'react-icons/tb';
 
-const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped, month }) => {
-
+const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped, month, handleDeleteCustomer }) => {
+    const { user } = useContext(AuthContext);
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
     if (dd) {
@@ -29,7 +31,8 @@ const ShippingTableRow = ({ pd, id, activePage, handleShip, shipped, month }) =>
             <Td>{pd.orderId || 'Not Found'}</Td>
             <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}
             </Td>
-            {month ? null : shipped ? <Button onClick={() => navigate('/total-shipped')}>Edit</Button> : <Button onClick={() => handleShip(pd)}>Shipped</Button>}
+            {month ? null : shipped ? <Td><Button onClick={() => navigate('/total-shipped')}>Edit</Button></Td> : <Td> <Button onClick={() => handleShip(pd)}>Shipped</Button></Td>}
+            {user.role == 'admin' ? <Td><TbTrashOff className='text-3xl text-red-400 cursor-pointer hover:text-red-800 duration-100' onClick={() => handleDeleteCustomer(pd._id)} /></Td> : null}
         </Tr>
     );
 };

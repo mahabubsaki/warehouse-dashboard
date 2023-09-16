@@ -38,7 +38,7 @@ const Login = () => {
             setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses, profile: response.profile });
             localStorage.setItem('token', response.token);
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });

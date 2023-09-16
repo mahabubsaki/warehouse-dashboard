@@ -32,10 +32,10 @@ const AddPriceAvarageTax = () => {
             admin: user?.role == 'admin',
             warehouse: user.warehouse
         };
-        console.log(formData);
+
         try {
             const response = await axiosInstance.post('add-tax', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("Tax data added successfully", {
                     id: 'clipboard',

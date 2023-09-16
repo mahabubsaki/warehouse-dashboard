@@ -53,7 +53,7 @@ const EditSupplierWarehouse = () => {
         };
         try {
             const { data } = await axiosInstance.put('update-supplier', formData);
-            console.log(data);
+
             if (data.success || data.modifiedCount) {
                 setUpdate((pre) => !pre);
                 toast.success("Supplier Details Updated succesfully", {
@@ -62,7 +62,7 @@ const EditSupplierWarehouse = () => {
             }
             event.target.reset();
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
@@ -82,7 +82,7 @@ const EditSupplierWarehouse = () => {
         edd[0] = temp2;
         edd[1] = temp;
     }
-    console.log(user);
+
     return (
         <div className='flex flex-col md:flex-row bg-white shadow-md p-12 gap-8'>
             <div className='flex-1'>

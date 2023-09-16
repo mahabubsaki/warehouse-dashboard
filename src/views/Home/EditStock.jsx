@@ -1,16 +1,18 @@
 import { Button, Input } from '@chakra-ui/react';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../context/Provider';
 
 const EditStock = () => {
     const { id: myId } = useParams();
+    const { user } = useContext(AuthContext);
     const axiosInstance = useAxios();
     const handleReturn = async (e) => {
         e.preventDefault();
-        const data = { id: myId, returned: e.target.returnqty.value };
-        console.log(data);
+        const data = { id: myId, returned: e.target.returnqty.value, email: user.email };
+
         try {
             const response = await axiosInstance.put('update-stock', data);
             toast.success("Edited Stock successfully", {
@@ -18,7 +20,7 @@ const EditStock = () => {
             });
         }
         catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });

@@ -26,13 +26,13 @@ const Provider = ({ children }) => {
 
                 setMainLoading(false);
             } catch (err) {
-                console.log(err);
+
                 toast.error(err?.response?.data?.message || err?.message || err, {
                     id: 'clipboard',
                 });
 
                 setMainLoading(false);
-                console.log(mainLoading);
+
             }
         }
         fs();

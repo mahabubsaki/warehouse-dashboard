@@ -7,6 +7,7 @@ import { Pagination } from 'rsuite';
 import SupplierTableRow from './SupplierTableRow';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const SupplierWarehouseList = () => {
     const { user } = useContext(AuthContext);
@@ -17,6 +18,7 @@ const SupplierWarehouseList = () => {
 
     const inputRef = useRef();
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -32,7 +34,7 @@ const SupplierWarehouseList = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -48,6 +50,19 @@ const SupplierWarehouseList = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteSupplier = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-supplier/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -88,7 +103,7 @@ const SupplierWarehouseList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <SupplierTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <SupplierTableRow handleDeleteSupplier={handleDeleteSupplier} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

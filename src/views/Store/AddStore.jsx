@@ -27,7 +27,7 @@ const AddStore = () => {
         };
         try {
             const response = await axiosInstance.post('add-store', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("Store added successfully", {
                     id: 'clipboard',
@@ -40,7 +40,7 @@ const AddStore = () => {
 
 
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });

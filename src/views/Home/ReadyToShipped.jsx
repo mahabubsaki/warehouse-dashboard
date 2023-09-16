@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi';
 import CustomerTableRow from '../Customer/CustomerTableRow';
 import { Pagination } from 'rsuite';
 import fetchdata from '../../utilities/fetchData';
+import { toast } from 'react-hot-toast';
 const ReadyToShipped = () => {
     const { user } = useContext(AuthContext);
     const data = useFetch(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=Ready` : `get-customer?page=1&warehouse=${user?.warehouse}&status=Ready`);
@@ -15,6 +16,7 @@ const ReadyToShipped = () => {
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [update, setUpdate] = useState(true);
+
     const inputRef = useRef();
     const handleShipped = async (e) => {
         const { data } = await axiosInstance.put('update-customer', { status: 'Shipped', id: e });
@@ -61,6 +63,19 @@ const ReadyToShipped = () => {
         }
 
     };
+    const handleDeleteCustomer = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-customer/${id}`);
+            setUpdate(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
+    };
     return (
         <div>
             {loading ? <div className='min-h-[500px] flex justify-center items-center'>
@@ -105,7 +120,7 @@ const ReadyToShipped = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow handleShipped={handleShipped} shipped={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow handleShipped={handleShipped} handleDeleteCustomer={handleDeleteCustomer} shipped={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

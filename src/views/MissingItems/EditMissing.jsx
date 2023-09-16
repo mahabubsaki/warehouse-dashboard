@@ -38,7 +38,7 @@ const EditMissing = () => {
         };
         try {
             const { data } = await axiosInstance.put('update-missing', formData);
-            console.log(data);
+
             if (data.modifiedCount) {
                 setUpdate((pre) => !pre);
                 toast.success("Missing Details Updated succesfully", {

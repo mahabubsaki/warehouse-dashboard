@@ -7,12 +7,14 @@ import { FiSearch } from 'react-icons/fi';
 import CustomerTableRow from '../Customer/CustomerTableRow';
 import { Pagination } from 'rsuite';
 import fetchdata from '../../utilities/fetchData';
+import { toast } from 'react-hot-toast';
 
 const TotalShipped = () => {
     const { user } = useContext(AuthContext);
     const data = useFetch(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=Shipped` : `get-customer?page=1&warehouse=${user?.warehouse}&status=Shipped`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
+    const [refetch, setRefetch] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
     const inputRef = useRef();
@@ -30,7 +32,7 @@ const TotalShipped = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
 
     const handleOnClick = async () => {
         setLoading(true);
@@ -47,6 +49,19 @@ const TotalShipped = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteCustomer = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-customer/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -92,7 +107,7 @@ const TotalShipped = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow action={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow handleDeleteCustomer={handleDeleteCustomer} action={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

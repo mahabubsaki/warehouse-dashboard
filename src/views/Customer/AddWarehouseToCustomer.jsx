@@ -68,12 +68,12 @@ const AddWarehouseToCustomer = () => {
             status: 'None',
             warehouse: user.warehouse
         };
-        console.log(formData);
+
 
 
         try {
             const response = await axiosInstance.post('add-customer', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("Supplier data added successfully to warehouse", {
                     id: 'clipboard',
@@ -164,7 +164,7 @@ const AddWarehouseToCustomer = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="courier">Courier: </label>
-                                    <Select className='mt-3' options={[{ value: 'USPS', label: 'USPC' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }]} id='courier' name='courier' placeholder='Select Courier '>
+                                    <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }]} id='courier' name='courier' placeholder='Select Courier '>
                                     </Select>
                                 </div>
                                 <div>

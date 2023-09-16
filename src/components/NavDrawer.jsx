@@ -73,7 +73,7 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
     } else {
         navmenus = [...navmenus, { name: 'Managed Warehouse', icon: <MdManageAccounts className='inline' />, navigate: "/manage-warehouse" },];
     }
-    console.log(navmenus);
+
     const isSmallDevice = useMediaQuery("only screen and (max-width : 1023px)");
 
 

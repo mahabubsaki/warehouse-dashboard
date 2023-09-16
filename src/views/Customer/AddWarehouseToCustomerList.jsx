@@ -7,6 +7,7 @@ import CustomerTableRow from './CustomerTableRow';
 import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const AddWarehouseToCustomerList = () => {
     const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const AddWarehouseToCustomerList = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(true);
     const inputRef = useRef();
     useEffect(() => {
         setLoading(true);
@@ -30,7 +32,7 @@ const AddWarehouseToCustomerList = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
 
     const handleOnClick = async () => {
         setLoading(true);
@@ -47,6 +49,19 @@ const AddWarehouseToCustomerList = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteCustomer = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-customer/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -92,7 +107,7 @@ const AddWarehouseToCustomerList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow handleDeleteCustomer={handleDeleteCustomer} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

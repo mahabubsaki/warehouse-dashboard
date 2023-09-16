@@ -10,7 +10,7 @@ const EditReturnedList = () => {
     const handleReturn = async (e) => {
         e.preventDefault();
         const data = { id: myId, orderId: e.target.orderId.value, returnLabel: e.target.returnLabel.value };
-        console.log(data);
+
         try {
             const response = await axiosInstance.put('update-returned', data);
             toast.success("Edited Return Data successfully", {

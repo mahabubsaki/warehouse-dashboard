@@ -7,6 +7,7 @@ import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Td, Th, Thead
 import StoreTableRow from './StoreTableRow';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const StoreList = () => {
     const { user } = useContext(AuthContext);
@@ -15,9 +16,10 @@ const StoreList = () => {
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
+    const [refetch, setRefetch] = useState(true);
 
     const [loading, setLoading] = useState(true);
-    console.log(user.warehouse);
+
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -49,7 +51,20 @@ const StoreList = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
+    const handleDeleteStore = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-store/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
+    };
     return (
         <div>
             {!loading ? <><div>
@@ -84,7 +99,7 @@ const StoreList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StoreTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StoreTableRow handleDeleteStore={handleDeleteStore} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

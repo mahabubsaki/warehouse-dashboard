@@ -7,6 +7,7 @@ import { FiSearch } from 'react-icons/fi';
 import { Pagination } from 'rsuite';
 import AllWarehouseList from './AllWarehouseList';
 import fetchdata from '../../utilities/fetchData';
+import { toast } from 'react-hot-toast';
 
 const AllWarehouse = () => {
     const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const AllWarehouse = () => {
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
+    const [refetch, setRefetch] = useState(true);
 
     const [loading, setLoading] = useState(true);
 
@@ -49,7 +51,20 @@ const AllWarehouse = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
+    const handleDeleteWarehouse = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-warehouse/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
+    };
     return (
         <div>
             {!loading ? <><div>
@@ -79,7 +94,7 @@ const AllWarehouse = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <AllWarehouseList activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <AllWarehouseList handleDeleteWarehouse={handleDeleteWarehouse} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

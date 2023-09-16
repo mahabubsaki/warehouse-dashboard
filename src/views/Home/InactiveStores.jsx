@@ -7,6 +7,7 @@ import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const InactiveStores = () => {
     const { user } = useContext(AuthContext);
@@ -14,13 +15,7 @@ const InactiveStores = () => {
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
-    // useEffect(() => {
-    //     async function fs() {
-    //         const newData = await fetchdata(`get-store?page=${activePage}&status=inactive`, axiosInstance);
-    //         setCurrentData(newData);
-    //     }
-    //     fs();
-    // }, [activePage]);
+    const [refetch, setRefetch] = useState(true);
 
     const [loading, setLoading] = useState(true);
     const inputRef = useRef();
@@ -39,7 +34,7 @@ const InactiveStores = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -55,6 +50,19 @@ const InactiveStores = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteStore = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-store/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -92,7 +100,7 @@ const InactiveStores = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StoreTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StoreTableRow handleDeleteStore={handleDeleteStore} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

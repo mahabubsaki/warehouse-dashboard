@@ -25,10 +25,10 @@ const AddASINUPC = () => {
             email: user?.email,
             warehouse: user.warehouse
         };
-        console.log(formData);
+
         try {
             const response = await axiosInstance.post('add-asin', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("ASIN/UPC added successfully", {
                     id: 'clipboard',

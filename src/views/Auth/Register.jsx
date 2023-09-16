@@ -45,7 +45,7 @@ const Register = () => {
             setUser({ name: response.name, email: response.email, role: response.role, location: response.location, id: response.id, warehouse: response.warehouse, warehouseName: response.warehouseName, warehouses: response.warehouses, profile: response.profile });
             localStorage.setItem('token', response.token);
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });
@@ -55,7 +55,7 @@ const Register = () => {
 
     };
     const uploadToImgbb = async (file) => {
-        console.log(file);
+
         try {
             const formData = new FormData();
             formData.append('image', file);
@@ -72,7 +72,7 @@ const Register = () => {
             }
             ;
         } catch (err) {
-            console.log(err);
+
             throw (err);
         }
 
@@ -130,7 +130,7 @@ const Register = () => {
             setOtp(response.otp);
             setTemp(data);
         } catch (err) {
-            console.log(err);
+
             toast.error(err?.response?.data?.message || err.message, {
                 id: 'clipboard',
             });

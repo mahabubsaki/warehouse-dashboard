@@ -17,6 +17,7 @@ const CurrentSell = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(true);
     const inputRef = useRef();
     useEffect(() => {
         setLoading(true);
@@ -32,7 +33,7 @@ const CurrentSell = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -48,6 +49,20 @@ const CurrentSell = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteCustomer = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-customer/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -92,7 +107,7 @@ const CurrentSell = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <ShippingTableRow month={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <ShippingTableRow handleDeleteCustomer={handleDeleteCustomer} month={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

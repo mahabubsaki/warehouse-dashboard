@@ -7,12 +7,14 @@ import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const MissingItemsSolved = () => {
     const { user } = useContext(AuthContext);
     const data = useFetch(`get-missing?page=1&status=Solved&email=${user?.email}`);
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
+    const [refetch, setRefetch] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const inputRef = useRef();
     const [loading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ const MissingItemsSolved = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -47,6 +49,19 @@ const MissingItemsSolved = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteMissing = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-missing/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -90,7 +105,7 @@ const MissingItemsSolved = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow home={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <MissingTableRow handleDeleteMissing={handleDeleteMissing} home={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

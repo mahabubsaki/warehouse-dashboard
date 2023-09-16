@@ -1,9 +1,12 @@
 import { Button, Link, Td, Tr } from '@chakra-ui/react';
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/Provider';
+import { TbTrashOff } from 'react-icons/tb';
 
-const SupplierTableRow = ({ pd, activePage, id }) => {
+const SupplierTableRow = ({ pd, activePage, id, handleDeleteSupplier }) => {
+    const { user } = useContext(AuthContext);
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const eda = pd.eda ? format(new Date(pd.eda), 'P').split('/') : null;
     const navigate = useNavigate();
@@ -33,7 +36,8 @@ const SupplierTableRow = ({ pd, activePage, id }) => {
             <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
             <Td>{pd.eda ? eda.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
-            <Button onClick={() => navigate(`/supplier-warehouse-list/${pd._id}`)}>Edit</Button>
+            <Td>    <Button onClick={() => navigate(`/supplier-warehouse-list/${pd._id}`)}>Edit</Button></Td>
+            {user.role == 'admin' ? <Td><TbTrashOff className='text-3xl text-red-400 cursor-pointer hover:text-red-800 duration-100' onClick={() => handleDeleteSupplier(pd._id)} /></Td> : null}
         </Tr>
     );
 };

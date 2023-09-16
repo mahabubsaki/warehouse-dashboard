@@ -65,12 +65,12 @@ const AddMissingItem = () => {
             warehouse: user.warehouse
         };
 
-        console.log(formData);
+
 
 
         try {
             const response = await axiosInstance.post('add-missing', formData);
-            console.log('POST response:', response.data);
+
             if (response.data.acknowledged) {
                 toast.success("Supplier data added successfully to warehouse", {
                     id: 'clipboard',

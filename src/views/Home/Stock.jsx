@@ -7,6 +7,7 @@ import { Pagination } from 'rsuite';
 import StockTableRow from './StockTableRow';
 import { AuthContext } from '../../context/Provider';
 import { FiSearch } from 'react-icons/fi';
+import { toast } from 'react-hot-toast';
 
 const Stock = () => {
     const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const Stock = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [refetch, setRefetch] = useState(true);
     const inputRef = useRef();
     useEffect(() => {
         setLoading(true);
@@ -30,7 +32,7 @@ const Stock = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -46,6 +48,19 @@ const Stock = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteStock = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-stock/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
         <div>
@@ -78,13 +93,14 @@ const Stock = () => {
                                 <Th>Total Recieved</Th>
                                 <Th>Sold</Th>
                                 <Th>Stock</Th>
+                                <Th>Return</Th>
                                 <Th>Action</Th>
 
                             </Tr>
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StockTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StockTableRow handleDeleteStock={handleDeleteStock} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

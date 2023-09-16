@@ -4,7 +4,7 @@ import { Badge, Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '
 
 const ManagedWarehouse = () => {
     const { user, setUser } = useContext(AuthContext);
-    console.log(user);
+
     const handleOnClick = (w) => {
         setUser(p => {
             return { ...p, warehouse: w.warehouse, role: w.role, warehouseName: w.warehouseName };

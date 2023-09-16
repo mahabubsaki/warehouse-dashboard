@@ -3,8 +3,9 @@ import { format } from 'date-fns';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/Provider';
+import { TbTrashOff } from 'react-icons/tb';
 
-const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }) => {
+const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action, oos, handleDeleteCustomer }) => {
     const dd = pd.date ? format(new Date(pd.date), 'P').split('/') : null;
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
@@ -33,8 +34,8 @@ const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action }
             <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
-
-            {action ? null : !shipped ? <Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button> : (user.role == 'admin' || user.role == 'warehouseManager' || user.role == 'warehouseAdmin') ? <Button onClick={() => handleShipped(pd._id)}>Shipped</Button> : null}
+            {action ? null : (oos && (user.role == 'admin' || user.role == 'warehouseAdmin' || user.role == 'storeManager')) ? <Td><Button onClick={() => handleDeleteCustomer(pd._id)} colorScheme='green'>Solved</Button></Td> : !shipped ? <Td><Button onClick={() => navigate(`/add-warehouse-to-customer-list/${pd._id}`)}>Edit</Button></Td> : (user.role == 'admin' || user.role == 'warehouseManager' || user.role == 'warehouseAdmin') ? <Td><Button onClick={() => handleShipped(pd._id)}>Shipped</Button></Td> : null}
+            {user.role == 'admin' ? <Td><TbTrashOff className='text-3xl text-red-400 cursor-pointer hover:text-red-800 duration-100' onClick={() => handleDeleteCustomer(pd._id)} /></Td> : null}
         </Tr>
     );
 };

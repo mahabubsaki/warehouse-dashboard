@@ -19,7 +19,7 @@ const AddASINUPCList = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
-
+    const [refetch, setRefetch] = useState(true);
 
     useEffect(() => {
         setLoading(true);
@@ -35,7 +35,7 @@ const AddASINUPCList = () => {
                 id: 'clipboard',
             });
         }
-    }, [activePage]);
+    }, [activePage, refetch]);
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
@@ -51,6 +51,19 @@ const AddASINUPCList = () => {
             setLoading(false);
         }
 
+    };
+    const handleDeleteAsin = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-asin/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
     };
     return (
 
@@ -91,7 +104,7 @@ const AddASINUPCList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <AsinTableRow activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <AsinTableRow handleDeleteAsin={handleDeleteAsin} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
                     </Table>

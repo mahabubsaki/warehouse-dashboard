@@ -62,6 +62,19 @@ const ReturnedList = () => {
         }
 
     };
+    const handleDeleteReturn = async (id) => {
+        try {
+            const data = await axiosInstance.delete(`delete-return/${id}`);
+            setRefetch(pre => !pre);
+            toast.success("Successfully solved", {
+                id: 'clipboard',
+            });
+        } catch (err) {
+            toast.error(err?.response?.data?.message || err.message, {
+                id: 'clipboard',
+            });
+        }
+    };
     return (
         <div>
             {loading ? <div className='min-h-[500px] flex justify-center items-center'>
@@ -98,7 +111,7 @@ const ReturnedList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <RetrunTableRow handleReturnList={handleReturnList} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <RetrunTableRow handleDeleteReturn={handleDeleteReturn} handleReturnList={handleReturnList} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 
