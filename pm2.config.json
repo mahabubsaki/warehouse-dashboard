@@ -1,0 +1,10 @@
+{
+    "apps": [
+        {
+            "name": "vite-app",
+            "script": "vite",
+            "args": "serve",
+            "interpreter": "none"
+        }
+    ]
+}
