@@ -1,9 +1,9 @@
 {
     "apps": [
         {
-            "name": "vite-app",
-            "script": "vite",
-            "args": "serve",
+            "name": "warehouse-dashboard",
+            "script": "yarn",
+            "args": "preview",
             "interpreter": "none"
         }
     ]
