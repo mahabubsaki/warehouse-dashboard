@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:6969/' : 'https://api.warehouse360bd.com/',
 });
+console.log('sunny vai');
 function useAxios() {
     useEffect(() => {
 
