@@ -1,5 +1,5 @@
-const { createServer } = require('vite');
-const express = require('express');
+import { createServer } from "vite";
+import express from "express";
 
 async function start() {
     const vite = await createServer({
