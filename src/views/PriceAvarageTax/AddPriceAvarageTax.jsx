@@ -91,7 +91,7 @@ const AddPriceAvarageTax = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="price">Price: </label>

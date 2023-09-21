@@ -134,7 +134,7 @@ const Search = () => {
                             </Thead>
                             <Tbody>
                                 {
-                                    allData[0].data.map((pd, index) => <Tr> <Td>{index + 1}</Td>
+                                    allData[0].data.map((pd, index) => <Tr key={index}> <Td>{index + 1}</Td>
                                         <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         <Td className='ds'>{pd['store-name'] || 'Not Found'}</Td>
                                         <Td>{pd['store-manager-name'] || 'Not Found'}</Td>
@@ -171,7 +171,7 @@ const Search = () => {
                             </Thead>
                             <Tbody>
                                 {
-                                    allData[1].data.map((pd, index) => <Tr>
+                                    allData[1].data.map((pd, index) => <Tr key={index}>
                                         <Td>{index + 1}</Td>
                                         <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         <Td>{pd['asinUpcCode'] || 'Not Found'}</Td>
@@ -215,7 +215,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[2].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['asin'] || 'Not Found'}</Td>
@@ -264,7 +264,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[3].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -311,7 +311,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[4].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>
@@ -358,7 +358,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[5].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -412,7 +412,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[6].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -465,7 +465,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[7].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -519,7 +519,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[8].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -565,7 +565,7 @@ const Search = () => {
                             </Thead>
                             <Tbody>
                                 {
-                                    allData[9].data.map((pd, index) => <Tr> <Td>{index + 1}</Td>
+                                    allData[9].data.map((pd, index) => <Tr key={index}> <Td>{index + 1}</Td>
                                         <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         <Td className='ds'>{pd['store-name'] || 'Not Found'}</Td>
                                         <Td>{pd['store-manager-name'] || 'Not Found'}</Td>
@@ -601,7 +601,7 @@ const Search = () => {
                             </Thead>
                             <Tbody>
                                 {
-                                    allData[10].data.map((pd, index) => <Tr> <Td>{index + 1}</Td>
+                                    allData[10].data.map((pd, index) => <Tr key={index}> <Td>{index + 1}</Td>
                                         <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                         <Td className='ds'>{pd['store-name'] || 'Not Found'}</Td>
                                         <Td>{pd['store-manager-name'] || 'Not Found'}</Td>
@@ -645,7 +645,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[11].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -698,7 +698,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[12].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -752,7 +752,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[13].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd.date ? format(new Date(pd.date), 'P').split('/').reverse().join('-') : 'Not Found'}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
@@ -799,7 +799,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[14].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>
@@ -837,7 +837,7 @@ const Search = () => {
                             <Tbody>
                                 {
                                     allData[15].data.map((pd, index) =>
-                                        <Tr>
+                                        <Tr key={index}>
                                             <Td>{index + 1}</Td>
                                             <Td>{pd['storeName'] || 'Not Found'}</Td>
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>

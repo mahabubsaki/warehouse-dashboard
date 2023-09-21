@@ -100,7 +100,7 @@ const Stock = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StockTableRow handleDeleteStock={handleDeleteStock} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StockTableRow key={id} handleDeleteStock={handleDeleteStock} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

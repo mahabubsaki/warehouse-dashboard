@@ -68,7 +68,7 @@ const SideBar = () => {
             <div className='sidenav_main-container'>
                 <ul className='my-[30px] capitalize sidenav_collapse-container'>
                     {
-                        navmenus.map(item => <SideLi item={item} />)
+                        navmenus.map((item, index) => <SideLi key={index} item={item} />)
                     }
                 </ul>
             </div>

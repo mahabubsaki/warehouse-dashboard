@@ -105,7 +105,7 @@ const AddMissingItemList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow handleDeleteMissing={handleDeleteMissing} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <MissingTableRow key={id} handleDeleteMissing={handleDeleteMissing} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

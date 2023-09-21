@@ -104,7 +104,7 @@ const AddASINUPCList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <AsinTableRow handleDeleteAsin={handleDeleteAsin} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <AsinTableRow key={id} handleDeleteAsin={handleDeleteAsin} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
                     </Table>

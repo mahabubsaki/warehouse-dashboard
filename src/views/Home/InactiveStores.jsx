@@ -100,7 +100,7 @@ const InactiveStores = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <StoreTableRow handleDeleteStore={handleDeleteStore} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <StoreTableRow key={id} handleDeleteStore={handleDeleteStore} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

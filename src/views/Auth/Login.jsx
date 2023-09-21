@@ -62,12 +62,12 @@ const Login = () => {
                 <form onSubmit={handleLogin} className="space-y-12 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-4">
                         <div>
-                            <label for="email" className="block mb-2 text-sm">Email address</label>
+                            <label htmlFor="email" className="block mb-2 text-sm">Email address</label>
                             <input type="email" name="email" id="email" placeholder="leroy@jenkins.com" className="w-full px-3 py-2 border rounded-md " />
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
-                                <label for="password" className="text-sm">Password</label>
+                                <label htmlFor="password" className="text-sm">Password</label>
                                 <span ref={finalRef} onClick={onOpen} className="text-xs cursor-pointer hover:underline dark:text-gray-400">Forgot password?</span>
                             </div>
                             <input type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md " />

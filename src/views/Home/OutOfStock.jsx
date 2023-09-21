@@ -109,7 +109,7 @@ const OutOfStock = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow handleDeleteCustomer={handleDeleteCustomer} oos={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow key={id} handleDeleteCustomer={handleDeleteCustomer} oos={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

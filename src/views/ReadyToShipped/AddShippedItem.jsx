@@ -158,7 +158,7 @@ const AddShippedItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="quantity">Quantity: </label>
-                                    <Input readOnly value={existing ? existing.quantity : ''} type="number" step="0.00001" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
+                                    <Input readOnly value={existing ? existing.quantity : ''} type="number" className='mt-3' id='quantity' name='quantity' placeholder='Enter Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="courier">Courier: </label>

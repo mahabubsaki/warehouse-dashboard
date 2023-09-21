@@ -148,15 +148,15 @@ const AddMissingItem = () => {
                                 </div>
                                 <div>
                                     <label htmlFor="expected-quantity">Expected Quantity: </label>
-                                    <Input type="number" step="0.00001" className='mt-3' id='expected-quantity' name='expected-quantity' placeholder='Enter Expected Quantity' />
+                                    <Input type="number" className='mt-3' id='expected-quantity' name='expected-quantity' placeholder='Enter Expected Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="recieved-quantity">Recieved Quantity: </label>
-                                    <Input type="number" step="0.00001" className='mt-3' id='recieved-quantity' name='recieved-quantity' placeholder='Enter Recieved Quantity' />
+                                    <Input type="number" className='mt-3' id='recieved-quantity' name='recieved-quantity' placeholder='Enter Recieved Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="missing-quantity">Missing Quantity: </label>
-                                    <Input type="number" step="0.00001" className='mt-3' id='missing-quantity' name='missing-quantity' placeholder='Enter Missing Quantity' />
+                                    <Input type="number" className='mt-3' id='missing-quantity' name='missing-quantity' placeholder='Enter Missing Quantity' />
                                 </div>
                                 <div>
                                     <label htmlFor="supplier-racker">Supplier Tracker: </label>

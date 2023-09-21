@@ -105,7 +105,7 @@ const NavDrawer = ({ isOpen, onClose, btnRef }) => {
                         <ul className='my-[30px] sidenav_collapse-container'>
 
                             {
-                                navmenus.map(item => <SideLi item={item} />)
+                                navmenus.map((item, idx) => <SideLi key={idx} item={item} />)
                             }
                         </ul>
                     </div>

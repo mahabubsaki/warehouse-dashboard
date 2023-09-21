@@ -111,7 +111,7 @@ const Returned = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <RetrunTableRow handleDeleteReturn={handleDeleteReturn} show={true} handleReturnList={handleReturnList} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <RetrunTableRow key={id} handleDeleteReturn={handleDeleteReturn} show={true} handleReturnList={handleReturnList} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

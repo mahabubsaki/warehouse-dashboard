@@ -94,7 +94,7 @@ const AllWarehouse = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <AllWarehouseList handleDeleteWarehouse={handleDeleteWarehouse} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <AllWarehouseList key={id} handleDeleteWarehouse={handleDeleteWarehouse} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

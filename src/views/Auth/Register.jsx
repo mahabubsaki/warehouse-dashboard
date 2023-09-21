@@ -165,12 +165,12 @@ const Register = () => {
                 <form onSubmit={handleRegister} className="space-y-12 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-4">
                         <div>
-                            <label for="name" className="block mb-2 text-sm">Name</label>
+                            <label htmlFor="name" className="block mb-2 text-sm">Name</label>
                             <input required type="text" name="name" id="name" placeholder="John Wick" className="w-full px-3 py-2 border rounded-md " />
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
-                                <label for="role" className="text-sm">Role</label>
+                                <label htmlFor="role" className="text-sm">Role</label>
                             </div>
                             <CSelect required id='role' name='role' placeholder='Select Role'>
                                 <option value='storeManager'>Store Manager</option>
@@ -183,18 +183,18 @@ const Register = () => {
                             <Select className='mt-3' placeholder='Enter Warehouse Name' id='warehouse' name='warehouse' options={warehouses} />
                         </div>
                         <div>
-                            <label for="email" className="block mb-2 text-sm">Email address</label>
+                            <label htmlFor="email" className="block mb-2 text-sm">Email address</label>
                             <input required type="email" name="email" id="email" placeholder="leroy@jenkins.com" className="w-full px-3 py-2 border rounded-md " />
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
-                                <label for="password" className="text-sm">Password</label>
+                                <label htmlFor="password" className="text-sm">Password</label>
                             </div>
                             <input required type="password" name="password" id="password" placeholder="*****" className="w-full px-3 py-2 border rounded-md " />
                         </div>
                         <div>
                             <div className="flex justify-between mb-2">
-                                <label for="confirm-password" className="text-sm">Confirm Password</label>
+                                <label htmlFor="confirm-password" className="text-sm">Confirm Password</label>
                             </div>
                             <input required type="password" name="confirm-password" id="confirm-password" placeholder="*****" className="w-full px-3 py-2 border rounded-md " />
                         </div>
@@ -222,12 +222,12 @@ const Register = () => {
                 </form></> : <>
                 <div className="mb-8 text-center">
                     <h1 className="my-3 text-4xl font-bold">Verification</h1>
-                    <p className="text-sm dark:text-gray-400">You will get an OTP via <span className='font-bold'>{temp?.email || 's@gmail.com'}</span></p>
+                    <p className="text-sm dark:text-gray-400">You will get an OTP via admin email</p>
                 </div>
                 <form onSubmit={handleOtp} className="space-y-12 ng-untouched ng-pristine ng-valid">
                     <div className="space-y-4">
                         <div>
-                            <input required type="number" name="otp" id="otp" placeholder="Give OTP from your email" className="w-full px-3 py-2 border rounded-md " />
+                            <input required type="number" name="otp" id="otp" placeholder="Give OTP from your admin email" className="w-full px-3 py-2 border rounded-md " />
                         </div>
                     </div>
                     <div className="space-y-2">

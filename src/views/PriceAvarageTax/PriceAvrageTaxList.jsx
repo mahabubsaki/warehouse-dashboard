@@ -92,7 +92,7 @@ export const PriceAvrageTaxList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <PriceAverageTableRow avgPrice={currentData.avgPrice} avgTaxQuan={currentData.avgTaxQuan} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <PriceAverageTableRow key={id} avgPrice={currentData.avgPrice} avgTaxQuan={currentData.avgTaxQuan} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

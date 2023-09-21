@@ -107,7 +107,7 @@ const TotalShipped = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow handleDeleteCustomer={handleDeleteCustomer} action={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow key={id} handleDeleteCustomer={handleDeleteCustomer} action={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

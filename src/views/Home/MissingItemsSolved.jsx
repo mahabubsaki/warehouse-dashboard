@@ -1,7 +1,7 @@
 import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import MissingTableRow from '../MissingItems/MissingTableRow';
-import Pagination from 'rsuite/esm/Pagination/Pagination';
+import { Pagination } from 'rsuite';
 import { useFetch } from '../../hooks/useFetch';
 import useAxios from '../../hooks/useAxios';
 import fetchdata from '../../utilities/fetchData';
@@ -105,7 +105,7 @@ const MissingItemsSolved = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <MissingTableRow handleDeleteMissing={handleDeleteMissing} home={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <MissingTableRow key={id} handleDeleteMissing={handleDeleteMissing} home={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

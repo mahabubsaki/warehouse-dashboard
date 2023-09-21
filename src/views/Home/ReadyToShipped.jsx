@@ -120,7 +120,7 @@ const ReadyToShipped = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow handleShipped={handleShipped} handleDeleteCustomer={handleDeleteCustomer} shipped={true} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow key={id} handleShipped={handleShipped} handleDeleteCustomer={handleDeleteCustomer} shipped={true} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

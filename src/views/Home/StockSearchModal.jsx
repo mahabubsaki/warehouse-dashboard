@@ -45,7 +45,7 @@ const StockSearchModal = ({ isOpen, onClose }) => {
                         }} placeholder='Search Here...' />
                     </div>
                     <div>
-                        {state.map(p => <p>{p}</p>)}
+                        {state.map((p, id) => <p key={id}>{p}</p>)}
                     </div>
                 </ModalBody>
 

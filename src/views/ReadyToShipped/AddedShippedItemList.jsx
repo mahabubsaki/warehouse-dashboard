@@ -105,7 +105,7 @@ const AddedShippedItemList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <ShippingTableRow handleShip={handleShip} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <ShippingTableRow key={id} handleShip={handleShip} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

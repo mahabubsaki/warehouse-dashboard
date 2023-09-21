@@ -25,7 +25,7 @@ const ManagedWarehouse = () => {
                     </Thead>
                     <Tbody>
                         {
-                            user.warehouses.map((i, idx) => <Tr>
+                            user.warehouses.map((i, idx) => <Tr key={idx}>
                                 <Td>{idx + 1}</Td>
                                 <Td>{i.warehouseName}</Td>
                                 <Td>{i.role}</Td>

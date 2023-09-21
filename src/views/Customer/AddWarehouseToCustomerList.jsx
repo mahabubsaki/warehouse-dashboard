@@ -107,7 +107,7 @@ const AddWarehouseToCustomerList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <CustomerTableRow handleDeleteCustomer={handleDeleteCustomer} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <CustomerTableRow key={id} handleDeleteCustomer={handleDeleteCustomer} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

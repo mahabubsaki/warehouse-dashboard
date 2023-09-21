@@ -3,7 +3,6 @@ import fetchdata from '../../utilities/fetchData';
 import { toast } from 'react-hot-toast';
 import { IconButton, Input, Spinner, Table, TableContainer, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import { Pagination } from 'rsuite';
-import StockTableRow from './StockTableRow';
 import useAxios from '../../hooks/useAxios';
 import { useFetch } from '../../hooks/useFetch';
 import { AuthContext } from '../../context/Provider';
@@ -105,7 +104,7 @@ const LastSell = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <ShippingTableRow handleDeleteCustomer={handleDeleteCustomer} month={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <ShippingTableRow key={id} handleDeleteCustomer={handleDeleteCustomer} month={true} date={pd.date} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 

@@ -54,7 +54,7 @@ const Navbar = () => {
                     <Menu>
                         <MenuButton>
                             <div className='overflow-hidden rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
-                                <img src={user.profile} alt="" />
+                                {user.role != 'admin' ? <img src={user.profile} alt="" /> : null}
                             </div>
                         </MenuButton>
                         <MenuList backgroundColor={'#4d4f5c'}>
@@ -63,10 +63,10 @@ const Navbar = () => {
                                 {user ? <p className='text-white mb-2 mt-1'>{user.name}</p> : null}
                                 {user ? <p className='text-white mb-2 mt-1'>{user.email}</p> : null}
                                 <div className='mt-5 border-t pt-2.5 text-white border-t-[#79838b]'>
-                                    <p className='py-2.5 flex gap-5 cursor-pointer w-fit ms-auto justify-end items-center group'>
+                                    <div className='py-2.5 flex gap-5 cursor-pointer w-fit ms-auto justify-end items-center group'>
                                         {user ? <p>{user.location}</p> : null}
                                         <MdLocationPin className='text-4xl text-[#ffffff]' />
-                                    </p>
+                                    </div>
                                     <p className='py-2.5 flex gap-5 cursor-pointer w-fit ms-auto justify-end items-center group'>
                                         <span onClick={() => {
                                             setUser(null);

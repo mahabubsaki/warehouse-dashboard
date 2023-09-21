@@ -103,7 +103,7 @@ const SupplierWarehouseList = () => {
                         </Thead>
                         <Tbody>
                             {
-                                currentData?.data?.map((pd, id) => <SupplierTableRow handleDeleteSupplier={handleDeleteSupplier} activePage={activePage} pd={pd} id={id + 1} />)
+                                currentData?.data?.map((pd, id) => <SupplierTableRow key={id} handleDeleteSupplier={handleDeleteSupplier} activePage={activePage} pd={pd} id={id + 1} />)
                             }
                         </Tbody>
 
