@@ -130,6 +130,7 @@ const Search = () => {
                                     <Th>Store Type</Th>
                                     <Th>Store Status</Th>
                                     <Th>Notes</Th>
+
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -303,9 +304,10 @@ const Search = () => {
                                     <Th>Store Name</Th>
                                     <Th>Team Code</Th>
                                     <Th>Product Name</Th>
-                                    <Th>Total Quantity</Th>
+                                    <Th>Total Recieved</Th>
                                     <Th>Sold</Th>
                                     <Th>Stock</Th>
+                                    <Th>Return</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
@@ -317,10 +319,10 @@ const Search = () => {
                                             <Td>{pd['teamCode'] || 'Not Found'}</Td>
                                             <Td> <textarea name="" value={pd['productName'] || 'Not Found'} style={{ backgroundColor: 'transparent', resize: 'none' }} className='w-full min-h-[200px]' disabled></textarea></Td>
 
-                                            <Td>{pd.totalQuanity || 'Not Found'}</Td>
-
+                                            <Td>{pd.totalRecieved || 'Not Found'}</Td>
                                             <Td>{pd.sold || 'Not Found'}</Td>
                                             <Td>{pd.stock || 'Not Found'}</Td>
+                                            <Td>{pd.return || 'Not Found'}</Td>
                                         </Tr>
                                     )
                                 }

@@ -43,7 +43,11 @@ const Navbar = () => {
                         </Button>
                     </div>
                     {(user.role == 'admin' || user.role == 'warehouseAdmin') ? <div className='relative md:w-[370px] xl:w-[600px] sm:flex items-center hidden'>
-                        <input ref={inputRef} placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
+                        <input onKeyUp={(e) => {
+                            if (e.key == 'Enter') {
+                                handleOnclick();
+                            }
+                        }} ref={inputRef} placeholder='Search Here....' type="text" className='bg-[#f7faff] text-lg h-[60px] outline-none text-black rounded-[30px] w-full pl-[82px] pr-[16px]' />
                         <button className='absolute left-[36px] top-[19px] '>
                             <AiOutlineSearch className='text-2xl text-[#818E94]' />
                         </button>

@@ -30,7 +30,7 @@ const EditStock = () => {
     return (
         <div>
             <form onSubmit={handleReturn} className='flex flex-col items-center justify-center gap-4'>
-                <Input type="number" step="0.00001" className='mt-3 max-w-lg mx-auto px-5' id='solvedqty' name='returnqty' placeholder='Enter Returned Quantity' />
+                <Input type="number" className='mt-3 max-w-lg mx-auto px-5' id='solvedqty' name='returnqty' placeholder='Enter Returned Quantity' />
                 <Button type='submit' className='flex gap-3' colorScheme={`purple`}>
                     Update
                 </Button>

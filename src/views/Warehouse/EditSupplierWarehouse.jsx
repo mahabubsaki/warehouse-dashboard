@@ -116,7 +116,7 @@ const EditSupplierWarehouse = () => {
 
 
                                 <label htmlFor="recieved">Recieved Quantity: </label>
-                                <Input type="number" step="0.00001" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
+                                <Input type="number" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
                             </div>
                             <div className='flex-1'>
                                 <label htmlFor="notes">Notes: </label>
@@ -139,7 +139,7 @@ const EditSupplierWarehouse = () => {
 
 
                                     <label htmlFor="recieved">Recieved Quantity: </label>
-                                    <Input type="number" step="0.00001" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
+                                    <Input type="number" className='mt-3' id='recieved' name='recieved' placeholder='Enter Recieved Quantity' />
                                 </div>
                                 <div className='flex-1'>
                                     <label htmlFor="notes">Notes: </label>

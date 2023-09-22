@@ -74,7 +74,11 @@ const OutOfStock = () => {
                     <p>Show Entries</p>
 
                     <div className='flex'>
-                        <Input ref={inputRef} placeholder='Search...' />
+                        <Input onKeyUp={(e) => {
+                            if (e.key == 'Enter') {
+                                handleOnClick();
+                            }
+                        }} ref={inputRef} placeholder='Search...' />
                         <IconButton
                             onClick={handleOnClick}
                             className='-ml-2'

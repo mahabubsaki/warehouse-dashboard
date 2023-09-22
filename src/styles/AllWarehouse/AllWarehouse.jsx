@@ -23,13 +23,13 @@ const AllWarehouse = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
-            const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}`);
+            const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
-            const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}&search=${inputRef.current.value}`);
+            const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
@@ -41,6 +41,7 @@ const AllWarehouse = () => {
         setLoading(true);
         try {
             async function fs() {
+                console.log(axiosInstance);
                 const newData = await fetchdata(`get-all-warehouse?page=${activePage}&email=${user.email}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
@@ -73,7 +74,11 @@ const AllWarehouse = () => {
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
                     <div className='flex'>
-                        <Input ref={inputRef} placeholder='Search...' />
+                        <Input onKeyUp={(e) => {
+                            if (e.key == 'Enter') {
+                                handleOnClick();
+                            }
+                        }} ref={inputRef} placeholder='Search...' />
                         <IconButton
                             onClick={handleOnClick}
                             className='-ml-2'

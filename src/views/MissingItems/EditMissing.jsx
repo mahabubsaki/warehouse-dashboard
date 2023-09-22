@@ -97,7 +97,7 @@ const EditMissing = () => {
 
 
                             <label htmlFor="solvedqty">Quantity: </label>
-                            <Input type="number" step="0.00001" className='mt-3' id='solvedqty' name='solvedqty' placeholder='Enter Missing Item Solved Quantity' />
+                            <Input type="number" className='mt-3' id='solvedqty' name='solvedqty' placeholder='Enter Missing Item Solved Quantity' />
                         </div> : <div className='flex-1'>
                             <label htmlFor="status">Status: </label>
                             <Select className='mt-3' options={[{ value: 'Solved', label: 'Solved' }]} id='status' name='status' placeholder='Select Courier '>
