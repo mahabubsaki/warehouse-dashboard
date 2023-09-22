@@ -57,8 +57,8 @@ const Navbar = () => {
                 <div className='flex items-center gap-4 lg:gap-14'>
                     <Menu>
                         <MenuButton>
-                            <div className='overflow-hidden rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
-                                {user.role != 'admin' ? <img src={user.profile} alt="" /> : null}
+                            <div className='overflow-hidden flex rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
+                                {user.role != 'admin' ? <img className='' src={user.profile} alt="" /> : null}
                             </div>
                         </MenuButton>
                         <MenuList backgroundColor={'#4d4f5c'}>
