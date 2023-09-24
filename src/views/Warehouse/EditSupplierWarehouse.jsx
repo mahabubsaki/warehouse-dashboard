@@ -126,7 +126,7 @@ const EditSupplierWarehouse = () => {
                             <div className='flex gap-4 my-4'>
                                 <div className='flex-1'>
                                     <label htmlFor="courier">Courier: </label>
-                                    <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
+                                    <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }, { value: 'Other', label: 'Other' }]} id='courier' name='courier' placeholder='Select Courier '>
                                     </Select>
                                 </div>
                                 <div className='flex-1'>

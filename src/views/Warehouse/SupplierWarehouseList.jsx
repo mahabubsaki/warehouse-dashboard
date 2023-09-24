@@ -19,12 +19,13 @@ const SupplierWarehouseList = () => {
     const inputRef = useRef();
     const [loading, setLoading] = useState(true);
     const [refetch, setRefetch] = useState(true);
+    const [search, setSearch] = useState("");
 
     useEffect(() => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(user.role == 'admin' ? `get-supplier?page=${activePage}&email=${user?.email}` : `get-supplier?page=${activePage}&warehouse=${user?.warehouse}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-supplier?page=${activePage}&email=${user?.email}&search=${search}` : `get-supplier?page=${activePage}&warehouse=${user?.warehouse}&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -35,15 +36,18 @@ const SupplierWarehouseList = () => {
             });
         }
     }, [activePage, refetch]);
+
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(user.role == 'admin' ? `get-supplier?page=1&email=${user?.email}` : `get-supplier?page=1&warehouse=${user?.warehouse}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(user.role == 'admin' ? `get-supplier?page=1&email=${user?.email}&search=${inputRef.current.value}` : `get-supplier?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -68,6 +72,7 @@ const SupplierWarehouseList = () => {
         <div>
             {!loading ? <> <div>
                 <h1 className='text-3xl text-center my-8'>Total Supplier To Warehouse : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

@@ -21,12 +21,14 @@ const ActiveStores = () => {
     const [loading, setLoading] = useState(true);
     const [refetch, setRefetch] = useState(true);
 
+
+    const [search, setSearch] = useState("");
     useEffect(() => {
         setLoading(true);
         try {
 
             async function fs() {
-                const newData = await fetchdata(user.role == 'admin' ? `get-store?page=${activePage}&status=active&email=${user.email}` : `get-store?page=${activePage}&status=active&warehouse=${user?.warehouse}`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-store?page=${activePage}&status=active&email=${user.email}&search=${search}` : `get-store?page=${activePage}&status=active&warehouse=${user?.warehouse}&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             };
@@ -42,12 +44,14 @@ const ActiveStores = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(`get-store?page=1&status=active&email=${user?.email}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(`get-store?page=1&status=active&email=${user?.email}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -74,6 +78,7 @@ const ActiveStores = () => {
                 <Spinner />
             </div> : <> <div>
                 <h1 className='text-3xl text-center my-8'>Total active stores : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

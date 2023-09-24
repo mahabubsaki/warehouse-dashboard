@@ -17,18 +17,21 @@ const AllWarehouse = () => {
     const [currentData, setCurrentData] = useState(data);
     const [activePage, setActivePage] = useState(1);
     const [refetch, setRefetch] = useState(true);
+    const [search, setSearch] = useState("");
 
     const [loading, setLoading] = useState(true);
 
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(`get-all-warehouse?page=1&email=${user.email}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -42,7 +45,7 @@ const AllWarehouse = () => {
         try {
             async function fs() {
                 console.log(axiosInstance);
-                const newData = await fetchdata(`get-all-warehouse?page=${activePage}&email=${user.email}`, axiosInstance);
+                const newData = await fetchdata(`get-all-warehouse?page=${activePage}&email=${user.email}&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -70,6 +73,7 @@ const AllWarehouse = () => {
         <div>
             {!loading ? <><div>
                 <h1 className='text-3xl text-center my-8'>Total Warehouses : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

@@ -17,12 +17,13 @@ const OutOfStock = () => {
     const [refetch, setRefetch] = useState(true);
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState("");
     const inputRef = useRef();
     useEffect(() => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=OOS` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=OOS`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=OOS&search=${search}` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=OOS&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -37,12 +38,14 @@ const OutOfStock = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=OOS` : `get-customer?page=1&warehouse=${user?.warehouse}&status=OOS`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=OOS` : `get-customer?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=OOS`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -69,6 +72,7 @@ const OutOfStock = () => {
                 <Spinner />
             </div> : <> <div>
                 <h1 className='text-3xl text-center my-8'>Total Out Of Stock : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

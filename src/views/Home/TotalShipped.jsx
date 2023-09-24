@@ -15,6 +15,7 @@ const TotalShipped = () => {
     const axiosInstance = useAxios();
     const [currentData, setCurrentData] = useState(data);
     const [refetch, setRefetch] = useState(true);
+    const [search, setSearch] = useState("");
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
     const inputRef = useRef();
@@ -22,7 +23,7 @@ const TotalShipped = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=Shipped` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=Shipped`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=${activePage}&email=${user?.email}&status=Shipped&search=${search}` : `get-customer?page=${activePage}&warehouse=${user?.warehouse}&status=Shipped&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -37,12 +38,14 @@ const TotalShipped = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&status=Shipped` : `get-customer?page=1&warehouse=${user?.warehouse}&status=Shipped`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(user.role == 'admin' ? `get-customer?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Shipped` : `get-customer?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=Shipped`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -69,6 +72,7 @@ const TotalShipped = () => {
                 <Spinner />
             </div> : <> <div>
                 <h1 className='text-3xl text-center my-8'>Total Shipped : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>

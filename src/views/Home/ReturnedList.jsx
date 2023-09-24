@@ -17,6 +17,7 @@ const ReturnedList = () => {
     const [activePage, setActivePage] = useState(1);
     const [loading, setLoading] = useState(true);
     const [refetch, setRefetch] = useState(false);
+    const [search, setSearch] = useState("");
     const inputRef = useRef();
     const handleReturnList = async (uid) => {
         try {
@@ -35,7 +36,7 @@ const ReturnedList = () => {
         setLoading(true);
         try {
             async function fs() {
-                const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=${activePage}&email=${user.email}&status=Yes` : `get-returned-list?page=${activePage}&warehouse=${user.warehouse}&status=Yes`, axiosInstance);
+                const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=${activePage}&email=${user.email}&status=Yes&search=${search}` : `get-returned-list?page=${activePage}&warehouse=${user.warehouse}&status=Yes&search=${search}`, axiosInstance);
                 setCurrentData(newData);
                 setLoading(false);
             }
@@ -49,12 +50,14 @@ const ReturnedList = () => {
     const handleOnClick = async () => {
         setLoading(true);
         if (!inputRef.current.value) {
+            setSearch("");
             const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=1&email=${user?.email}&status=Yes` : `get-returned-list?page=1&warehouse=${user?.warehouse}&status=Yes`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
 
         } else {
+            setSearch(inputRef.current.value);
             const newData = await fetchdata(user.role == 'admin' ? `get-returned-list?page=1&email=${user?.email}&search=${inputRef.current.value}&status=Yes` : `get-returned-list?page=1&warehouse=${user?.warehouse}&search=${inputRef.current.value}&status=Yes`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
@@ -81,6 +84,7 @@ const ReturnedList = () => {
                 <Spinner />
             </div> : <><div>
                 <h1 className='text-3xl text-center my-8'>Total Returned List : {currentData.totalProducts || 0}</h1>
+                {search && <h1 className='text-center text-xl'>Search Results for <blockquote className='inline font-extrabold italic'>{search}</blockquote></h1>}
             </div>
                 <div className='flex justify-between my-6' >
                     <p>Show Entries</p>
