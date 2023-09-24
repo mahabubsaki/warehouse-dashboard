@@ -58,7 +58,7 @@ const Navbar = () => {
                     <Menu>
                         <MenuButton>
                             <div className='overflow-hidden flex rounded-full border-2 w-[40px] h-[40px] sm:w-[70px] sm:h-[70px] border-[#a5adc6]'>
-                                {user.role != 'admin' ? <img className='' src={user.profile} alt="" /> : null}
+                                {user.role != 'admin' ? <img className='w-full h-full' src={user.profile} alt="" /> : null}
                             </div>
                         </MenuButton>
                         <MenuList backgroundColor={'#4d4f5c'}>
