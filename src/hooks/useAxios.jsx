@@ -5,6 +5,7 @@ const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:6969/' : 'https://warehouse-baceknd-v2.vercel.app/',
 
 });
+// https://api.warehouse360bd.com/
 
 function useAxios() {
     useEffect(() => {
