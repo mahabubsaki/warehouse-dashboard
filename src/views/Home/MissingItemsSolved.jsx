@@ -36,6 +36,7 @@ const MissingItemsSolved = () => {
         }
     }, [activePage, refetch]);
     const handleOnClick = async () => {
+        console.log(inputRef.current.value);
         setLoading(true);
         if (!inputRef.current.value) {
             setSearch("");
@@ -46,7 +47,7 @@ const MissingItemsSolved = () => {
 
         } else {
             setSearch(inputRef.current.value);
-            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&status=Solved&email=${user?.email}&search=${inputRef.current.value}` : `get-missing?page=1&status=Solved&warehouse=${warehouse?.email}&search=${inputRef.current.value}`, axiosInstance);
+            const newData = await fetchdata(user.role == 'admin' ? `get-missing?page=1&status=Solved&email=${user?.email}&search=${inputRef.current.value}` : `get-missing?page=1&status=Solved&warehouse=${user?.warehouse}&search=${inputRef.current.value}`, axiosInstance);
             setActivePage(1);
             setCurrentData(newData);
             setLoading(false);
@@ -108,6 +109,7 @@ const MissingItemsSolved = () => {
                                 <Th>Missing Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
+                                <Th>Tracker ID</Th>
                                 <Th>Notes</Th>
                             </Tr>
                         </Thead>

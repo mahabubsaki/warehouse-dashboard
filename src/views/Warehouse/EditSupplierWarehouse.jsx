@@ -42,7 +42,8 @@ const EditSupplierWarehouse = () => {
         } : (user.role == 'storeManager') ? {
             courier: courier.toLowerCase(),
             supplierTracker,
-            id: myId
+            id: myId,
+            trackerID: event?.target.trackerID.value,
         } : {
             id: myId,
             notes,
@@ -50,6 +51,7 @@ const EditSupplierWarehouse = () => {
             teamCode: teamCode,
             courier: courier.toLowerCase(),
             supplierTracker,
+            trackerID: event?.target.trackerID.value,
         };
         try {
             const { data } = await axiosInstance.put('update-supplier', formData);
@@ -101,7 +103,7 @@ const EditSupplierWarehouse = () => {
                 <h1 className='text-3xl font-medium text-center'>Update Details</h1>
                 <form onSubmit={handleUpdate}>
                     {user.role == 'storeManager' ?
-                        <div className='flex gap-4 my-4'>
+                        <div className='grid grid-cols-2 gap-4 my-4'>
                             <div className='flex-1'>
                                 <label htmlFor="courier">Courier: </label>
                                 <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }]} id='courier' name='courier' placeholder='Select Courier '>
@@ -110,6 +112,10 @@ const EditSupplierWarehouse = () => {
                             <div className='flex-1'>
                                 <label htmlFor="tracker">Supplier Tracker: </label>
                                 <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                            </div>
+                            <div>
+                                <label htmlFor="trackerID">Tracker ID: </label>
+                                <Input type="text" className='mt-3' id='trackerID' name='trackerID' placeholder='Enter Tracker ID' />
                             </div>
                         </div> : user.role == 'warehouseManager' ? <div className='flex gap-4 my-4'>
                             <div className='flex-1'>
@@ -123,7 +129,7 @@ const EditSupplierWarehouse = () => {
                                 <Input type="text" className='mt-3' id='notes' name='notes' placeholder='Enter Notes' />
                             </div>
                         </div> : <>
-                            <div className='flex gap-4 my-4'>
+                            <div className='grid grid-cols-2 gap-4 my-4'>
                                 <div className='flex-1'>
                                     <label htmlFor="courier">Courier: </label>
                                     <Select className='mt-3' options={[{ value: 'USPS', label: 'USPS' }, { value: 'UPS', label: 'UPS' }, { value: 'FedEx', label: 'FedEx' }, { value: 'Doordash', label: 'Doordash' }, { value: 'Hand Delivery', label: 'Hand Delivery' }, { value: 'TBA', label: 'TBA' }, { value: 'Other', label: 'Other' }]} id='courier' name='courier' placeholder='Select Courier '>
@@ -132,6 +138,10 @@ const EditSupplierWarehouse = () => {
                                 <div className='flex-1'>
                                     <label htmlFor="tracker">Supplier Tracker: </label>
                                     <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Supplier Tracker' />
+                                </div>
+                                <div>
+                                    <label htmlFor="trackerID">Tracker ID: </label>
+                                    <Input type="text" className='mt-3' id='trackerID' name='trackerID' placeholder='Enter Tracker ID' />
                                 </div>
                             </div>
                             <div className='flex gap-4 my-4'>

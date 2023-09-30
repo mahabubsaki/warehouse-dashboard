@@ -107,6 +107,7 @@ const CurrentSell = () => {
                                 <Th>Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
+                                <Th>Tracker ID</Th>
                                 <Th>Order ID</Th>
                                 <Th>Shipping Label</Th>
 

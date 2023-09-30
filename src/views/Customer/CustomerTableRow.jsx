@@ -31,6 +31,7 @@ const CustomerTableRow = ({ pd, id, activePage, handleShipped, shipped, action, 
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.tracker ? <Link href={pd.tracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.tracker}</Link> : 'Not Found'}</Td>
+            <Td>{pd.trackerID || 'Not Found'}</Td>
             <Td>{pd.shippingLabel ? <Link href={pd.shippingLabel} isExternal color={'blue.500'} textDecor={'underline'}>{pd.shippingLabel}</Link> : 'Not Found'}</Td>
             <Td>{pd.slip || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>

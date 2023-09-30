@@ -108,6 +108,7 @@ const OutOfStock = () => {
                                 <Th>Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
+                                <Th>Tracker ID</Th>
                                 <Th>Shipping Label</Th>
                                 <Th>Shipping Slip</Th>
                                 <Th>Notes</Th>

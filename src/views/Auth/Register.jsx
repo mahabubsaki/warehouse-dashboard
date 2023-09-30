@@ -83,20 +83,19 @@ const Register = () => {
         if (formOtp == otp) {
             register(temp);
         } else {
-            toast.error("OTP is incorrect");
+            toast.error("OTP is incorrect", {
+                id: 'clipboard',
+            });
         }
     };
     const handleRegister = async (e) => {
-
         e.preventDefault();
         if (!profilePreview) {
-
             return toast.error("Please choose a profile picture", {
                 id: 'clipboard',
             });
         }
         try {
-
             const form = e.target;
             const formData = new FormData(form);
             const img = await uploadToImgbb(form.profile.files[0]);
@@ -125,7 +124,7 @@ const Register = () => {
             }
             setLoading(true);
             const data = { name, role, location, email, password, confirmPassword, warehouse, img };
-            const { data: response } = await axiosInstance.post('send-otp', { email: email, type: 'register', warehouse: warehouse });
+            const { data: response } = await axiosInstance.post('send-otp', { email: email, type: 'register', warehouse: warehouse, role });
 
             setOtp(response.otp);
             setTemp(data);

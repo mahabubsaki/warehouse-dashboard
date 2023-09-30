@@ -105,6 +105,7 @@ const SupplierWarehouseList = () => {
                                 <Th>Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Supplier Tracker</Th>
+                                <Th>Tracker ID</Th>
                                 <Th>EDA</Th>
                                 <Th>Notes</Th>
                                 <Th>Action</Th>

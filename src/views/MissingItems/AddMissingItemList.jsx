@@ -108,6 +108,7 @@ const AddMissingItemList = () => {
                                 <Th>Missing Quantity</Th>
                                 <Th>Courier</Th>
                                 <Th>Tracker</Th>
+                                <Th>Tracker ID</Th>
                                 <Th>Notes</Th>
                                 <Th>Action</Th>
                             </Tr>

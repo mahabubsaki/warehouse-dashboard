@@ -34,6 +34,7 @@ const SupplierTableRow = ({ pd, activePage, id, handleDeleteSupplier }) => {
             <Td>{pd.quantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
+            <Td>{pd.trackerID || 'Not Found'}</Td>
             <Td>{pd.eda ? eda.reverse().join('-') : 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
             <Td>    <Button onClick={() => navigate(`/supplier-warehouse-list/${pd._id}`)}>Edit</Button></Td>

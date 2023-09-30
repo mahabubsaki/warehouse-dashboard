@@ -38,6 +38,7 @@ const MissingTableRow = ({ pd, activePage, id, home, handleDeleteMissing }) => {
             <Td>{pd.missingQuantity || 'Not Found'}</Td>
             <Td>{pd.courier || 'Not Found'}</Td>
             <Td>{pd.supplierTracker ? <Link href={pd.supplierTracker} isExternal color={'blue.500'} textDecor={'underline'}>{pd.supplierTracker}</Link> : 'Not Found'}</Td>
+            <Td>{pd.trackerID || 'Not Found'}</Td>
             <Td>{pd.notes || 'Not Found'}</Td>
             {!home ? <Td><Button onClick={() => navigate(`/add-missing-item-list/${pd._id}`)}>Edit</Button></Td> : null}
             {user.role == 'admin' ? <Td><TbTrashOff className='text-3xl text-red-400 cursor-pointer hover:text-red-800 duration-100' onClick={() => handleDeleteMissing(pd._id)} /></Td> : null}

@@ -29,6 +29,7 @@ const EditCustomer = () => {
         const notes = event.target.notes.value;
         const invoice = event.target.invoice.value;
         const shippingLabel = event.target.label.value;
+        const trackerID = event.target.trackerID.value;
 
         const formData = {
             courier: courier.toLowerCase(),
@@ -36,7 +37,8 @@ const EditCustomer = () => {
             notes,
             invoice,
             id: myId,
-            shippingLabel
+            shippingLabel,
+            trackerID
         };
         const { data } = await axiosInstance.put('update-customer', formData);
         if (data.modifiedCount) {
@@ -111,6 +113,12 @@ const EditCustomer = () => {
                         <div className='flex-1'>
                             <label htmlFor="invoice">Invoice: </label>
                             <Input type="text" className='mt-3' id='invoice' name='invoice' placeholder='Enter Invoice' />
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label htmlFor="trackerID">Tracker ID: </label>
+                            <Input type="text" className='mt-3' id='trackerID' name='trackerID' placeholder='Enter Tracker ID' />
                         </div>
                     </div>
                     <div className='my-4'>

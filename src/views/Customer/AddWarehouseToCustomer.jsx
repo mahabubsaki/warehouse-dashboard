@@ -59,6 +59,7 @@ const AddWarehouseToCustomer = () => {
             quantity: form.quantity.value,
             courier: form.courier.value,
             shippingLabel: form['shipping-label'].value,
+            trackerID: form.trackerID.value,
             invoice: !!form.invoice.value ? form.tracker.value : 'Not Available',
             tracker: form.tracker.value,
             addedDate: new Date(),
@@ -178,6 +179,10 @@ const AddWarehouseToCustomer = () => {
                                 <div>
                                     <label htmlFor="tracker">Tracker: </label>
                                     <Input type="url" className='mt-3' id='tracker' name='tracker' placeholder='Enter Tracker' />
+                                </div>
+                                <div>
+                                    <label htmlFor="trackerID">Tracker ID: </label>
+                                    <Input type="text" className='mt-3' id='trackerID' name='trackerID' placeholder='Enter Tracker ID' />
                                 </div>
                             </div>
                             <div className='flex my-6'>
