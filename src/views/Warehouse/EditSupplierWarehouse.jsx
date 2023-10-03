@@ -9,6 +9,7 @@ import { AuthContext } from '../../context/Provider';
 const EditSupplierWarehouse = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { user } = useContext(AuthContext);
+
     const [update, setUpdate] = useState(true);
     const { id: myId } = useParams();
     const [data, setData] = useState(null);
@@ -38,12 +39,13 @@ const EditSupplierWarehouse = () => {
             notes,
             recievedQuantity: recieved,
             teamCode: teamCode,
-            id: myId
+            id: myId,
         } : (user.role == 'storeManager') ? {
             courier: courier.toLowerCase(),
             supplierTracker,
             id: myId,
             trackerID: event?.target.trackerID.value,
+
         } : {
             id: myId,
             notes,
@@ -52,6 +54,7 @@ const EditSupplierWarehouse = () => {
             courier: courier.toLowerCase(),
             supplierTracker,
             trackerID: event?.target.trackerID.value,
+
         };
         try {
             const { data } = await axiosInstance.put('update-supplier', formData);
