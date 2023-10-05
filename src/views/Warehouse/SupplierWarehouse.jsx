@@ -19,7 +19,7 @@ const SupplierWarehouse = () => {
 
     const axiosInstance = useAxios();
     const { user } = useContext(AuthContext);
-
+    console.log(user);
     useEffect(() => {
         async function fs() {
             const newData = await fetchdata(user.role == 'admin' ? `get-store?email=${user.email}&select=yes` : `get-store?warehouse=${user.warehouse}&select=yes`, axiosInstance);
