@@ -31,10 +31,12 @@ const EditMissing = () => {
 
         const formData = user.role == 'warehouseManager' ? {
             solvedqty,
-            id: myId
+            id: myId,
+
         } : {
             status,
-            id: myId
+            id: myId,
+
         };
         try {
             const { data } = await axiosInstance.put('update-missing', formData);
