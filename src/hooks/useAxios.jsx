@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 const instance = axios.create({
-    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:6969/' : 'https://warehouse-baceknd-v2.vercel.app',
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:6969/' : 'https://api.warehouse360bd.com/',
 
 });
 // https://api.warehouse360bd.com/
